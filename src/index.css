@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-div{
-    background: red;
+
+div.rdrDefinedRangesWrapper {
+  display: none !important;
 }
