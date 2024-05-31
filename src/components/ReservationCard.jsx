@@ -26,7 +26,7 @@ function ReservationCard({ roomData, calcNoOfNights,  calcTotalPrice, reserve}) 
         <div>{roomData.hotelId?.address_en}</div>
       </div>
       <h5 className="pb-3 pt-1 text-main-300">{roomData.roomTypeId?.type_en}</h5>
-      <button className="rounded-2xl bg-main-800 py-2 px-4 text-white w-full" onClick={reserve}>Book now</button>
+      <button className="rounded-3xl bg-main-800 py-2 px-4 text-white w-full" onClick={reserve}>Book now</button>
     </div>
   );
 }
