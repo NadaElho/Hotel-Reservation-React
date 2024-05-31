@@ -6,7 +6,20 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: { 
+        'primary': '#52381D', 
+        'secondary': '#AA9383',   
+        'footer' : '#C5BDBA',
+        'custom' : '#81664B'
+
+    },
+    fontFamily: {
+      'secondary': 'playfair Display SC'
+    },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 }
