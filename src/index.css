@@ -6,7 +6,6 @@
 body{
     background: #FFF7F2;
     text-transform: capitalize;
-    overflow: hidden;
 }
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
@@ -14,23 +13,23 @@ body{
     -webkit-appearance: none;
   }
 }
-
+input{
+  background-color: transparent;
+}
 .slick-prev:before, .slick-next:before {
-
   color: #52381D;
-
 }
 .slick-next:before{
   margin-left: -16px;
 }
-.range-slider{
 
-}
 .range-slider .range-slider__thumb {
   background: #52381D;
 }
 .range-slider .range-slider__range {
 
   background: #52381D;
-
+}
+div.rdrDefinedRangesWrapper {
+  display: none !important;
 }
