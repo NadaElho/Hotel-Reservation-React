@@ -75,7 +75,7 @@ export const Search = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className=" flex items-center gap-3 justify-center bg-white flex-col md:flex-row rounded-sm p-2 md:p-0 md:rounded-full w-fit">
+      <div className=" flex items-center gap-3 justify-center bg-white flex-col md:flex-row rounded-3xl p-2 md:p-0 md:rounded-full w-fit">
         <div className="flex flex-col w-[200px] md:ml-6 items-center md:items-start">
           <div className="text-main-400 font-bold pl-1 -mb-1">Where</div>
           <div className="relative group">
@@ -178,7 +178,7 @@ export const Search = () => {
           </div>
         </div>
         <div>
-          <IoSearchCircle color="#AA9383" size="4em" />
+          <IoSearchCircle color="#AA9383" size="3.5em" />
         </div>
       </div>
     </div>

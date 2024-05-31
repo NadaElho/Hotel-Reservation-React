@@ -20,8 +20,8 @@ function App() {
           <LanguageProvider>
             <Hero/>
             <div className="p-4">
-            <ModeSwitch mode={handleMode} />
-            <LanguageSwitch />
+            {/* <ModeSwitch mode={handleMode} /> */}
+            {/* <LanguageSwitch /> */}
             <Routes>
               <Route path="reservation-room/:id" element={<BookingForm />} />
               <Route path="payment-result" element={<PaymentResult />} />
