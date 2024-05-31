@@ -13,6 +13,9 @@ body{
     -webkit-appearance: none;
   }
 }
+input{
+  background-color: transparent;
+}
 .slick-prev:before, .slick-next:before {
   color: #52381D;
 }
