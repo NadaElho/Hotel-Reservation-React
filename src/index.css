@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body{
+    background: #FFF7F2;
+    text-transform: capitalize;
+}
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
+.slick-prev:before, .slick-next:before {
+  color: #52381D;
+}
+.slick-next:before{
+  margin-left: -16px;
+}
+.range-slider .range-slider__thumb {
+  background: #52381D;
+}
+.range-slider .range-slider__range {
+  background: #52381D;
+}
 div.rdrDefinedRangesWrapper {
   display: none !important;
 }
