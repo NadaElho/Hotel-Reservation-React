@@ -15,7 +15,8 @@ function BookingForm() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [roomData, setRoomData] = useState({});
   const { id } = useParams();
-  const navigate = useNavigate("reservations")
+  const [disabledDates, setDisabledDates] = useState([]);
+  const navigate = useNavigate("reservations");
 
   async function reserve() {
     await axiosInstance.post("/reservations", {
@@ -25,19 +26,24 @@ function BookingForm() {
       checkOut: selectedDates[1],
       status: "663a8186e3427acea0ef0b56",
     });
-    if(payment == "stripe"){
-      let {data} = await axiosInstance.get(`/reservations/${localStorage.getItem("userId")}`)
-      data.data.forEach((reservation)=>{
-      console.log(reservation.status.name_en);
-        if(reservation.status.name_en == "pending"){
-         (async function(){
-            let {data} = await axiosInstance.post(`/reservations/${reservation._id}/payment`)
-            window.location.href= data.session.url
-          })()
+
+    if (payment == "stripe") {
+      let { data } = await axiosInstance.get(
+        `/reservations/${localStorage.getItem("userId")}`
+      );
+      data.data.forEach((reservation) => {
+        if (reservation.status.name_en == "pending") {
+          (async function () {
+            localStorage.setItem("reservationId", reservation._id);
+            let { data } = await axiosInstance.post(
+              `/reservations/${reservation._id}/payment`
+            );
+            window.location.href = data.session.url;
+          })();
         }
-      })
-    }else{
-      navigate("/")
+      });
+    } else {
+      navigate("/");
     }
   }
 
@@ -45,6 +51,8 @@ function BookingForm() {
     (async function () {
       let { data } = await axiosInstance.get(`/rooms/${id}`);
       setRoomData(data.room);
+      let res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
+      setDisabledDates(res.data.data);
     })();
   }, []);
 
@@ -67,39 +75,41 @@ function BookingForm() {
         <div>
           <h2 className="text-3xl text-main-800 font-bold">Request to book</h2>
           <h2 className="text-2xl text-main-800 py-3 font-medium">Your trip</h2>
-          <div className="flex w-[300px] justify-between">
+          <div className="flex w-[140px] md:w-[400px] justify-between flex-col md:flex-row">
             <div className="flex flex-col justify-between relative">
               <button
-                className="text-white bg-main-100 px-4 py-2 my-2 rounded-full flex items-center justify-between"
+                className="text-white bg-main-100 px-4 py-2 my-2 w-[140px] rounded-3xl flex items-center justify-between"
                 onClick={toggleHandler}
               >
-                <span>Check-in date</span>
+                <span>Check date</span>
                 {showCalendar ? (
                   <IoMdArrowDropup className="ml-2" />
                 ) : (
                   <IoMdArrowDropdown className="ml-2" />
                 )}
               </button>
-              <button
-                className="text-white bg-main-100 px-4 py-2 rounded-full flex items-center justify-between"
-                onClick={toggleHandler}
-              >
-                Check-out date <IoMdArrowDropdown className="ml-2" />
-              </button>
               {showCalendar && (
                 <DateRangePickerComponent
                   handleDate={handleDate}
                   selectedDates={selectedDates}
+                  disabledDates={disabledDates}
+                  from="form"
                 />
               )}
             </div>
-            <div className="flex flex-col justify-between">
-              <div className="text-main-100 py-2 my-2 w-[100px] flex justify-between items-center">
-                {selectedDates[0]?.toString().substring(0, 11)}
+            <div className="flex justify-between gap-0 md:gap-4 flex-col md:flex-row">
+              <div className=" flex md:flex-col justify-between items-center text-main-100 ">
+                <span>Start</span>
+                <div className="py-2 ">
+                  {selectedDates[0]?.toString().substring(0, 11)}
+                </div>
               </div>
-              <span className="text-main-100 py-2 w-[100px] flex justify-between items-center">
-                {selectedDates[1]?.toString().substring(0, 11)}
-              </span>
+              <div className=" flex md:flex-col justify-between items-center text-main-100">
+                <span>End</span>
+                <span className="py-2">
+                  {selectedDates[1]?.toString().substring(0, 11)}
+                </span>
+              </div>
             </div>
           </div>
           <h2 className="text-2xl text-main-800 pb-3 pt-6 font-bold">
@@ -109,7 +119,8 @@ function BookingForm() {
             <div className="border border-main-100 my-4 rounded-2xl max-w-[300px]">
               <div className="flex justify-between border-main-100 border-b-2 p-2">
                 <div className="text-main-400">
-                  Pay {roomData.currency}{calcTotalPrice} now
+                  Pay {roomData.currency}
+                  {calcTotalPrice} now
                 </div>
                 <input
                   type="radio"
