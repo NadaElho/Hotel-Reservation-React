@@ -20,7 +20,7 @@ function PaymentResult() {
     window.location.href = data.session.url;
   };
   return (
-    <div>
+    <div className="p-4">
       {resultQuery == "success" ? (
         <div className="py-5 flex justify-center flex-col">
           <h2 className="text-center pt-5 font-bold text-main-800 text-2xl md:text-3xl lg:text-4xl">

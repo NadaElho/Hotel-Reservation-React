@@ -2,9 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../interceptor";
 import { IoSearchCircle } from "react-icons/io5";
 import DateRangePickerComponent from "./DateRangePicker";
+import { Link } from "react-router-dom";
 
 export const Search = () => {
-  const [searchInput, setSearchInput] = useState({ hotel: "", roomsType: "" });
+  const [searchInput, setSearchInput] = useState({
+    hotel: { id: "", name: "" },
+    roomsType: { id: "", name: "" },
+  });
   const [hotelData, setHotelData] = useState(null);
   const [roomsTypes, setRoomsTypes] = useState(null);
   const [filteredHotels, setFilteredHotels] = useState(hotelData);
@@ -32,7 +36,6 @@ export const Search = () => {
       setRoomsTypes(data.data);
     })();
 
-
     const handleClickOutside = (e) => {
       setShowDropDown({ hotels: false, roomsType: false });
       if (dateRef.current && !dateRef.current.contains(e.target)) {
@@ -41,9 +44,9 @@ export const Search = () => {
         setShowCalendar((show) => (show = !show));
       }
     };
-    
+
     document.addEventListener("click", handleClickOutside);
-    
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -52,7 +55,10 @@ export const Search = () => {
   const handleSearchHotels = (e) => {
     setShowDropDown((prev) => ({ ...prev, hotels: true }));
     setFilteredHotels(hotelData);
-    setSearchInput((prev) => ({ ...prev, hotel: e.target.value }));
+    setSearchInput((prev) => ({
+      ...prev,
+      hotel: { name: e.target.value, id: "" },
+    }));
     const filtered = hotelData?.filter((hotel) => {
       return hotel.name_en.toLowerCase().includes(e.target.value.toLowerCase());
     });
@@ -61,7 +67,10 @@ export const Search = () => {
   const handleSearchTypes = (e) => {
     setShowDropDown((prev) => ({ ...prev, roomsType: true }));
     setFilteredTypes(roomsTypes);
-    setSearchInput((prev) => ({ ...prev, roomsType: e.target.value }));
+    setSearchInput((prev) => ({
+      ...prev,
+      roomsType: { name: e.target.value, id: "" },
+    }));
     const filtered = roomsTypes?.filter((roomsType) => {
       return roomsType.type_en
         .toLowerCase()
@@ -85,7 +94,7 @@ export const Search = () => {
               type="text"
               placeholder="Search destination"
               onChange={handleSearchHotels}
-              value={searchInput.hotel}
+              value={searchInput.hotel.name}
             />
             {filteredHotels && (
               <div
@@ -96,11 +105,11 @@ export const Search = () => {
                   filteredHotels.map((data) => {
                     return (
                       <div
-                        key={data.name_en}
+                        key={data._id}
                         onClick={() =>
                           setSearchInput((prev) => ({
                             ...prev,
-                            hotel: data.name_en,
+                            hotel: { id: data._id, name: data.name_en },
                           }))
                         }
                         className="block px-4 py-2 hover:bg-main-100 hover:text-white cursor-pointer rounded-md"
@@ -119,7 +128,7 @@ export const Search = () => {
             className="text-main-800 px-4 w-[140px] rounded-3xl flex flex-col items-center md:items-start"
           >
             <span data-id="button" className="text-main-400 font-bold">
-              Check
+              Check date
             </span>
             <span data-id="button" className="text-main-400 text-sm py-1">{`${
               selectedDates[0]
@@ -141,9 +150,7 @@ export const Search = () => {
           )}
         </div>
         <div className="flex flex-col w-[200px] items-center md:items-start">
-          <div className="text-main-400 font-bold pl-1 -mb-1">
-            Room type
-          </div>
+          <div className="text-main-400 font-bold pl-1 -mb-1">Room type</div>
           <div className="relative group">
             <input
               id="search-input"
@@ -151,7 +158,7 @@ export const Search = () => {
               type="text"
               placeholder="Search room type"
               onChange={handleSearchTypes}
-              value={searchInput.roomsType}
+              value={searchInput.roomsType.name}
             />
             {filteredTypes && (
               <div
@@ -165,7 +172,7 @@ export const Search = () => {
                       onClick={() =>
                         setSearchInput((prev) => ({
                           ...prev,
-                          roomsType: data.type_en,
+                          roomsType: { id: data._id, name: data.type_en },
                         }))
                       }
                       className="block px-4 py-2 hover:bg-main-100 hover:text-white cursor-pointer rounded-md"
@@ -177,9 +184,19 @@ export const Search = () => {
             )}
           </div>
         </div>
-        <div>
-          <IoSearchCircle color="#AA9383" size="3.5em" />
-        </div>
+        <Link
+          to={`/rooms?checkIn=${new Date(
+            selectedDates[0]
+          ).toISOString()}&checkOut=${new Date(
+            selectedDates[1]
+          ).toISOString()}&hotelId=${searchInput.hotel.id}&roomTypeId=${searchInput.roomsType.id}`}
+        >
+          <IoSearchCircle
+            color="#AA9383"
+            size="3.5em"
+            style={{ cursor: "pointer" }}
+          />
+        </Link>
       </div>
     </div>
   );

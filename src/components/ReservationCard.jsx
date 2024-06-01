@@ -20,12 +20,12 @@ function ReservationCard({ roomData, calcNoOfNights,  calcTotalPrice, reserve}) 
           {calcTotalPrice}
         </div>
       </div>
-      <h5 className="py-1 text-main-300">{calcNoOfNights} nights</h5>
-      <div className="flex justify-between text-main-300">
+      <h5 className="py-2 text-main-300">{calcNoOfNights} nights</h5>
+      <div className="flex pb-2 justify-between text-main-300">
         <div>{roomData.hotelId?.name_en}</div>
         <div>{roomData.hotelId?.address_en}</div>
       </div>
-      <h5 className="pb-3 pt-1 text-main-300">{roomData.roomTypeId?.type_en}</h5>
+      <h5 className="pb-5 pt-1 text-main-300">{roomData.roomTypeId?.type_en}</h5>
       <button className="rounded-3xl bg-main-800 py-2 px-4 text-white w-full" onClick={reserve}>Book now</button>
     </div>
   );

@@ -10,7 +10,6 @@ const RoomId = () => {
         async function fetchData() {
         const res = await axios.get(`http://localhost:3000/api/v1/rooms/${id}`);
           const data = res.data.room;
-          console.log(data);
           setRoom(data);
         }
         fetchData();

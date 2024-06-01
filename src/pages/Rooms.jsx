@@ -15,7 +15,6 @@ const Rooms = () => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3000/api/v1/rooms");
       const data = res.data.data;
-      console.log(data);
       setRooms(data);
     }
     fetchData();
@@ -33,7 +32,7 @@ const Rooms = () => {
                 <label htmlFor="minInput" className="font-semibold">Min</label>
                 <input
                   type="text"
-                  value={`${value[0]}`}
+                  value={`$${value[0]}`}
                   className="w-full border-none border-b-2 border-black focus:outline-none focus:border-custom-500"
                 />
               </div>
