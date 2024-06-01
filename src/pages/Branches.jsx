@@ -9,20 +9,22 @@ const Branches = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
+  
   };
+  
 
   return (
     <>
-      <div className=" mx-20  flex justify-between mt-36">
+      <div className=" mx-20  flex justify-between mt-36 ">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold">Discover our Branches</h2>
         <p className="w-64 py-1 text-primary font-custom font-semibold">
           Embark on an unforgettable journey. Experience our unique culture, and
           create lifetime memories. Your adventure starts here!
         </p>
       </div>
-      <div className="container mx-auto width-full ">
+      <div className="container mx-auto  ">
         <Slider {...settings}>
-          <div className="w-96 h-full mx-10 mt-10">
+          <div className="w-96 h-full mx-10 mt-10 ">
             <img className="h-full w-80 object-cover" src="/assets/img1.png" />
           </div>
           {/*  */}

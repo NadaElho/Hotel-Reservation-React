@@ -19,9 +19,9 @@ input{
 .slick-prev:before, .slick-next:before {
   color: #52381D;
 }
-.slick-next:before{
+/* .slick-next:before{
   margin-left: -16px;
-}
+} */
 
 .range-slider .range-slider__thumb {
   background: #52381D;
