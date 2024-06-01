@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import daisyui from 'daisyui';
+// import daisyui from 'daisyui';
 
 export default {
   darkMode: 'selector',
@@ -21,14 +21,18 @@ export default {
         grey: {
           100: '#fff7f2',
           500: '#C5BDBA',
+          600: '#464646'
         }
       },
       fontFamily: {
         'secondary': ['Playfair Display SC', 'serif']
-      },
+      }
     },
   },
   plugins: [
-    daisyui,
+    // daisyui,
   ],
+  // daisyui: {
+  //   themes: [],
+  // },
 };

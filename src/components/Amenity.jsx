@@ -7,7 +7,6 @@ const Amenity = () => {
       try {
         const res = await axios.get("http://localhost:3000/api/v1/amenities");
         const data = res.data.data;
-        console.log(data);
         setAmenities(data);
       } catch (error) {
         console.error("Error fetching data", error);
