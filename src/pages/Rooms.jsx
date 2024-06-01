@@ -23,12 +23,9 @@ const Rooms = () => {
 
   return (
     <>
-    <div>
-      <img src="/assets/pexels-gustavorodrigues-1755288 2.png"/>
-    </div>
-      <div className="container mx-auto flex w-full mt-16">
-        <div className="w-96 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around">
-          <div className="mx-10 mb-12">
+      <div className="container mx-auto flex mt-16">
+        <div className="w-1/2 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden sm:block">
+          <div className="mx-10 mb-2">
             <p className="text-secondary text-xl font-semibold">Filter by</p>
             <p className="text-primary font-semibold text-2xl mt-2">Price per night</p>
             <div className="flex space-x-3 mt-8">
@@ -59,15 +56,14 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-      <div className="">
-        {/*       <div className="flex flex-wrap gap-4"> */}
+      <div className="flex flex-wrap gap-6">
           {rooms.map((room) => (
             <div
-              className="w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40"
+              className="w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40 "
               key={room._id}
             >
               <img
-                className="w-full h-full object-cover"
+                className="w-full h-64 object-cover"
                 src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww"
                 alt=""
               />
@@ -87,7 +83,10 @@ const Rooms = () => {
                 <hr className="bg-primary" />
                 <div className="w-full flex justify-between py-8">
                   <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
+                    <Link to="/reservation-room/:id">
                     Book now for ${room.price}
+
+                    </Link>
                   </button>
                   <button className="w-40 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold py-2 px-4 inline-flex items-center justify-center">
                     <Link to={`/rooms/${room._id}`}>Check details</Link>
