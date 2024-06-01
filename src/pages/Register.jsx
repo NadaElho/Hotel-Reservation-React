@@ -5,6 +5,7 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import axiosInstance from "../../interceptor";
 import img from "/register.png";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,11 +13,15 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center md:h-screen md:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-8 md:w-2/3 lg:w-1/2">
-      <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 md:left-10">
+        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 md:left-10">
           APEX
         </h1>
-        <h5 className="ml-2 text-xs text-main-400 font-semibold mt-[100px] md:mt-0">Start for free</h5>
-        <h3 className="ml-2 font-bold text-grey-600 text-2xl mb-4">Create new account</h3>
+        <h5 className="ml-2 text-xs text-main-400 font-semibold mt-[100px] md:mt-0">
+          Start for free
+        </h5>
+        <h3 className="ml-2 font-bold text-grey-600 text-2xl mb-4">
+          Create new account
+        </h3>
         <Formik
           initialValues={{
             email: "",
@@ -80,8 +85,9 @@ const Register = () => {
                 }
               );
               navigate("/login");
+              toast.success("You are registered successfully");
             } catch (err) {
-              console.log(err.response.data.message);
+              toast.error("Email already exists");
             }
             setSubmitting(false);
           }}

@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const DropDown = ({ isScrolled, logged, handleLog }) => {
   const [show, setShow] = useState(false);
-console.log(logged);
   return (
     <>
       <div
