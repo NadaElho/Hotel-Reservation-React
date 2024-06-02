@@ -46,7 +46,7 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/branch" element={<Branch />} />
+              <Route path="/branch/:id" element={<Branch />} />
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/rooms/:id" element={<RoomId />} />
               <Route element={<Guard />}>
