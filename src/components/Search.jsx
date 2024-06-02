@@ -13,9 +13,11 @@ export const Search = () => {
   const [roomsTypes, setRoomsTypes] = useState(null);
   const [filteredHotels, setFilteredHotels] = useState(hotelData);
   const [filteredTypes, setFilteredTypes] = useState(roomsTypes);
+  const storedCheckIn = localStorage.getItem("checkin")
+  const storedCheckOut = localStorage.getItem("checkout")
   const [selectedDates, setSelectedDates] = useState([
-    new Date(localStorage.getItem("checkin")) || new Date(),
-    new Date(localStorage.getItem("checkout")) ||
+    storedCheckIn ? new Date(storedCheckIn) : new Date(),
+    storedCheckOut ? new Date(storedCheckOut) :
       new Date(new Date().setDate(new Date().getDate() + 1)),
   ]);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -64,6 +66,7 @@ export const Search = () => {
     });
     setFilteredHotels(filtered);
   };
+
   const handleSearchTypes = (e) => {
     setShowDropDown((prev) => ({ ...prev, roomsType: true }));
     setFilteredTypes(roomsTypes);
@@ -90,7 +93,7 @@ export const Search = () => {
           <div className="relative group">
             <input
               id="search-input"
-              className="block w-full p-1 rounded-md outline-none text-sm placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
+              className="block w-full p-1 rounded-md text-main-400 outline-none text-sm placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
               type="text"
               placeholder="Search destination"
               onChange={handleSearchHotels}
@@ -154,7 +157,7 @@ export const Search = () => {
           <div className="relative group">
             <input
               id="search-input"
-              className="block w-full p-1 rounded-md outline-none text-sm placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
+              className="block w-full p-1 rounded-md outline-none text-main-400 text-sm placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
               type="text"
               placeholder="Search room type"
               onChange={handleSearchTypes}
