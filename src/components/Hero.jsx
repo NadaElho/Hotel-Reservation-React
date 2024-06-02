@@ -1,11 +1,11 @@
-import { Search } from "./Search"
+import { Search } from "./Search";
 
 const Hero = () => {
   return (
     <div className={`bg-[url("/bg.png")] bg-cover h-screen`}>
-        <Search/>
+      <Search />
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

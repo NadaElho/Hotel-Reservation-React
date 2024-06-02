@@ -13,7 +13,7 @@ const DateRangePickerComponent = ({
     selectedDates[0] ? selectedDates[0] : new Date()
   );
   const [checkoutDate, setCheckoutDate] = useState(
-    selectedDates[1] ? selectedDates[1] : new Date()
+    selectedDates[1] ? selectedDates[1] :  new Date()
   );
 
   const handleSelect = (date) => {
