@@ -35,20 +35,17 @@ const Rooms = () => {
   };
   useEffect(() => {
     async function fetchData() {
-      try {
         const res = await axios.get("http://localhost:3000/api/v1/rooms", {
           params: {
             "price[gt]": value[0],
             "price[lt]": value[1],
             ...filterObj,
           },
+           
         });
         const data = res.data.data;
         console.log(data);
         setRooms(data);
-      } catch (error) {
-        console.error("Error fetching rooms:", error);
-      }
     }
     fetchData();
   }, [value]);
@@ -149,6 +146,46 @@ const Rooms = () => {
               </div>
             </div>
           ))}
+          {rooms.length > 0 ? (
+            rooms.map((room) => (
+              <div
+                className="w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40"
+                key={room._id}
+              >
+                <img
+                  className="w-full h-64 object-cover"
+                  src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww"
+                  alt=""
+                />
+                <div className="px-6 py-4">
+                  <div className="font-bold text-2xl mb-2 text-primary">
+                    {room.roomTypeId.type_en}
+                  </div>
+                  <p className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4">
+                    {room.description_en}
+                  </p>
+                  <hr className="bg-primary mt-4" />
+                </div>
+                <div className="px-6 pt-4 pb-2 text-center">
+                  <hr className="bg-primary" />
+                  <div className="w-full flex justify-between py-8">
+                    <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
+                      <Link to={`/reservation-room/${room._id}`}>
+                        Book now for ${room.price}
+                      </Link>
+                    </button>
+                    <button className="w-40 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold py-2 px-4 inline-flex items-center justify-center">
+                      <Link to={`/rooms/${room._id}`}>Check details</Link>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center w-full mt-10">
+              <p className="text-2xl text-primary text center font-semibold">No rooms found matching your criteria.</p>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex items-center justify-center py-3">
