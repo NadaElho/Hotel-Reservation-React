@@ -29,11 +29,9 @@ const Rooms = () => {
     }
   });
   const handleLimit = (num) => {
-    console.log(num);
     setLimit(num);
   };
   const handlePageClick = (data) => {
-    console.log(data.selected);
     setPageNum(data.selected);
   };
   useEffect(() => {
@@ -49,7 +47,6 @@ const Rooms = () => {
           },
         });
         const data = res.data.data;
-        console.log(res);
         setRooms(data);
         setNoOfPages(res.data.pagination.numberPages)
       } catch (error) {
