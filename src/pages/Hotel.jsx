@@ -63,7 +63,8 @@ const Hotel = () => {
             className="relative rounded-3xl overflow-hidden h-64 mx-2 mt-10 md:max-w-80 sm:max-w-full ">
             <img
               className="h-full w-full object-cover"
-              src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fHww"
+              src={hotel.images}
+              // src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fHww"
               alt="Sunset in the mountains"
             />
             <div className="absolute bottom-0 left-0 w-full">

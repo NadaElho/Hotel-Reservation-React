@@ -12,7 +12,6 @@ const LimitedRooms = () => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3000/api/v1/rooms");
       const data = res.data.data;
-      console.log(data);
       setRooms(data);
     }
     fetchData();
@@ -27,9 +26,9 @@ const LimitedRooms = () => {
     slidesToShow: 3,
     slidesToScroll: 3,
     autoplay: true,
-    speed: 2500,
+    speed: 4500,
     RxMargin: "10px",
-    autoplaySpeed: 500,
+    autoplaySpeed: 1500,
     cssEase: "linear",
     pauseOnHover: true,
     responsive: [
