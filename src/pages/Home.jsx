@@ -7,11 +7,11 @@ import Branches from "./Branches";
 const Home = () => {
   return (
     <div>
-      <Amenity /> 
-      <Branches/>
+      <Amenity />
+      <Branches />
       <LimitedRooms />
-      <Views /> 
-       <Hotel />
+      <Views />
+      <Hotel />
     </div>
   );
 };
