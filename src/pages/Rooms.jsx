@@ -3,25 +3,36 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+import Pagination from "../components/Pagination";
 
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
   const [rooms, setRooms] = useState([]);
-  const [params] = useSearchParams()
+  const [params] = useSearchParams();
+  const [pageNum, setPageNum] = useState(0);
+  const [limit, setLimit] = useState(1);
   const onValueChange = (values) => {
     setValue(values);
   };
-  let arr = params.toString().split("&")
-  let filterObj = {}
-  arr.forEach((query)=>{
-    let [key, value] = query.split("=")
+  let arr = params.toString().split("&");
+  let filterObj = {};
+  arr.forEach((query) => {
+    let [key, value] = query.split("=");
     value = decodeURIComponent(value);
-    if(key == "checkIn" || key == "checkOut"){
-      filterObj[key] = new Date(value).toISOString()
-    }else{
-      filterObj[key] = value
+    if (key == "checkIn" || key == "checkOut") {
+      filterObj[key] = new Date(value).toISOString();
+    } else {
+      filterObj[key] = value;
     }
-  })
+  });
+  const handleLimit = (num) => {
+    console.log(num);
+    setLimit(num);
+  };
+  const handlePageClick = (data) => {
+    console.log(data.selected);
+    setPageNum(data.selected);
+  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -29,8 +40,8 @@ const Rooms = () => {
           params: {
             "price[gt]": value[0],
             "price[lt]": value[1],
-            ...filterObj
-          }
+            ...filterObj,
+          },
         });
         const data = res.data.data;
         console.log(data);
@@ -48,25 +59,45 @@ const Rooms = () => {
         <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden sm:block">
           <div className="mx-10 mt-4">
             <p className="text-secondary text-xl font-semibold">Filter by</p>
-            <p className="text-primary font-semibold text-2xl mt-2">Price per night</p>
+            <p className="text-primary font-semibold text-2xl mt-2">
+              Price per night
+            </p>
             <div className="flex space-x-3 mt-8">
               <div className="w-28 h-14 bg-white border border-custom p-1 rounded-lg">
-                <label htmlFor="minInput" className="font-semibold">Min</label>
+                <label htmlFor="minInput" className="font-semibold">
+                  Min
+                </label>
                 <input
                   type="text"
                   max="10000"
                   value={value[0]}
-                  onChange={(event)=>setValue([event.target.value === "" ? 0 : parseInt(event.target.value),value[1]])}
-                  //pareseint === min but value[1] = max 
+                  onChange={(event) =>
+                    setValue([
+                      event.target.value === ""
+                        ? 0
+                        : parseInt(event.target.value),
+                      value[1],
+                    ])
+                  }
+                  //pareseint === min but value[1] = max
                   className="w-full border-none border-b-2 border-black focus:outline-none focus:border-custom-500"
                 />
               </div>
               <div className="w-28 h-14 bg-white border border-custom p-1 rounded-lg">
-                <label htmlFor="maxInput" className="font-semibold">Max</label>
+                <label htmlFor="maxInput" className="font-semibold">
+                  Max
+                </label>
                 <input
                   type="text"
                   value={value[1]}
-                  onChange={(event)=> setValue([ value[0],event.target.value === "" ? 40 : parseInt(event.target.value)])}
+                  onChange={(event) =>
+                    setValue([
+                      value[0],
+                      event.target.value === ""
+                        ? 40
+                        : parseInt(event.target.value),
+                    ])
+                  }
                   min="0"
                   className="w-full border-none border-b-2 border-black focus:outline-none focus:border-blue-500"
                 />
@@ -103,8 +134,7 @@ const Rooms = () => {
                 <hr className="bg-primary mt-4" />
               </div>
               <div className="px-6 pt-4 pb-2 text-center">
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                </span>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"></span>
                 <hr className="bg-primary" />
                 <div className="w-full flex justify-between py-8">
                   <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
@@ -121,13 +151,15 @@ const Rooms = () => {
           ))}
         </div>
       </div>
-      {/* room */}
+      <div className="flex items-center justify-center py-3">
+        <Pagination
+          handleLimit={handleLimit}
+          pageCount={15}
+          handlePageClick={handlePageClick}
+        />
+      </div>
     </>
   );
 };
 
 export default Rooms;
-
-
-
-
