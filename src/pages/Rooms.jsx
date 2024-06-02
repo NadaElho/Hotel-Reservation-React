@@ -1,27 +1,39 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
   const [rooms, setRooms] = useState([]);
-
+  const [params] = useSearchParams()
   const onValueChange = (values) => {
     setValue(values);
   };
-
+  let arr = params.toString().split("&")
+  let filterObj = {}
+  arr.forEach((query)=>{
+    let [key, value] = query.split("=")
+    value = decodeURIComponent(value);
+    if(key == "checkIn" || key == "checkOut"){
+      filterObj[key] = new Date(value).toISOString()
+    }else{
+      filterObj[key] = value
+    }
+  })
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.get("http://localhost:3000/api/v1/rooms", {
           params: {
             "price[gt]": value[0],
-            "price[lt]": value[1]
+            "price[lt]": value[1],
+            ...filterObj
           }
         });
         const data = res.data.data;
+        console.log(data);
         setRooms(data);
       } catch (error) {
         console.error("Error fetching rooms:", error);
