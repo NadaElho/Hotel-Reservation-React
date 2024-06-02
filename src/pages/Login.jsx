@@ -10,12 +10,12 @@ const Login = ({handleLog}) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-center md:h-screen md:overflow-hidden min-h-screen">
-      <div className="w-full p-4 md:p-8 md:w-2/3 lg:w-1/2 flex flex-col justify-center">
-        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 md:left-10">
+    <div className="flex justify-center lg:h-screen lg:overflow-hidden min-h-screen">
+      <div className="w-full p-4 lg:p-8 lg:w-1/2  flex flex-col justify-center">
+        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 lg:left-10">
           APEX
         </h1>
-        <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] md:mt-0">
+        <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
           Welcome Back
         </h3>
         <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
@@ -128,7 +128,7 @@ const Login = ({handleLog}) => {
           )}
         </Formik>
       </div>
-      <div className="hidden md:block w-1/3 lg:w-1/2">
+      <div className="hidden lg:block w-1/3 lg:w-1/2">
         <img src={img} alt="Login" />
       </div>
     </div>
