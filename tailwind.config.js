@@ -11,6 +11,7 @@ export default {
         'secondary': '#AA9383',   
         'footer': '#C5BDBA',
         'custom': '#81664B',
+        'body' : '#FFF7F2',
         main: {
           100: '#AA9383',
           200: '#997c6a',
