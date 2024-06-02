@@ -11,6 +11,7 @@ import BookingForm from "./pages/BookingForm.jsx";
 import Hero from "./components/Hero.jsx";
 import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Branch from "./pages/Branch.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -26,8 +27,9 @@ function App() {
           <div className="p-4">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/branch" element={<Branch />} />
               <Route path="/rooms" element={<Rooms />} />
-              <Route path="/rooms/:id" element={<RoomId />} /> 
+              <Route path="/rooms/:id" element={<RoomId />} />
               <Route path="reservation-room/:id" element={<BookingForm />} />
               <Route path="payment-result" element={<PaymentResult />} />
             </Routes>
