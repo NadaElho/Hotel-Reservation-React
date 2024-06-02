@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Branches = () => {
   const [branches, setBranches] = useState([]);
@@ -40,8 +41,9 @@ const Branches = () => {
       <div className="container mx-auto mt-8">
         <Slider {...settings}>
           {branches.map((branch) => (
-            <div
+            <Link
               key={branch.id}
+              to={`branch/${branch._id}`}
               className="relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
             >
               <img
@@ -53,7 +55,7 @@ const Branches = () => {
                 <p className="font-400 text-3xl font-secondary">{branch.name_en}</p>
                 <p className="opacity-80">{branch.address_en}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>
