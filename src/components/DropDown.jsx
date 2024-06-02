@@ -72,7 +72,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
