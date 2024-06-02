@@ -2,7 +2,7 @@ import LanguageProvider from "./providers/LanguageContext";
 import { I18nextProvider } from "react-i18next";
 import { ToastContainer } from "react-toastify";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import i18n from "./utils/i18n.js";
 
 import Home from "./pages/Home.jsx";
