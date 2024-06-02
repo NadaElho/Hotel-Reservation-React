@@ -28,21 +28,21 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
         <div
           className={`${
             show ? "block" : "hidden"
-          } absolute right-0 z-10 -mt-2 w-48 origin-top-right rounded-md bg-white py-1`}
+          } absolute right-0 z-10 -mt-2 w-48 origin-top-right rounded-md bg-grey-100 shadow-md py-1`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="user-menu-button"
           tabIndex={-1}
         >
           <Link
-            className="block px-4 py-2 text-sm text-gray-700"
+            className="block px-4 py-2 text-sm text-main-400"
             role="menuitem"
             tabIndex={-1}
           >
             All branches
           </Link>
           <Link
-            className="block px-4 py-2 text-sm text-gray-700"
+            className="block px-4 py-2 text-sm text-main-400"
             role="menuitem"
             tabIndex={-1}
             to="/rooms"
@@ -52,7 +52,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           {logged && (
             <Link
               to="/login"
-              className="block px-4 py-2 text-sm text-gray-700"
+              className="block px-4 py-2 text-sm text-main-400"
               role="menuitem"
               tabIndex={-1}
             >
@@ -61,7 +61,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           )}
           {!logged && (
             <Link
-              className="block px-4 py-2 text-sm text-gray-700"
+              className="block px-4 py-2 text-sm text-main-400"
               role="menuitem"
               tabIndex={-1}
               to="/"
