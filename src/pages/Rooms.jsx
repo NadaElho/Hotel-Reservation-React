@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import Pagination from "../components/Pagination";
+import axiosInstance from "../../interceptor";
 
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
@@ -11,6 +12,8 @@ const Rooms = () => {
   const [params] = useSearchParams();
   const [pageNum, setPageNum] = useState(0);
   const [limit, setLimit] = useState(1);
+  const [noOfPages, setNoOfPages] = useState(1)
+
   const onValueChange = (values) => {
     setValue(values);
   };
@@ -36,22 +39,25 @@ const Rooms = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/rooms", {
+        const res = await axiosInstance.get("/rooms", {
           params: {
             "price[gt]": value[0],
             "price[lt]": value[1],
+            "page": pageNum + 1,
+            "limit": limit,
             ...filterObj,
           },
         });
         const data = res.data.data;
-        console.log(data);
+        console.log(res);
         setRooms(data);
+        setNoOfPages(res.data.pagination.numberPages)
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
     }
     fetchData();
-  }, [value]);
+  }, [value, pageNum, limit]);
 
   return (
     <>
@@ -154,7 +160,7 @@ const Rooms = () => {
       <div className="flex items-center justify-center py-3">
         <Pagination
           handleLimit={handleLimit}
-          pageCount={15}
+          pageCount={noOfPages}
           handlePageClick={handlePageClick}
         />
       </div>

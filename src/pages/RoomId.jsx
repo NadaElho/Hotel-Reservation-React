@@ -21,7 +21,7 @@ const RoomId = () => {
         <div className="" key={room._id}>
           <div className="mx-10">
             <p className="text-primary font-bold text-3xl font-secondary">
-              {room.hotelId.name_en}
+              {room.hotelId && room.hotelId.name_en}
             </p>
             <img className="mt-8" src="/assets/view1.png" alt="" />
           </div>
@@ -29,7 +29,7 @@ const RoomId = () => {
 
           <div className="mx-10 w-2/4 mt-8">
             <p className="text-primary font-600 text-3xl font-secondary">
-              {room.roomTypeId.type_en}
+              {room.roomTypeId && room.roomTypeId.type_en}
             </p>
             <p className="text-primary mt-6">{room.description_en}</p>
           </div>
