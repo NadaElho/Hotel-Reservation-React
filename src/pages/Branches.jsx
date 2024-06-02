@@ -42,7 +42,7 @@ const Branches = () => {
           {branches.map((branch) => (
             <div
               key={branch.id}
-              className="relative rounded-t-full rounded-3xl overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
+              className="relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
             >
               <img
                 src={branch.images[1]}
