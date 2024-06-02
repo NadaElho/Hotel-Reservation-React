@@ -6,17 +6,15 @@ const RoomId = () => {
   const [room, setRoom] = useState([]);
   const { id } = useParams();
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await axios.get(`http://localhost:3000/api/v1/rooms/${id}`);
-      const data = res.data.room;
-      console.log(data);
-      console.log(id);
-      setRoom(data);
-    }
-    fetchData();
-  });
-
+    useEffect(() => {
+        async function fetchData() {
+        const res = await axios.get(`http://localhost:3000/api/v1/rooms/${id}`);
+          const data = res.data.room;
+          setRoom(data);
+        }
+        fetchData();
+      }, []);
+     
   return (
     <div className="container mx-auto mt-8 ">
       {room ? (

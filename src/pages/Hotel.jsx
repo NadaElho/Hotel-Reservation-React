@@ -11,7 +11,6 @@ const Hotel = () => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3000/api/v1/hotels");
       const data = res.data.data;
-      console.log(data);
       setHotels(data);
     }
     fetchData();

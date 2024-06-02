@@ -74,7 +74,7 @@ function BookingForm() {
       <div className="flex flex-col justify-between md:flex-row">
         <div>
           <h2 className="text-3xl text-main-800 font-bold">Request to book</h2>
-          <h2 className="text-2xl text-main-800 py-3 font-medium">Your trip</h2>
+          <h2 className="text-2xl text-main-800 py-5 font-medium">Your trip</h2>
           <div className="flex w-[140px] md:w-[400px] justify-between flex-col md:flex-row">
             <div className="flex flex-col justify-between relative">
               <button
