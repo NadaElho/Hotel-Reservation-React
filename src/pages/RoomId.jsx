@@ -20,7 +20,6 @@ const RoomId = () => {
     fetchData();
   }, []);
 
-
   return (
     <div className="container mx-auto mt-8 ">
       {room ? (
@@ -42,34 +41,33 @@ const RoomId = () => {
             </div>
             {/* sec2 */}
 
-          <div className="mx-10 mt-10">
-            <p className="text-primary font-semibold text-2xl">
-              Amenities Available
-            </p>
-            <div className="flex mt-8">
-              <div className="flex flex-col gap-6">
-                {room.amenitiesIds &&
-                  room.amenitiesIds.map((r) => (
-                    
-                    <div key={r._id} className="flex gap-4 items-center">
-                      <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
-                        <img
-                          src={r.images && r.images}
-                          alt=""
-                          width={"25px"}
-                          height={"20px"}
-                        />
+            <div className="mx-10 mt-10">
+              <p className="text-primary font-semibold text-2xl">
+                Amenities Available
+              </p>
+              <div className="flex mt-8">
+                <div className="flex flex-col gap-6">
+                  {room.amenitiesIds &&
+                    room.amenitiesIds.map((r) => (
+                      <div key={r._id} className="flex gap-4 items-center">
+                        <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
+                          <img
+                            src={r.images && r.images}
+                            alt=""
+                            width={"25px"}
+                            height={"20px"}
+                          />
+                        </div>
+                        <span>{r.description_en && r.description_en}</span>
                       </div>
-                      <span>{r.description_en && r.description_en}</span>
-                    </div>
-                  ))}
+                    ))}
+                </div>
               </div>
-
+              {/* sec3 */}
             </div>
-            {/* sec3 */}
           </div>
           <div className="mt-5">
-            <RoomCard disabledDates={disabledDates} roomData={room}/>
+            <RoomCard disabledDates={disabledDates} roomData={room} />
           </div>
         </div>
       ) : (
