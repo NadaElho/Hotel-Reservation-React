@@ -37,7 +37,7 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-          {myLoc.pathname != "/login" && myLoc.pathname != "/register" && (
+          {myLoc.pathname != "/login" && myLoc.pathname != "/register" && !myLoc.pathname.startsWith("/payment-result") && (
             <>
               <Navbar handleLog={handleLog} logged={logged} />
               <Hero />
@@ -61,7 +61,7 @@ function App() {
           </div>
         </LanguageProvider>
       </I18nextProvider>
-      {myLoc.pathname != "/login" && location.pathname != "/register" && (
+      {myLoc.pathname != "/login" && location.pathname != "/register" && !myLoc.pathname.startsWith("/payment-result") && (
         <Footer />
       )}
     </div>

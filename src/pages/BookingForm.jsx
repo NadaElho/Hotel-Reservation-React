@@ -4,15 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReservationCard from "../components/ReservationCard";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../interceptor";
+import { toast } from "react-toastify";
 
 function BookingForm() {
   const [payment, setPayment] = useState("cash");
-  const storedCheckIn = localStorage.getItem("checkin")
-  const storedCheckOut = localStorage.getItem("checkout")
+  const storedCheckIn = localStorage.getItem("checkin");
+  const storedCheckOut = localStorage.getItem("checkout");
   const [selectedDates, setSelectedDates] = useState([
     storedCheckIn ? new Date(storedCheckIn) : new Date(),
-    storedCheckOut ? new Date(storedCheckOut) :
-      new Date(new Date().setDate(new Date().getDate() + 1)),
+    storedCheckOut
+      ? new Date(storedCheckOut)
+      : new Date(new Date().setDate(new Date().getDate() + 1)),
   ]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [roomData, setRoomData] = useState({});
@@ -21,13 +23,18 @@ function BookingForm() {
   const navigate = useNavigate("reservations");
 
   async function reserve() {
-    await axiosInstance.post("/reservations", {
-      userId: localStorage.getItem("userId"),
-      roomId: roomData._id,
-      checkIn: selectedDates[0],
-      checkOut: selectedDates[1],
-      status: "663a8186e3427acea0ef0b56",
-    });
+    try {
+      await axiosInstance.post("/reservations", {
+        userId: localStorage.getItem("userId"),
+        roomId: roomData._id,
+        checkIn: selectedDates[0],
+        checkOut: selectedDates[1],
+        status: "663a8186e3427acea0ef0b56",
+      });
+      toast.success("Room reserved successfully")
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
 
     if (payment == "stripe") {
       let { data } = await axiosInstance.get(
@@ -37,15 +44,19 @@ function BookingForm() {
         if (reservation.status.name_en == "pending") {
           (async function () {
             localStorage.setItem("reservationId", reservation._id);
-            let { data } = await axiosInstance.post(
-              `/reservations/${reservation._id}/payment`
-            );
-            window.location.href = data.session.url;
+            try {
+              let { data } = await axiosInstance.post(
+                `/reservations/${reservation._id}/payment`
+              );
+              window.location.href = data.session.url;
+            } catch (err) {
+              toast.error(err.response.data.message);
+            }
           })();
         }
       });
     } else {
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }
 
@@ -54,6 +65,7 @@ function BookingForm() {
       let { data } = await axiosInstance.get(`/rooms/${id}`);
       setRoomData(data.room);
       let res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
+      console.log(res.data.data);
       setDisabledDates(res.data.data);
     })();
   }, []);
