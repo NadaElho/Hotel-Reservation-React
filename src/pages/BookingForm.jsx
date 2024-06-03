@@ -65,7 +65,6 @@ function BookingForm() {
       let { data } = await axiosInstance.get(`/rooms/${id}`);
       setRoomData(data.room);
       let res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
-      console.log(res.data.data);
       setDisabledDates(res.data.data);
     })();
   }, []);

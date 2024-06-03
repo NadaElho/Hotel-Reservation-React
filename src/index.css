@@ -11,6 +11,9 @@
   font-style: normal;
 }
 
+.slick-track{
+  margin: 0 40px;
+}
 
 body{
     background: #FFF7F2;
