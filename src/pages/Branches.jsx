@@ -29,7 +29,7 @@ const Branches = () => {
 
   return (
     <>
-      <div className=" mx-20  flex justify-between mt-36 ">
+      <div className=" mx-20  flex justify-between mt-36 mx-8">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold">
           Discover our Branches
         </h2>

@@ -35,6 +35,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           tabIndex={-1}
         >
           <Link
+            to="/"
             className="block px-4 py-2 text-sm text-main-400"
             role="menuitem"
             tabIndex={-1}
