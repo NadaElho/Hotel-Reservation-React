@@ -79,7 +79,7 @@ const Rooms = () => {
                   onChange={(event) =>
                     setValue([
                       event.target.value === "" ? 0 : parseInt(event.target.value),
-                      value[1],
+                      value[1]
                     ])
                   }
                   className="w-full border-none border-b-2 border-black focus:outline-none focus:border-custom-500"
