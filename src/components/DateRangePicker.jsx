@@ -28,7 +28,7 @@ const DateRangePickerComponent = ({
     setCheckoutDate(endDate);
 
     handleDate([startDate, endDate]);
-    if (from == "form") {
+    if (from == "form" || from == "room") {
       localStorage.setItem("checkin", startDate);
       localStorage.setItem("checkout", endDate);
     }

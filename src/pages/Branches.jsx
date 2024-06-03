@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Branches = () => {
   const [branches, setBranches] = useState([]);
@@ -24,37 +25,11 @@ const Branches = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          padding: "0",
-        },
-      },
-    ],
   };
-
 
   return (
     <>
-      <div className="mx-20 flex justify-between mt-36">
+      <div className=" mx-20  flex justify-between mt-36 ">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold">
           Discover our Branches
         </h2>
@@ -66,9 +41,10 @@ const Branches = () => {
       <div className="container mx-auto mt-8">
         <Slider {...settings}>
           {branches.map((branch) => (
-            <div
+            <Link
               key={branch.id}
-              className="relative rounded-t-full rounded-3xl overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
+              to={`branch/${branch._id}`}
+              className="relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
             >
               <img
                 src={branch.images[1]}
@@ -79,7 +55,7 @@ const Branches = () => {
                 <p className="font-400 text-3xl font-secondary">{branch.name_en}</p>
                 <p className="opacity-80">{branch.address_en}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>

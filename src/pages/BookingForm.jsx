@@ -7,9 +7,11 @@ import axiosInstance from "../../interceptor";
 
 function BookingForm() {
   const [payment, setPayment] = useState("cash");
+  const storedCheckIn = localStorage.getItem("checkin")
+  const storedCheckOut = localStorage.getItem("checkout")
   const [selectedDates, setSelectedDates] = useState([
-    new Date(localStorage.getItem("checkin")) || new Date(),
-    new Date(localStorage.getItem("checkout")) ||
+    storedCheckIn ? new Date(storedCheckIn) : new Date(),
+    storedCheckOut ? new Date(storedCheckOut) :
       new Date(new Date().setDate(new Date().getDate() + 1)),
   ]);
   const [showCalendar, setShowCalendar] = useState(false);
