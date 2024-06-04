@@ -11,8 +11,8 @@ const Rooms = () => {
   const [params] = useSearchParams();
   const [pageNum, setPageNum] = useState(0);
   const [limit, setLimit] = useState(1);
-  const [noOfPages, setNoOfPages] = useState(1)
-
+  const [noOfPages, setNoOfPages] = useState(1);
+  const [loading, setLoading] = useState(true)
   const onValueChange = (values) => {
     setValue(values);
   };
@@ -20,14 +20,16 @@ const Rooms = () => {
   let filterObj = {};
   arr.forEach((query) => {
     let [key, value] = query.split("=");
-    value = decodeURIComponent(value);
-    if (key == "checkIn" || key == "checkOut") {
-      filterObj[key] = new Date(value).toISOString();
-    } else {
-      filterObj[key] = value;
+    if (value) {
+      if (key == "checkIn" || key == "checkOut") {
+        value = decodeURIComponent(value);
+        filterObj[key] = new Date(value).toISOString();
+      } else {
+        filterObj[key] = value;
+      }
     }
   });
-  
+
   const handleLimit = (num) => {
     setLimit(num);
   };
@@ -42,25 +44,26 @@ const Rooms = () => {
           params: {
             "price[gt]": value[0],
             "price[lt]": value[1],
-            "page": pageNum + 1,
-            "limit": limit,
-            ...filterObj,
+            page: pageNum + 1,
+            limit: limit,
+            ...filterObj
           },
         });
+        setLoading(false)
         const data = res.data.data;
         setRooms(data);
-        setNoOfPages(res.data.pagination.numberPages)
+        setNoOfPages(res.data.pagination.numberPages);
       } catch (error) {
+        setLoading(false)
         console.error("Error fetching rooms:", error);
       }
-
     }
     fetchData();
   }, [value, pageNum, limit]);
 
   return (
     <>
-       <div className="container mx-auto flex mt-16">
+      <div className="container mx-auto flex mt-16">
         <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden sm:block">
           <div className="mx-10 mt-4">
             <p className="text-secondary text-xl font-semibold">Filter by</p>
@@ -78,7 +81,9 @@ const Rooms = () => {
                   value={value[0]}
                   onChange={(event) =>
                     setValue([
-                      event.target.value === "" ? 0 : parseInt(event.target.value),
+                      event.target.value === ""
+                        ? 0
+                        : parseInt(event.target.value),
                       value[1],
                     ])
                   }
@@ -95,7 +100,9 @@ const Rooms = () => {
                   onChange={(event) =>
                     setValue([
                       value[0],
-                      event.target.value === "" ? 40 : parseInt(event.target.value),
+                      event.target.value === ""
+                        ? 40
+                        : parseInt(event.target.value),
                     ])
                   }
                   min="0"
@@ -104,7 +111,12 @@ const Rooms = () => {
               </div>
             </div>
             <div className="flex mt-10">
-              <RangeSlider min={0} max={10000} value={value} onInput={onValueChange} />
+              <RangeSlider
+                min={0}
+                max={10000}
+                value={value}
+                onInput={onValueChange}
+              />
             </div>
           </div>
         </div>
@@ -149,7 +161,9 @@ const Rooms = () => {
 
                   <div className="w-full flex justify-between py-8">
                     <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
-                      <Link to="/reservation-room/:id">Book now for ${room.price}</Link>
+                      <Link to="/reservation-room/:id">
+                        Book now for ${room.price}
+                      </Link>
                     </button>
                     <button className="w-40 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold py-2 px-4 inline-flex items-center justify-center">
                       <Link to={`/rooms/${room._id}`}>Check details</Link>
@@ -159,9 +173,11 @@ const Rooms = () => {
               </div>
             ))
           ) : (
-            <div className="text-center w-full mt-10">
-              <p className="text-2xl text-primary text-center font-semibold">No rooms found matching your request.</p>
-            </div>
+           (!loading && (<div className="text-center w-full mt-10">
+           <p className="text-2xl text-primary text-center font-semibold">
+             No rooms found matching your request.
+           </p>
+         </div>))
           )}
         </div>
       </div>
