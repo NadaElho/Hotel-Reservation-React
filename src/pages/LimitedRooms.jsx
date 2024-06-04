@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,7 +10,7 @@ const LimitedRooms = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3000/api/v1/rooms");
+      const res = await axiosInstance.get("/rooms");
       const data = res.data.data;
       setRooms(data);
     }
@@ -26,7 +26,7 @@ const LimitedRooms = () => {
     slidesToShow: 3,
     slidesToScroll: 3,
     autoplay: true,
-    speed: 4500,
+    speed: 5000,
     RxMargin: "10px",
     autoplaySpeed: 1500,
     cssEase: "linear",
@@ -69,7 +69,7 @@ const LimitedRooms = () => {
           >
             <img
               className="h-full w-full object-cover"
-              src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww"
+              src={room.images}
               alt="Room"
             />
             <div className="absolute bottom-0 left-0 flex  items-center ">
@@ -88,10 +88,10 @@ const LimitedRooms = () => {
               </div>
               {/*  */}
               <div className=" mx-8 mt-4">
-                <Link to="/reservation-room/:id" >
-                <button className="bg-primary text-white py-2 w-36  rounded">
-                  Reserve Now
-                </button>
+                <Link to="/reservation-room/:id">
+                  <button className="bg-primary text-white py-2 w-36  rounded">
+                    Reserve Now
+                  </button>
                 </Link>
               </div>
             </div>
