@@ -1,7 +1,7 @@
 function ReservationCard({ roomData, calcNoOfNights,  calcTotalPrice, reserve}) {
    
   return (
-    <div className="p-4  max-w-[500px] border rounded-2xl border-main-800">
+    <div className="p-4 w-full md:w-[300px] lg:w-[400px] border rounded-2xl border-main-800">
       <div className="flex justify-between gap-2 border-b-2 border-main-800 pb-2">
        {roomData.images && <img className="w-[100px] rounded-2xl" src={roomData?.images[0]} alt="" />}
         <div>

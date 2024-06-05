@@ -92,7 +92,7 @@ const LimitedRooms = () => {
               </div>
               {/*  */}
               <div className=" mx-8 mt-4">
-                <Link to="/reservation-room/:id">
+                <Link to={`reservation-room/${room._id}`}>
                   <button className="bg-primary text-white py-2 w-36  rounded">
                     Reserve Now
                   </button>

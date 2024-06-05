@@ -66,7 +66,7 @@ const Rooms = () => {
       }
     }
     fetchData();
-  }, [value, pageNum, limit]);
+  }, [value, pageNum, limit, filterObj]);
 
   return (
     <>

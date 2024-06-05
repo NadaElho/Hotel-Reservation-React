@@ -19,6 +19,9 @@ body{
     background: #FFF7F2;
     /* text-transform: capitalize; */
 }
+.rdrDefinedRangesWrapper{
+  display: none !important;
+}
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
