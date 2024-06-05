@@ -127,7 +127,7 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-6 ">
+        <div className="flex flex-wrap justify-center gap-6 overflow-hidden ">
           {isloading ? (
             <div className="w-[600px] flex justify-center items-center">
               <Loader />
@@ -205,7 +205,7 @@ const Rooms = () => {
               </div>
             ))
           ) : (
-            <div className="text-center w-full mt-10">
+            <div className="text-center w-full mt-10 md:">
               <p className="text-2xl text-primary text-center font-semibold">
                 No rooms found matching your request.
               </p>

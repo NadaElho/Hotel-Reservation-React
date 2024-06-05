@@ -26,7 +26,7 @@ const RoomId = () => {
   return (
     <>
       {loading ? (
-        <div className="w-full flex justify-center items-center p-8">
+        <div className="w-full flex justify-center items-center p-8 overflow-hidden ">
           <Loader />
         </div>
       ) :  room ? (
