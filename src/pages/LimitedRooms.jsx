@@ -23,11 +23,11 @@ const LimitedRooms = () => {
   const settings = {
     dots: false,
     infinite: true,
+  centerPadding: "100px",    
     slidesToShow: 3,
     slidesToScroll: 3,
     autoplay: true,
     speed: 5000,
-    RxMargin: "10px",
     autoplaySpeed: 1500,
     cssEase: "linear",
     pauseOnHover: true,
@@ -51,22 +51,26 @@ const LimitedRooms = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerPadding: "20px",    
+
         },
       },
     ],
   };
 
   return (
-    <div className="container mx-auto mt-20 px-4">
-      <h2 className="text-primary text-4xl font-secondary uppercase mx-10">
+    <div className="container mx-auto mt-20 px-4  overflow-hidden">
+      <h2 className="text-primary text-2xl font-secondary uppercase mb-10 mx-2 sm:mx-10 sm:text-4xl  ">
         Check out our rooms
       </h2>
       <Slider {...settings}>
         {limitedRooms.map((room) => (
           <div
             key={room._id}
-            className="relative  md:max-w-96 sm:max-w-full  h-64 rounded-3xl overflow-hidden mx-2 mt-10 "
+            className="relative  md:max-w-96 sm:max-w-full  h-64 rounded-3xl overflow-hidden mt-10 "
           >
+
+
             <img
               className="h-full w-full object-cover"
               src={room.images}

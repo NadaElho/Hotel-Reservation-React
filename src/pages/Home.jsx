@@ -9,9 +9,9 @@ const Home = () => {
     <div>
       <Amenity />
       <Branches />
-      <LimitedRooms />
-      <Views />
-      <Hotel />
+       <LimitedRooms />
+      <Views /> 
+     <Hotel /> 
     </div>
   );
 };

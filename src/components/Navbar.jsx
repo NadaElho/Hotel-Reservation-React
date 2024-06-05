@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DropDown from "./DropDown";
+import { Link } from "react-router-dom";
 
 const Navbar = ({logged, handleLog}) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,9 +26,9 @@ const Navbar = ({logged, handleLog}) => {
     >
       <nav className="w-full flex justify-center bg-transparent">
         <div className="flex justify-between items-center w-full max-w-screen-lg px-2">
-          <div>
+          <Link to="/">
             <img src="/assets/logo.png" alt="Logo" width={"70px"} />
-          </div>
+          </Link>
           <div className="flex space-x-4">
             {/* <ModeSwitch mode={handleMode} /> */}
             {/* <div>translate</div> */}
