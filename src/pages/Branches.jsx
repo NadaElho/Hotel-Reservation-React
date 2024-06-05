@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../interceptor";
 import { Link } from "react-router-dom";
 
 const Branches = () => {
@@ -10,7 +10,7 @@ const Branches = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3000/api/v1/hotels");
+      const res = await axiosInstance.get("/hotels");
       const data = res.data.data;
       setBranches(data);
     }
@@ -21,16 +21,41 @@ const Branches = () => {
     dots: false,
     infinite: true,
     className: "center",
-    centerPadding: "100px",
+    centerPadding: "50px",
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+          padding: "0",
+        },
+      },
+    ],
   };
 
   return (
     <>
-      <div className=" mx-20  flex justify-between mt-36 mx-8">
-        <h2 className="text-primary text-4xl font-secondary uppercase font-bold">
+      <div id="branches" className="container mx-auto sm:flex justify-between mt-36 hidden">
+        <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10">
           Discover our Branches
         </h2>
         <p className="w-64 py-1 text-primary font-custom font-semibold">
@@ -38,24 +63,26 @@ const Branches = () => {
           create lifetime memories. Your adventure starts here!
         </p>
       </div>
-      <div className="container mx-auto mt-8">
+      <div className="container mx-auto mt-8 overflow-hidden">
         <Slider {...settings}>
           {branches.map((branch) => (
-            <Link
-              key={branch.id}
-              to={`branch/${branch._id}`}
-              className="relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden mx-2 h-[480px] md:max-w-80 sm:max-w-full sm:mx-10  "
-            >
-              <img
-                src={branch.images[1]}
-                alt=""
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute bottom-6 left-6 w-full text-white">
-                <p className="font-400 text-3xl font-secondary">{branch.name_en}</p>
-                <p className="opacity-80">{branch.address_en}</p>
-              </div>
-            </Link>
+            <div key={branch.id} className="mx-2">
+              <Link to={`branch/${branch._id}`}>
+                <div className="relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden h-[480px] md:max-w-80 sm:max-w-full">
+                  <img
+                    src={branch.images[1]}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute bottom-6 left-6 w-full text-white">
+                    <p className="font-400 text-3xl font-secondary">
+                      {branch.name_en}
+                    </p>
+                    <p className="opacity-80">{branch.address_en}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
           ))}
         </Slider>
       </div>

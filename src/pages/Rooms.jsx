@@ -4,6 +4,7 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import Pagination from "../components/Pagination";
 import axiosInstance from "../../interceptor";
+import LinesEllipsis from "react-lines-ellipsis";
 
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
@@ -12,7 +13,8 @@ const Rooms = () => {
   const [pageNum, setPageNum] = useState(0);
   const [limit, setLimit] = useState(1);
   const [noOfPages, setNoOfPages] = useState(1);
-  const [loading, setLoading] = useState(true)
+  const [truncated, setTruncated] = useState([]);
+
   const onValueChange = (values) => {
     setValue(values);
   };
@@ -20,13 +22,11 @@ const Rooms = () => {
   let filterObj = {};
   arr.forEach((query) => {
     let [key, value] = query.split("=");
-    if (value) {
-      if (key == "checkIn" || key == "checkOut") {
-        value = decodeURIComponent(value);
-        filterObj[key] = new Date(value).toISOString();
-      } else {
-        filterObj[key] = value;
-      }
+    value = decodeURIComponent(value);
+    if (key == "checkIn" || key == "checkOut") {
+      filterObj[key] = new Date(value).toISOString();
+    } else {
+      filterObj[key] = value;
     }
   });
 
@@ -37,34 +37,38 @@ const Rooms = () => {
   const handlePageClick = (data) => {
     setPageNum(data.selected);
   };
+
+  const toggleTruncated = (index) => {
+    setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
   useEffect(() => {
     async function fetchData() {
-      try {
+      try{
         const res = await axiosInstance.get("/rooms", {
           params: {
             "price[gt]": value[0],
             "price[lt]": value[1],
             page: pageNum + 1,
             limit: limit,
-            ...filterObj
+            ...filterObj,
           },
         });
-        setLoading(false)
         const data = res.data.data;
         setRooms(data);
         setNoOfPages(res.data.pagination.numberPages);
-      } catch (error) {
-        setLoading(false)
-        console.error("Error fetching rooms:", error);
+      }catch(err){
+        console.log(err)
+        setRooms([])
       }
     }
     fetchData();
-  }, [value, pageNum, limit]);
+  }, [value, pageNum, limit, filterObj]);
 
   return (
     <>
       <div className="container mx-auto flex mt-16">
-        <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden sm:block">
+        <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around xl:block">
           <div className="mx-10 mt-4">
             <p className="text-secondary text-xl font-semibold">Filter by</p>
             <p className="text-primary font-semibold text-2xl mt-2">
@@ -122,7 +126,7 @@ const Rooms = () => {
         </div>
         <div className="flex flex-wrap gap-6">
           {rooms.length > 0 ? (
-            rooms.map((room) => (
+            rooms.map((room, index) => (
               <div
                 className="w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40 "
                 key={room._id}
@@ -137,8 +141,29 @@ const Rooms = () => {
                     {room.roomTypeId.type_en}
                   </div>
                   <p className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4">
-                    {room.description_en}
+                    {truncated[index] ? (
+                      <div>
+                        {room.description_en}
+                        <button
+                          className="underline"
+                          onClick={() => toggleTruncated(index)}
+                        >
+                          Less
+                        </button>
+                      </div>
+                    ) : (
+                      <LinesEllipsis
+                        text={room.description_en}
+                        maxLine={2}
+                        ellipsis={
+                          <button onClick={() => toggleTruncated(index)}>
+                            ....
+                          </button>
+                        }
+                      />
+                    )}
                   </p>
+
                   <hr className=" border-primary opacity-40  mt-4" />
                 </div>
                 <div className="px-6 text-center">
@@ -149,7 +174,7 @@ const Rooms = () => {
                           <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
                             <img
                               src={r.images && r.images}
-                              alt=""
+                              alt="rooms"
                               width={"25px"}
                               height={"20px"}
                             />
@@ -161,7 +186,7 @@ const Rooms = () => {
 
                   <div className="w-full flex justify-between py-8">
                     <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
-                      <Link to="/reservation-room/:id">
+                      <Link to={`/reservation-room/${room._id}`}>
                         Book now for ${room.price}
                       </Link>
                     </button>
@@ -173,21 +198,20 @@ const Rooms = () => {
               </div>
             ))
           ) : (
-           (!loading && (<div className="text-center w-full mt-10">
-           <p className="text-2xl text-primary text-center font-semibold">
-             No rooms found matching your request.
-           </p>
-         </div>))
+            <div className="text-center w-full mt-10">
+              <p className="text-2xl text-primary text-center font-semibold">
+                No rooms found matching your request.
+              </p>
+            </div>
           )}
         </div>
       </div>
-
       <div className="flex items-center justify-center py-3">
-        <Pagination
+       { rooms.length ? <Pagination
           handleLimit={handleLimit}
           pageCount={noOfPages}
           handlePageClick={handlePageClick}
-        />
+        /> : ""}
       </div>
     </>
   );

@@ -1,15 +1,15 @@
-import axios from "axios";
+import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { Link } from "react-router-dom";
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
-  
+
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3000/api/v1/hotels");
+      const res = await axiosInstance.get("/hotels");
       const data = res.data.data;
       setHotels(data);
     }
@@ -44,15 +44,15 @@ const Hotel = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false, 
-          padding: "0", 
+          centerMode: false,
+          centerPadding: "0",
         },
       },
     ],
   };
 
   return (
-    <div className="container mx-auto mt-20 px-4">
+    <div className="container mx-auto mt-20 px-4 ">
       <h2 className="text-primary text-4xl font-secondary uppercase mb-10 mx-2 sm:mx-10">
         Explore stays in our branches
       </h2>
@@ -60,7 +60,8 @@ const Hotel = () => {
         {hotels.map((hotel) => (
           <div
             key={hotel._id}
-            className="relative rounded-3xl overflow-hidden h-64 mx-2 mt-10 md:max-w-80 sm:max-w-full ">
+            className="relative rounded-3xl overflow-hidden h-64 mx-2 mt-10  md:max-w-80 sm:max-w-full sm:mx-10  "
+          >
             <img
               className="h-full w-full object-cover"
               src={hotel.images[0]}
@@ -69,13 +70,17 @@ const Hotel = () => {
             <div className="absolute bottom-0 left-0 w-full">
               <div className="bg-secondary rounded-t-2xl p-4 flex justify-between items-center">
                 <div>
-                  <p className="text-primary font-bold">{hotel.name_en} branch</p>
+                  <p className="text-primary font-bold">
+                    {hotel.name_en} branch
+                  </p>
                   <span className="text-primary">{hotel.address_en}</span>
                 </div>
                 <div>
-                  <button className="bg-primary text-white py-2 px-6 rounded-full">
-                    Check out
-                  </button>
+                  <Link to={`branch/${hotel._id}`}>
+                    <button className="bg-primary text-white py-2 px-6 rounded-full">
+                      Check out
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

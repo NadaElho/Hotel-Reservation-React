@@ -34,14 +34,14 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           aria-labelledby="user-menu-button"
           tabIndex={-1}
         >
-          <Link
-            to="/"
+          <a
+            href="#branches"
             className="block px-4 py-2 text-sm text-main-400"
             role="menuitem"
             tabIndex={-1}
           >
             All branches
-          </Link>
+          </a>
           <Link
             className="block px-4 py-2 text-sm text-main-400"
             role="menuitem"
