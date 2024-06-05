@@ -13,11 +13,11 @@ import BookingForm from "./pages/BookingForm.jsx";
 import Hero from "./components/Hero.jsx";
 import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Branch from "./pages/Branch.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute.jsx";
 import Guard from "./ProtectedRoutes/Guard.jsx";
+import Branch from "./pages/Branch.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
