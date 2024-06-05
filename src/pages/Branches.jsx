@@ -62,7 +62,7 @@ const Branches = () => {
               <Link to={`branch/${branch._id}`}>
                 <div className="mx-10 lg:mx-10 relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden h-[480px] md:h-[480px] w-[400px] md:w-[350px]">
                   <img
-                    src={branch.images[1]}
+                    src={branch.images[0]}
                     alt=""
                     className="h-full w-full object-cover"
                   />

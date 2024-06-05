@@ -17,7 +17,7 @@ const Rooms = () => {
   const [truncated, setTruncated] = useState([]);
   const [isloading, setLoading] = useState(true);
   const onValueChange = (values) => {
-    setValue(values);
+    setValue([...values]);
   };
   let arr = params.toString().split("&");
   let filterObj = {};
