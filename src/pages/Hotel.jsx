@@ -1,9 +1,9 @@
 import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import { Link } from "react-router-dom";
+
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
 
@@ -16,56 +16,48 @@ const Hotel = () => {
     fetchData();
   }, []);
 
-  const settings = {
-    centerMode: true,
-    infinite: true,
-    className: "center",
-    centerPadding: "100px",
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    speed: 500,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: "0",
-        },
-      },
-    ],
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 1280 },
+      items: 4
+    },
+    desktop: {
+      breakpoint: { max: 1279, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1023, min: 640 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 639, min: 0 },
+      items: 1
+    }
   };
 
   return (
-    <div className="container mx-auto mt-20 px-4 ">
-      <h2 className="text-primary text-4xl font-secondary uppercase mb-10 mx-2 sm:mx-10">
+    <div className="container mx-auto mt-20 px-4">
+      <h2 className="text-primary text-2xl font-secondary uppercase mb-10 mx-2 sm:mx-10 sm:text-4xl  ">
         Explore stays in our branches
       </h2>
-      <Slider {...settings}>
+      <Carousel
+        responsive={responsive}
+        containerClass="carousel-container"
+        infinite={true}
+        autoPlaySpeed={3000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+      >
         {hotels.map((hotel) => (
           <div
             key={hotel._id}
-            className="relative rounded-3xl overflow-hidden h-64 mx-2 mt-10  md:max-w-80 sm:max-w-full sm:mx-10  "
+            className="relative rounded-3xl overflow-hidden h-64  mx-2"
           >
             <img
               className="h-full w-full object-cover"
               src={hotel.images[0]}
-              alt="Sunset in the mountains"
+              alt="Hotel"
             />
             <div className="absolute bottom-0 left-0 w-full">
               <div className="bg-secondary rounded-t-2xl p-4 flex justify-between items-center">
@@ -86,7 +78,7 @@ const Hotel = () => {
             </div>
           </div>
         ))}
-      </Slider>
+      </Carousel>
     </div>
   );
 };

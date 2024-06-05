@@ -5,6 +5,7 @@ import "react-range-slider-input/dist/style.css";
 import Pagination from "../components/Pagination";
 import axiosInstance from "../../interceptor";
 import LinesEllipsis from "react-lines-ellipsis";
+import Loader from "../components/Loader";
 
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
@@ -14,7 +15,7 @@ const Rooms = () => {
   const [limit, setLimit] = useState(1);
   const [noOfPages, setNoOfPages] = useState(1);
   const [truncated, setTruncated] = useState([]);
-
+  const [isloading, setLoading] = useState(true);
   const onValueChange = (values) => {
     setValue(values);
   };
@@ -44,18 +45,25 @@ const Rooms = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axiosInstance.get("/rooms", {
-        params: {
-          "price[gt]": value[0],
-          "price[lt]": value[1],
-          page: pageNum + 1,
-          limit: limit,
-          ...filterObj,
-        },
-      });
-      const data = res.data.data;
-      setRooms(data);
-      setNoOfPages(res.data.pagination.numberPages);
+      try {
+        const res = await axiosInstance.get("/rooms", {
+          params: {
+            "price[gt]": value[0],
+            "price[lt]": value[1],
+            page: pageNum + 1,
+            limit: limit,
+            ...filterObj,
+          },
+        });
+        const data = res.data.data;
+        setRooms(data);
+        setLoading(false);
+        setNoOfPages(res.data.pagination.numberPages);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setRooms([]);
+        setLoading(false);
+      }
     }
     fetchData();
   }, [value, pageNum, limit]);
@@ -63,7 +71,7 @@ const Rooms = () => {
   return (
     <>
       <div className="container mx-auto flex mt-16">
-        <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden xl:block">
+        <div className="w-80 border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around hidden xl:block ">
           <div className="mx-10 mt-4">
             <p className="text-secondary text-xl font-semibold">Filter by</p>
             <p className="text-primary font-semibold text-2xl mt-2">
@@ -100,7 +108,7 @@ const Rooms = () => {
                     setValue([
                       value[0],
                       event.target.value === ""
-                        ? 40
+                        ? 400
                         : parseInt(event.target.value),
                     ])
                   }
@@ -119,8 +127,12 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap gap-6">
-          {rooms.length > 0 ? (
+        <div className="flex flex-wrap justify-center gap-6 overflow-hidden ">
+          {isloading ? (
+            <div className="w-[600px] flex justify-center items-center">
+              <Loader />
+            </div>
+          ) : rooms.length > 0 ? (
             rooms.map((room, index) => (
               <div
                 className="w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40 "
@@ -152,7 +164,6 @@ const Rooms = () => {
                         maxLine={2}
                         ellipsis={
                           <button onClick={() => toggleTruncated(index)}>
-                            {" "}
                             ....
                           </button>
                         }
@@ -182,7 +193,7 @@ const Rooms = () => {
 
                   <div className="w-full flex justify-between py-8">
                     <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
-                      <Link to="/reservation-room/:id">
+                      <Link to={`/reservation-room/${room._id}`}>
                         Book now for ${room.price}
                       </Link>
                     </button>
@@ -194,7 +205,7 @@ const Rooms = () => {
               </div>
             ))
           ) : (
-            <div className="text-center w-full mt-10">
+            <div className="text-center w-full mt-10 md:">
               <p className="text-2xl text-primary text-center font-semibold">
                 No rooms found matching your request.
               </p>
@@ -202,13 +213,16 @@ const Rooms = () => {
           )}
         </div>
       </div>
-
       <div className="flex items-center justify-center py-3">
-        <Pagination
-          handleLimit={handleLimit}
-          pageCount={noOfPages}
-          handlePageClick={handlePageClick}
-        />
+        {rooms.length ? (
+          <Pagination
+            handleLimit={handleLimit}
+            pageCount={noOfPages}
+            handlePageClick={handlePageClick}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

@@ -17,8 +17,8 @@ const Amenity = () => {
   };
 
   return (
-    <div className="container mx-auto hidden sm:block">
-      <div className=" w-100 flex justify-between mx-10 mt-10 ">
+    <div className="container mx-auto hidden xl:block ">
+      <div className="flex justify-between  mx-10 mt-10 ">
         {amenities.map((amenity) => (
           <div key={amenity._id} className="flex flex-col items-center">
             <div

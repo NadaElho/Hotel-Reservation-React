@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../interceptor";
 import { useParams, useNavigate } from "react-router-dom";
 import Branches from "./Branches";
-
+import Loader from "../components/Loader";
 export default function Branch() {
   const [branch, setBranch] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ export default function Branch() {
         const res = await axiosInstance.get(`/hotels/${id}`);
         const data = res.data.data;
         setBranch(data);
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -25,12 +27,13 @@ export default function Branch() {
   }, [id]);
 
   const sliderSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
 
 
   const branchSliderSettings = {
@@ -43,7 +46,13 @@ export default function Branch() {
 
   return (
     <>
-      {branch ? (
+      {
+        isLoading ? (
+          <div className="w-full flex justify-center items-center p-8 overflow-hidden ">
+          <Loader />
+        </div>
+        ) : 
+      branch ? (
         <>
           <div className="flex flex-col md:flex-row my-5 container">
             <div className="flex-1 w-full md:w-64">
@@ -60,12 +69,6 @@ export default function Branch() {
               <p className="text-start m-5 md:m-10 text-lg md:text-xl playfair-display text-main-800 font-medium">
                 {branch.description_en}
               </p>
-              <button
-                className="w-72 rounded-3xl bg-main-800 text-white px-4 py-2 text-center mt-5 hover:bg-main-400 hover:text-white"
-                onClick={() => navigate("/bookingform")}
-              >
-                Book now
-              </button>
             </div>
           </div>
 
@@ -157,8 +160,11 @@ export default function Branch() {
           </div>
         </>
       ) : (
-        <div>Loading...</div>
-      )}
+        <div className="text-center w-full mt-10">
+        <p className="text-2xl text-primary text-center font-semibold">
+          No branch found .
+        </p>
+      </div>      )}
     </>
   );
 }

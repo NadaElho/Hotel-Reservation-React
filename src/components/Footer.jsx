@@ -13,12 +13,12 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <a href="#" className="flex items-center">
               <img src="/assets/logo.png" alt="" width={"70px"} />
             </a>
           </div>
           <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com/" className="items-center">
+            <a href="#" className="items-center">
               <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-primary font-secondary">
                 Ready to get started?
               </p>
@@ -34,31 +34,22 @@ const Footer = () => {
               </h2>
               <ul className=" text-custom dark:text-gray-400 text-sm opacity-80">
                 <li className="mb-2">
-                  <a href="https://flowbite.com/" className="hover:underline">
+                  <a href="#" className="hover:underline">
                     Poducts
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a
-                    href="https://tailwindcss.com/"
-                    className="hover:underline"
-                  >
+                  <a href="#" className="hover:underline">
                     Service
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a
-                    href="https://tailwindcss.com/"
-                    className="hover:underline"
-                  >
+                  <a href="#" className="hover:underline">
                     Contact
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://tailwindcss.com/"
-                    className="hover:underline"
-                  >
+                  <a href="#" className="hover:underline">
                     About
                   </a>
                 </li>
@@ -146,7 +137,7 @@ const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-custom opacity-80 sm:text-center dark:text-gray-400">
             © 2024{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <a href="#" className="hover:underline">
               Apex™
             </a>
             . All Rights Reserved.
@@ -196,4 +187,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
