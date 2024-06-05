@@ -1,8 +1,8 @@
 const Views = () => {
   return (
     <>
-      <div className="container mx-auto">
-        <h2 className="text-primary text-4xl font-secondary uppercase mx-10">
+      <div className="container mx-auto hidden sm:block">
+        <h2 className="text-primary text-4xl font-secondary uppercase mx-10 mt-10">
           Mesmerising views you can’t ignore
         </h2>
 

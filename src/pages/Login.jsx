@@ -42,7 +42,7 @@ const Login = ({handleLog}) => {
           }}
           onSubmit={async ({ password, email }, { setSubmitting }) => {
             try {
-              let res = await axiosInstance.post(
+              let {data} = await axiosInstance.post(
                 "/users/login",
                 {
                   password,
@@ -54,7 +54,8 @@ const Login = ({handleLog}) => {
                   },
                 }
               );
-              localStorage.setItem("token", res.data.token);
+              localStorage.setItem("token", data.data.token);
+              localStorage.setItem("userId", data.data.id);
               navigate("/");
               toast.success("You are logged in successfully");
               handleLog();

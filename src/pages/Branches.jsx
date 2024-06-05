@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../interceptor";
 import { Link } from "react-router-dom";
 
 const Branches = () => {
@@ -10,7 +10,7 @@ const Branches = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3000/api/v1/hotels");
+      const res = await axiosInstance.get("/hotels");
       const data = res.data.data;
       setBranches(data);
     }
@@ -52,7 +52,6 @@ const Branches = () => {
           create lifetime memories. Your adventure starts here!
         </p>
       </div>
-
       <div className="container mx-auto mt-8">
         <Slider {...settings}>
           {branches.map((branch) => (

@@ -2,9 +2,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../interceptor";
 import { useParams, useNavigate } from "react-router-dom";
 import Branches from "./Branches";
+
 export default function Branch() {
   const [branch, setBranch] = useState(null);
   const { id } = useParams();
@@ -13,9 +14,7 @@ export default function Branch() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/api/v1/hotels/${id}`
-        );
+        const res = await axiosInstance.get(`/hotels/${id}`);
         const data = res.data.data;
         setBranch(data);
       } catch (error) {
@@ -31,6 +30,15 @@ export default function Branch() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+  };
+
+
+  const branchSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
   };
 
   return (

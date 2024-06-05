@@ -9,92 +9,191 @@ import {
 
 const Footer = () => {
   return (
-    <div className="bg-footer h-96">
-      <div className=" w-100 flex flex-col justify-between mx-20 mt-10">
-        <div className="w-100 flex justify-between mt-10">
-          {/* contact */}
-          <div>
-            <div>
+    <footer className="bg-footer dark:bg-gray-900 mt-4">
+      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div className="md:flex md:justify-between">
+          <div className="mb-6 md:mb-0">
+            <a href="https://flowbite.com/" className="flex items-center">
               <img src="/assets/logo.png" alt="" width={"70px"} />
+            </a>
+          </div>
+          <div className="mb-6 md:mb-0">
+            <a href="https://flowbite.com/" className="items-center">
+              <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-primary font-secondary">
+                Ready to get started?
+              </p>
+              <p className="self-center text-custom whitespace-nowrap dark:text-white">
+                Dicover Egypt through your eyes
+              </p>
+            </a>
+          </div>
+          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-custom uppercase dark:text-white">
+                Resources
+              </h2>
+              <ul className=" text-custom dark:text-gray-400 text-sm opacity-80">
+                <li className="mb-2">
+                  <a href="https://flowbite.com/" className="hover:underline">
+                    Poducts
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://tailwindcss.com/"
+                    className="hover:underline"
+                  >
+                    Service
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://tailwindcss.com/"
+                    className="hover:underline"
+                  >
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://tailwindcss.com/"
+                    className="hover:underline"
+                  >
+                    About
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-white">
+                Our branches
+              </h2>
+              <ul className=" text-custom dark:text-gray-400 text-sm opacity-80">
+                <li className="mb-2">
+                  <a href="#" className="hover:underline ">
+                    Luxor
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline ">
+                    Aswan
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline ">
+                    Cairo
+                  </a>
+                </li>{" "}
+                <li className="mb-2">
+                  <a href="#" className="hover:underline ">
+                    Sinai
+                  </a>
+                </li>{" "}
+                <li className="mb-2">
+                  <a href="#" className="hover:underline ">
+                    Giza
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline ">
+                    Siwa Qasis
+                  </a>
+                </li>
+              </ul>
             </div>
 
-            <ul className="w-80 flex justify-between text-custom text-sm mt-5 opacity-80">
-              <li>Product & Service</li>
-              <li>Recourses</li>
-              <li>Contact</li>
-              <li>About</li>
-            </ul>
-            <ul className="w-40	flex justify-between text-custom text-sm mt-5 opacity-80">
-              <li>
-                <FaFacebook />
-              </li>
-              <li>
-                <FaInstagram />
-              </li>
-              <li>
-                <FaTwitter />
-              </li>
-              <li>
-                <FaBehance />
-              </li>
-              <li>
-                <FaLinkedin />
-              </li>
-              <li>
-                <FaGithub />
-              </li>
-            </ul>
-          </div>
-          {/* 1 */}
-
-          <div >
-            <p className="text-primary font-secondary font-semibold text-2xl	">Ready to get started?</p>
-            <p className="text-custom">Dicover Egypt through your eyes</p>
-          </div>
-          {/* 2 */}
-          <div className="w-100">
-            <span className="text-custom font-medium"> our branches </span>
-            <ul className="text-custom text-sm mx-2 opacity-80">
-              <li>Luxor</li>
-              <li>Aswan</li>
-              <li>Giza</li>
-              <li>Cairo</li>
-              <li>Siwa Qasis</li>
-              <li>White desert</li>
-              <li>Sinai</li>
-            </ul>
-          </div>
-          {/* 3 */}
-          <div>
-            <span className="text-custom font-medium">Telephones</span>
-            <ul className="text-custom text-sm text-center opacity-80">
-              <li>026846899</li>
-              <li>026846899</li>
-              <li>026846899</li>
-              <li>026846899</li>
-              <li>026846899</li>
-              <li>026846899</li>
-              <li>026846899</li>
-            </ul>
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-white">
+                Telephones
+              </h2>
+              <ul className=" text-custom dark:text-gray-400 text-sm opacity-80">
+                <li className="mb-2">
+                  <a href="#" className="hover:underline">
+                    024597659
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline">
+                    024593687
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline">
+                    028906932
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline">
+                    024845021
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:underline">
+                    020298022
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    024186008
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/*  */}
           </div>
         </div>
-        <div className="h-px my-8 bg-custom opacity-40 "> </div>
-        {/* contact*/}
-        {/* copyRight */}
-        <div className="w-100 flex justify-between">
-          <ul className="w-40 justify-between flex text-custom  text-sm opacity-80">
-            <li>English</li>
-            <li>Privacy</li>
-            <li>Legal</li>
-          </ul>
-          {/*  */}
-
-          <p className="justify-between flex text-custom  text-xs opacity-80">&copy;2024 groub 4. All Rights Reversed</p>
+        <hr className="my-6 border-secondary sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <div className="sm:flex sm:items-center sm:justify-between">
+          <span className="text-sm text-custom opacity-80 sm:text-center dark:text-gray-400">
+            © 2024{" "}
+            <a href="https://flowbite.com/" className="hover:underline">
+              Apex™
+            </a>
+            . All Rights Reserved.
+          </span>
+          <div className="flex mt-4 sm:justify-center sm:mt-0 ">
+            <a
+              href="#"
+              className="text-custom opacity-80  dark:hover:text-white"
+            >
+              <FaFacebook />
+            </a>
+            <a
+              href="#"
+              className="text-custom opacity-80 hover:text-gray-900 dark:hover:text-white ms-5"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="#"
+              className="text-custom opacity-80 hover:text-gray-900 dark:hover:text-white ms-5"
+            >
+              <FaTwitter />
+            </a>
+            <a
+              href="#"
+              className="text-custom opacity-80 hover:text-gray-900 dark:hover:text-white ms-5"
+            >
+              <FaBehance />
+            </a>
+            <a
+              href="#"
+              className="text-custom opacity-80 hover:text-gray-900 dark:hover:text-white ms-5"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href="#"
+              className="text-custom opacity-80 hover:text-gray-900 dark:hover:text-white ms-5"
+            >
+              <FaGithub />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    // parent
+    </footer>
   );
 };
 
 export default Footer;
+
