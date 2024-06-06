@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptor";
-import RoomCard from "../components/RoomCard";
+import RoomCard from "../components/roomCard";
 import Loader from "../components/Loader";
 
 const RoomId = () => {
@@ -15,7 +15,7 @@ const RoomId = () => {
       const res = await axiosInstance.get(`/rooms/${id}`);
       const roomData = res.data.room;
       setRoom(roomData);
-      setLoading(false)
+      setLoading(false);
       const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(data.data);
     }
@@ -29,7 +29,7 @@ const RoomId = () => {
         <div className="w-full flex justify-center items-center p-8 overflow-hidden ">
           <Loader />
         </div>
-      ) :  room ? (
+      ) : room ? (
         <div className="container mx-auto mt-8 ">
           <div className="mx-10" key={room._id}>
             <p className="text-primary font-bold text-3xl font-secondary">
