@@ -67,7 +67,7 @@ function BookingForm() {
       const res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(res.data.data);
     })();
-  }, []);
+  }, [id]);
 
   const differenceBetweenDays =
     new Date(selectedDates[1]).getTime() - new Date(selectedDates[0]).getTime();
