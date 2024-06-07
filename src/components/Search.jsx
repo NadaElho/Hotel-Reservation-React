@@ -25,16 +25,16 @@ export const Search = () => {
     hotels: false,
     roomsType: false,
   });
-  let dateRef = useRef();
+  const dateRef = useRef();
 
   useEffect(() => {
     (async () => {
-      let { data } = await axiosInstance.get("/hotels");
+      const { data } = await axiosInstance.get("/hotels");
       setHotelData(data.data);
     })();
 
     (async () => {
-      let { data } = await axiosInstance.get("/room-type");
+      const { data } = await axiosInstance.get("/room-type");
       setRoomsTypes(data.data);
     })();
 

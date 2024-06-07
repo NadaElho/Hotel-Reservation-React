@@ -4,12 +4,13 @@ import { useState } from "react";
 
 const DropDown = ({ isScrolled, logged, handleLog }) => {
   const [show, setShow] = useState(false);
+  const links = [
+    { name: "All branches", link: "/#branches" },
+    { name: "All rooms", link: "/rooms" },
+  ];
   return (
     <>
-      <div
-        className="relative ml-3"
-        onClick={() => setShow((show) => (show = !show))}
-      >
+      <div className="relative ml-3" onClick={() => setShow((show) => !show)}>
         <div>
           <button
             type="button"
@@ -34,22 +35,17 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           aria-labelledby="user-menu-button"
           tabIndex={-1}
         >
-          <a
-            href="#branches"
-            className="block px-4 py-2 text-sm text-main-400"
-            role="menuitem"
-            tabIndex={-1}
-          >
-            All branches
-          </a>
-          <Link
-            className="block px-4 py-2 text-sm text-main-400"
-            role="menuitem"
-            tabIndex={-1}
-            to="/rooms"
-          >
-            All rooms
-          </Link>
+          {links.map((link) => (
+            <Link
+              key={link.name}
+              to={link.link}
+              className="block px-4 py-2 text-sm text-main-400"
+              role="menuitem"
+              tabIndex={-1}
+            >
+              {link.name}
+            </Link>
+          ))}
           {logged && (
             <Link
               to="/login"

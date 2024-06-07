@@ -170,7 +170,6 @@ const Rooms = () => {
                       />
                     )}
                   </p>
-
                   <hr className=" border-primary opacity-40  mt-4" />
                 </div>
                 <div className="px-6 text-center">
@@ -190,7 +189,6 @@ const Rooms = () => {
                       ))}
                   </div>
                   <hr className=" border-primary opacity-40  mt-4" />
-
                   <div className="w-full flex justify-between py-8">
                     <button className="w-40 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center">
                       <Link to={`/reservation-room/${room._id}`}>
@@ -217,6 +215,7 @@ const Rooms = () => {
         {rooms.length ? (
           <Pagination
             handleLimit={handleLimit}
+            limit={limit}
             pageCount={noOfPages}
             handlePageClick={handlePageClick}
           />

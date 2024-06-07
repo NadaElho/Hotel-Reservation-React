@@ -6,7 +6,7 @@ const Amenity = () => {
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
-      const res = await axiosInstance.get("/amenities");
+      const res = await axiosInstance.get("/amenities?limit=12&page=1");
       const data = res.data.data;
       setAmenities(data);
     }

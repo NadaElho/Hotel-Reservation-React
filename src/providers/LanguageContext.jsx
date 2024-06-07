@@ -3,18 +3,19 @@ import { useTranslation } from "react-i18next";
 export const LanguageContext = createContext();
 
 const LanguageProvider = ({ children }) => {
+  const ltrLangs = ["en"];
   const { t, i18n } = useTranslation();
-  document.dir = i18n.resolvedLanguage == "en" ? 'ltr' : 'rtl'
+  i18n.resolvedLanguage = localStorage.getItem("lang");
+  document.dir = ltrLangs.includes(i18n.resolvedLanguage) ? "ltr" : "rtl";
 
-  const toggleLanguage = () => {
-    i18n.resolvedLanguage == "en"
-    ? i18n.changeLanguage("ar")
-    : i18n.changeLanguage("en");
-    document.dir = i18n.resolvedLanguage == "en" ? 'ltr' : 'rtl'
+  const toggleLanguage = (lang) => {
+    localStorage.setItem("lang", lang);
+    i18n.changeLanguage(lang);
+    document.dir = ltrLangs.includes(i18n.resolvedLanguage) ? "ltr" : "rtl";
   };
-  
+
   return (
-    <LanguageContext.Provider value={{t, toggleLanguage}}>
+    <LanguageContext.Provider value={{ t, toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -42,7 +42,7 @@ const Login = ({handleLog}) => {
           }}
           onSubmit={async ({ password, email }, { setSubmitting }) => {
             try {
-              let {data} = await axiosInstance.post(
+              const {data} = await axiosInstance.post(
                 "/users/login",
                 {
                   password,
@@ -117,7 +117,7 @@ const Login = ({handleLog}) => {
                 Login
               </button>
               <div className="text-sm font-bold text-main-400 mt-2 ml-2">
-                Don't have an account? &nbsp;
+                Don&apos;t have an account? &nbsp;
                 <span
                   className="cursor-pointer text-grey-600"
                   onClick={() => navigate("/register", { replace: true })}

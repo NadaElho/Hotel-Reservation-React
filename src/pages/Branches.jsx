@@ -11,20 +11,18 @@ import { FreeMode, Pagination } from "swiper/modules";
 
 const Branches = () => {
   const [branches, setBranches] = useState([]);
-
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/hotels");
       const data = res.data.data;
       setBranches(data);
-      console.log(data);
     }
     fetchData();
   }, []);
 
   return (
     <>
-      <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 hidden lg:flex">
+      <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 lg:flex">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10">
           Discover our Branches
         </h2>

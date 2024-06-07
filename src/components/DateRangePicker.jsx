@@ -17,8 +17,8 @@ const DateRangePickerComponent = ({
   );
 
   const handleSelect = (date) => {
-    let startDate = new Date(date.selection.startDate);
-    let endDate = new Date(date.selection.endDate);
+    const startDate = new Date(date.selection.startDate);
+    const endDate = new Date(date.selection.endDate);
 
     if (startDate.getTime() === endDate.getTime()) {
       endDate.setDate(endDate.getDate() + 1);

@@ -26,9 +26,11 @@ const RoomCard = ({ disabledDates, roomData }) => {
     setShowCalendar((show) => (show = !show));
   };
   return (
-    <div className="p-4 w-full  md:max-w-[500px] border rounded-2xl border-main-800">
+    <div className="p-4 w-full md:max-w-[500px] border rounded-2xl border-main-800">
       <h3 className="text-main-800 font-bold ml-2 text-lg">Price details</h3>
-      <h4 className="text-sm text-main-400 ml-2">${roomData.price} per night</h4>
+      <h4 className="text-sm text-main-400 ml-2">
+        ${roomData.price} per night
+      </h4>
       <div className="flex w-[140px] md:w-[400px] justify-between flex-col md:flex-row my-2">
         <div className="flex flex-col justify-between relative">
           <button
@@ -52,13 +54,13 @@ const RoomCard = ({ disabledDates, roomData }) => {
           )}
         </div>
         <div className="flex justify-between gap-0 md:gap-4 flex-col md:flex-row">
-          <div className=" flex md:flex-col justify-between items-center text-main-100 text-sm">
+          <div className="flex md:flex-col justify-between items-center text-main-100 text-sm">
             <span>Start</span>
             <div className="py-2 ">
               {selectedDates[0]?.toString().substring(0, 11)}
             </div>
           </div>
-          <div className=" flex md:flex-col justify-between items-center text-main-100 text-sm">
+          <div className="flex md:flex-col justify-between items-center text-main-100 text-sm">
             <span>End</span>
             <span className="py-2">
               {selectedDates[1]?.toString().substring(0, 11)}
@@ -67,10 +69,10 @@ const RoomCard = ({ disabledDates, roomData }) => {
         </div>
       </div>
       <div className="text-center text-main-300 mt-8">
-        Your stay will be{" "}
-        <span className="text-white bg-main-300 px-2 py-1 rounded">
+        Your stay will be
+        <span className="text-white bg-main-300 px-2 py-1 mx-2 rounded">
           {calcNoOfNights}
-        </span>{" "}
+        </span>
         nights
       </div>
       <div className="text-main-800 my-4 text-center font-bold text-lg">

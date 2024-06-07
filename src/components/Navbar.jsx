@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DropDown from "./DropDown";
 import { Link } from "react-router-dom";
+import LanguageSwitch from "./LanguageSwitch";
 
 const Navbar = ({logged, handleLog}) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,8 +31,10 @@ const Navbar = ({logged, handleLog}) => {
             <img src="/assets/logo.png" alt="Logo" width={"70px"} />
           </Link>
           <div className="flex space-x-4">
+            
             {/* <ModeSwitch mode={handleMode} /> */}
             {/* <div>translate</div> */}
+            <LanguageSwitch/>
             <DropDown isScrolled={isScrolled} logged={logged} handleLog={handleLog}/>
           </div>
         </div>
