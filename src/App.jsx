@@ -15,8 +15,8 @@ import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
-import PrivateRoute from "./protectedRoutes/PrivateRoute.jsx";
-import Guard from "./protectedRoutes/Guard.jsx";
+import PrivateRoute from "./ProtectedRoutes/PrivateRoute.jsx";
+import Guard from "./ProtectedRoutes/Guard.jsx";
 import Branch from "./pages/Branch.jsx";
 
 function App() {
@@ -37,12 +37,14 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-          {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
-            <>
-              <Navbar handleLog={handleLog} logged={logged} />
-              <Hero />
-            </>
-          )}
+          {location.pathname != "/login" &&
+            location.pathname != "/register" &&
+            !location.pathname.startsWith("/payment-result") && (
+              <>
+                <Navbar handleLog={handleLog} logged={logged} />
+                <Hero />
+              </>
+            )}
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -61,9 +63,9 @@ function App() {
           </div>
         </LanguageProvider>
       </I18nextProvider>
-      {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
-        <Footer />
-      )}
+      {location.pathname != "/login" &&
+        location.pathname != "/register" &&
+        !location.pathname.startsWith("/payment-result") && <Footer />}
     </div>
   );
 }
