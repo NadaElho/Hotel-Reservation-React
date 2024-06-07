@@ -31,13 +31,12 @@ function BookingForm() {
         checkOut: selectedDates[1],
         status: "663a8186e3427acea0ef0b56",
       });
-      toast.success("Room reserved successfully")
     } catch (err) {
       toast.error(err.response.data.message);
     }
 
     if (payment == "stripe") {
-      let { data } = await axiosInstance.get(
+      const { data } = await axiosInstance.get(
         `/reservations/${localStorage.getItem("userId")}`
       );
       data.data.forEach((reservation) => {
@@ -45,7 +44,7 @@ function BookingForm() {
           (async function () {
             localStorage.setItem("reservationId", reservation._id);
             try {
-              let { data } = await axiosInstance.post(
+              const { data } = await axiosInstance.post(
                 `/reservations/${reservation._id}/payment`
               );
               window.location.href = data.session.url;
@@ -56,15 +55,16 @@ function BookingForm() {
         }
       });
     } else {
+      toast.success("Room reserved successfully")
       navigate("/", { replace: true });
     }
   }
 
   useEffect(() => {
     (async function () {
-      let { data } = await axiosInstance.get(`/rooms/${id}`);
+      const { data } = await axiosInstance.get(`/rooms/${id}`);
       setRoomData(data.room);
-      let res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
+      const res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(res.data.data);
     })();
   }, []);

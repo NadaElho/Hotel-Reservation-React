@@ -4,17 +4,15 @@ import fail from "/failed.png";
 import axiosInstance from "../../interceptor";
 function PaymentResult() {
   const [resultParam] = useSearchParams();
-  let resultQuery = resultParam.toString().split("&")[0].split("=")[0];
-  let price = resultParam.toString().split("&")[1]?.split("=")[1];
+  const resultQuery = resultParam.toString().split("&")[0].split("=")[0];
+  const price = resultParam.toString().split("&")[1]?.split("=")[1];
   let hours = new Date().getHours();
-  let minutes = new Date().getMinutes();
-  let ampm = hours >= 12 ? "PM" : "am";
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const minutes = new Date().getMinutes() < 10 ? "0" + minutes : minutes;
+  const ampm = hours >= 12 ? "PM" : "am";
+  hours = hours % 12 || 12;
   const tryPaymentAgain = async () => {
-    let reservationId = localStorage.getItem("reservationId");
-    let { data } = await axiosInstance.post(
+    const reservationId = localStorage.getItem("reservationId");
+    const { data } = await axiosInstance.post(
       `/reservations/${reservationId}/payment`
     );
     window.location.href = data.session.url;

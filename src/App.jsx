@@ -15,8 +15,8 @@ import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
-import PrivateRoute from "./ProtectedRoutes/PrivateRoute.jsx";
-import Guard from "./ProtectedRoutes/Guard.jsx";
+import PrivateRoute from "./protectedRoutes/PrivateRoute.jsx";
+import Guard from "./protectedRoutes/Guard.jsx";
 import Branch from "./pages/Branch.jsx";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   const [logged, setLogged] = useState(
     localStorage.getItem("token") ? false : true
   );
-  const myLoc = useLocation();
+  const location = useLocation();
   const handleLog = () => {
     logged ? "" : localStorage.setItem("token", "");
     setLogged((logged) => (logged = !logged));
@@ -37,7 +37,7 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-          {myLoc.pathname != "/login" && myLoc.pathname != "/register" && !myLoc.pathname.startsWith("/payment-result") && (
+          {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
             <>
               <Navbar handleLog={handleLog} logged={logged} />
               <Hero />
@@ -61,7 +61,7 @@ function App() {
           </div>
         </LanguageProvider>
       </I18nextProvider>
-      {myLoc.pathname != "/login" && location.pathname != "/register" && !myLoc.pathname.startsWith("/payment-result") && (
+      {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
         <Footer />
       )}
     </div>

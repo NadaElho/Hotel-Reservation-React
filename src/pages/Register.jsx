@@ -9,7 +9,64 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
+  const validate = (values) => {
+    const errors = {};
+    if (!values.fname) {
+      errors.fname = "First name is required";
+    }
+    if (!values.lname) {
+      errors.lname = "Last name is required";
+    }
+    if (!values.email) {
+      errors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (
+      !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)
+    ) {
+      errors.password =
+        "Invalid password, minimum 8 characters, at least one letter and one number";
+    }
+    if (!values.confirmPassword) {
+      errors.confirmPassword = "Confirm password is required";
+    }
+    if (values.confirmPassword && values.password !== values.confirmPassword) {
+      errors.confirmPassword = "Passwords must match";
+    }
+    return errors;
+  };
 
+  const onSubmit = async (
+    { fname, lname, password, email },
+    { setSubmitting }
+  ) => {
+    try {
+      await axiosInstance.post(
+        "/users/signUp",
+        {
+          firstName: fname,
+          lastName: lname,
+          password,
+          email,
+          role: "664288806d86e8d38415e8ab",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate("/login");
+      toast.success("You are registered successfully");
+    } catch (err) {
+      toast.error("Email already exists");
+    }
+    setSubmitting(false);
+  };
+  
   return (
     <div className="flex items-center justify-center md:h-screen md:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-8 md:w-2/3 lg:w-1/2">
@@ -30,67 +87,8 @@ const Register = () => {
             lname: "",
             confirmPassword: "",
           }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.fname) {
-              errors.fname = "First name is required";
-            }
-            if (!values.lname) {
-              errors.lname = "Last name is required";
-            }
-            if (!values.email) {
-              errors.email = "Email is required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
-            if (!values.password) {
-              errors.password = "Password is required";
-            } else if (
-              !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)
-            ) {
-              errors.password =
-                "Invalid password, minimum 8 characters, at least one letter and one number";
-            }
-            if (!values.confirmPassword) {
-              errors.confirmPassword = "Confirm password is required";
-            }
-            if (
-              values.confirmPassword &&
-              values.password !== values.confirmPassword
-            ) {
-              errors.confirmPassword = "Passwords must match";
-            }
-            return errors;
-          }}
-          onSubmit={async (
-            { fname, lname, password, email },
-            { setSubmitting }
-          ) => {
-            try {
-              await axiosInstance.post(
-                "/users/signUp",
-                {
-                  firstName: fname,
-                  lastName: lname,
-                  password,
-                  email,
-                  role: "664288806d86e8d38415e8ab",
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-              navigate("/login");
-              toast.success("You are registered successfully");
-            } catch (err) {
-              toast.error("Email already exists");
-            }
-            setSubmitting(false);
-          }}
+          validate={validate}
+          onSubmit={onSubmit}
         >
           {({
             values,
