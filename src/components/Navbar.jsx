@@ -6,6 +6,7 @@ import ModeSwitch from "./ModeSwitch";
 const Navbar = ({ logged, handleLog, handleMode, mode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  
   useEffect(() => {
     const handleScroll = () => {
       if (location.pathname == "/") {
@@ -21,7 +22,7 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [location]);
 
   return (
     <div
@@ -41,7 +42,6 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
           </Link>
           <div className="flex space-x-4">
             <ModeSwitch handleMode={handleMode} mode={mode} />
-            {/* <div>translate</div> */}
             <LanguageSwitch />
             <DropDown
               isScrolled={isScrolled}
