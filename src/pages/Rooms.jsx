@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
@@ -19,17 +19,21 @@ const Rooms = () => {
   const onValueChange = (values) => {
     setValue([...values]);
   };
-  let arr = params.toString().split("&");
-  let filterObj = {};
-  arr.forEach((query) => {
-    let [key, value] = query.split("=");
-    value = decodeURIComponent(value);
-    if (key == "checkIn" || key == "checkOut") {
-      filterObj[key] = new Date(value).toISOString();
-    } else {
-      filterObj[key] = value;
-    }
-  });
+  
+  const filterObj = useMemo(() => {
+    const arr = params.toString().split("&");
+    const obj = {};
+    arr.forEach((query) => {
+      let [key, value] = query.split("=");
+      value = decodeURIComponent(value);
+      if (key === "checkIn" || key === "checkOut") {
+        obj[key] = new Date(value).toISOString();
+      } else {
+        obj[key] = value;
+      }
+    });
+    return obj;
+  }, [params]);
 
   const handleLimit = (num) => {
     setLimit(num);

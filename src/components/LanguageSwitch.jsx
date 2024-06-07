@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
-
+import english from "/english.svg"
+import arabic from "/arabic.svg"
 const LanguageSwitch = () => {
-  const { toggleLanguage, t } = useContext(LanguageContext);
+  const { toggleLanguage } = useContext(LanguageContext);
   return (
     <>
-      <button onClick={()=>toggleLanguage(localStorage.getItem("lang") == "en" ? "ar" : "en")}>translate</button>
-      <div>{t("hello")}</div>
+      <img src={localStorage.getItem("lang") == "ar" ? arabic : english} className="w-[35px] cursor-pointer" onClick={()=>toggleLanguage(localStorage.getItem("lang") == "en" ? "ar" : "en")}/>
     </>
   );
 };

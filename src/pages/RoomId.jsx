@@ -21,7 +21,7 @@ const RoomId = () => {
     }
 
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <>

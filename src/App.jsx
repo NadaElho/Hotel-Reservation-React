@@ -25,18 +25,23 @@ function App() {
     localStorage.getItem("token") ? false : true
   );
   const location = useLocation();
+  
   const handleLog = () => {
     logged ? "" : localStorage.setItem("token", "");
     setLogged((logged) => (logged = !logged));
   };
+  
   const handleMode = () => {
+    localStorage.setItem("dark", dark === "light" ? "dark" : "light")
     setDark((mode) => (mode === "light" ? "dark" : "light"));
   };
+  
   return (
-    <div className={`${dark} bg-grey-100 dark:text-white`}>
+    <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-800`}>
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
+<<<<<<< HEAD
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
             !location.pathname.startsWith("/payment-result") && (
@@ -45,6 +50,14 @@ function App() {
                 <Hero />
               </>
             )}
+=======
+          {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
+            <>
+              <Navbar handleLog={handleLog} mode={dark} handleMode={handleMode} logged={logged} />
+              <Hero />
+            </>
+          )}
+>>>>>>> f00937459b56762908ae6ecc92d6277a807f241f
           <div>
             <Routes>
               <Route path="/" element={<Home />} />

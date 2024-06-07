@@ -6,13 +6,50 @@ import axiosInstance from "../../interceptor";
 import img from "/login.png";
 import { toast } from "react-toastify";
 
-const Login = ({handleLog}) => {
+const Login = ({ handleLog }) => {
   const navigate = useNavigate();
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
+    return errors;
+  };
+
+  const onSubmit = async ({ password, email }, { setSubmitting }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        "/users/login",
+        {
+          password,
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("userId", data.data.id);
+      navigate("/");
+      toast.success("You are logged in successfully");
+      handleLog();
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+    setSubmitting(false);
+  };
 
   return (
     <div className="flex justify-center lg:h-screen lg:overflow-hidden min-h-screen">
-      <div className="w-full p-4 lg:p-8 lg:w-1/2  flex flex-col justify-center">
-        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 lg:left-10">
+      <div className="w-full p-4 md:p-16 lg:p-16 md:w-3/4 lg:w-1/2 flex flex-col justify-center">
+        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 lg:left-16">
           APEX
         </h1>
         <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
@@ -26,44 +63,8 @@ const Login = ({handleLog}) => {
             email: "",
             password: "",
           }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.email) {
-              errors.email = "Email is required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
-            if (!values.password) {
-              errors.password = "Password is required";
-            }
-            return errors;
-          }}
-          onSubmit={async ({ password, email }, { setSubmitting }) => {
-            try {
-              const {data} = await axiosInstance.post(
-                "/users/login",
-                {
-                  password,
-                  email,
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-              localStorage.setItem("token", data.data.token);
-              localStorage.setItem("userId", data.data.id);
-              navigate("/");
-              toast.success("You are logged in successfully");
-              handleLog();
-            } catch (err) {
-              toast.error(err.response.data.message);
-            }
-            setSubmitting(false);
-          }}
+          validate={validate}
+          onSubmit={onSubmit}
         >
           {({
             values,

@@ -69,8 +69,8 @@ const Register = () => {
   
   return (
     <div className="flex items-center justify-center md:h-screen md:overflow-hidden min-h-screen">
-      <div className="w-full p-4 md:p-8 md:w-2/3 lg:w-1/2">
-        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 md:left-10">
+      <div className="w-full p-4 md:p-12 md:w-2/3 lg:w-1/2">
+        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 md:left-12">
           APEX
         </h1>
         <h5 className="ml-2 text-xs text-main-400 font-semibold mt-[100px] md:mt-0">
@@ -153,7 +153,7 @@ const Register = () => {
                   {touched.email && errors.email}
                 </div>
               </div>
-              <div className="my-4  md:my-2">
+              <div className="my-4 md:my-2">
                 <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 p-2">
                   <IoLockClosedOutline color="white" />
                   <input
@@ -207,7 +207,7 @@ const Register = () => {
           )}
         </Formik>
       </div>
-      <div className="hidden md:block w-1/3 lg:w-1/2">
+      <div className="hidden lg:block w-1/3 lg:w-1/2">
         <img src={img} alt="Register" />
       </div>
     </div>
