@@ -54,11 +54,13 @@ const Branches = () => {
                     alt=""
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute bottom-6 left-6 w-full text-white">
-                    <p className="font-400 text-3xl font-secondary">
+                  <div className="absolute bottom-6 left-6 w-full text-white ">
+                    <p className="font-500 text-4xl font-secondary playfair-display">
                       {branch.name_en}
                     </p>
-                    <p className="opacity-80">{branch.address_en}</p>
+                    <p className="opacity-80 playfair-display">
+                      {branch.address_en}
+                    </p>
                   </div>
                 </div>
               </Link>
