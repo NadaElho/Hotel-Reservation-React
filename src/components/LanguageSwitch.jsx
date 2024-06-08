@@ -1,12 +1,29 @@
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
-import english from "/english.svg"
-import arabic from "/arabic.svg"
-const LanguageSwitch = () => {
+import english from "/english.svg";
+import englishDark from "/englishdark.svg";
+import arabic from "/arabic.svg";
+import arabicDark from "/arabicdark.svg";
+
+const LanguageSwitch = ({ isScrolled }) => {
   const { toggleLanguage } = useContext(LanguageContext);
   return (
     <>
-      <img src={localStorage.getItem("lang") == "ar" ? arabic : english} className="w-[35px] cursor-pointer" onClick={()=>toggleLanguage(localStorage.getItem("lang") == "en" ? "ar" : "en")}/>
+      <img
+        src={
+          localStorage.getItem("lang") == "ar"
+            ? isScrolled
+              ? arabicDark
+              : arabic
+            : isScrolled
+            ? englishDark
+            : english
+        }
+        className="w-[35px] cursor-pointer"
+        onClick={() =>
+          toggleLanguage(localStorage.getItem("lang") == "en" ? "ar" : "en")
+        }
+      />
     </>
   );
 };

@@ -29,7 +29,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
         <div
           className={`${
             show ? "block" : "hidden"
-          } absolute right-0 z-10 -mt-2 w-48 origin-top-right rounded-md bg-grey-100 shadow-md py-1`}
+          } absolute right-0 z-10 mt-0 w-48 origin-top-right rounded-md bg-grey-100 shadow-md py-1`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="user-menu-button"
