@@ -28,11 +28,11 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
     <div
       dir="ltr"
       className={`w-screen fixed z-50 mx-auto top-0 left-1/2 transform -translate-x-1/2 shadow-none ${
-        isScrolled ? "bg-grey-100" : "bg-transparent"
+        isScrolled ? "bg-grey-100 dark:bg-[#453D3A]" : "bg-transparent"
       }`}
     >
-      <nav className="w-full mx-auto flex justify-between bg-transparent">
-        <div className="flex justify-between mx-auto items-center w-full max-w-screen px-12 md:px-28 lg:px-16">
+      <nav className="w-full mx-auto flex justify-between bg-transparent  ">
+        <div className="flex justify-between mx-auto items-center w-full max-w-screen px-12 md:px-28 lg:px-16 dark:bg-transparent ">
           <Link to="/">
             <img
               src="/assets/logo.png"

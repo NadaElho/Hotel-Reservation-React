@@ -11,6 +11,11 @@ export default {
         'footer': '#C5BDBA',
         'custom': '#81664B',
         'body' : '#FFF7F2',
+        // dark mode
+        'PrimaryDark' : '#E2C8AD',
+        'customDark' : '#1D1D1D'
+,
+
         main: {
           100: '#AA9383',
           200: '#997c6a',
