@@ -1,26 +1,26 @@
-import translationEN from '../languages/en.json'
-import translationAr from '../languages/ar.json'
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
+import translationEN from "../Languages/en.json";
+import translationAr from "../Languages/ar.json";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     debug: true,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
     resources: {
-        en: {
-          translation: translationEN,
-        },
-        ar: {
-          translation: translationAr,
-        },
+      en: {
+        translation: translationEN,
+      },
+      ar: {
+        translation: translationAr,
+      },
     },
-  })
+  });
 
-export default i18n
+export default i18n;

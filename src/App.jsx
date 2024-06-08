@@ -15,8 +15,8 @@ import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
-import PrivateRoute from "./protectedRoutes/PrivateRoute.jsx";
-import Guard from "./protectedRoutes/Guard.jsx";
+import PrivateRoute from "./ProtectedRoutes/PrivateRoute.jsx";
+import Guard from "./ProtectedRoutes/Guard.jsx";
 import Branch from "./pages/Branch.jsx";
 
 function App() {
@@ -25,28 +25,36 @@ function App() {
     localStorage.getItem("token") ? false : true
   );
   const location = useLocation();
-  
+
   const handleLog = () => {
     logged ? "" : localStorage.setItem("token", "");
     setLogged((logged) => (logged = !logged));
   };
-  
+
   const handleMode = () => {
-    localStorage.setItem("dark", dark === "light" ? "dark" : "light")
+    localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
   };
-  
+
   return (
     <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-700`}>
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-          {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
-            <>
-              <Navbar handleLog={handleLog} mode={dark} handleMode={handleMode} logged={logged} />
-              <Hero />
-            </>
-          )}
+
+          {location.pathname != "/login" &&
+            location.pathname != "/register" &&
+            !location.pathname.startsWith("/payment-result") && (
+              <>
+                <Navbar
+                  handleLog={handleLog}
+                  mode={dark}
+                  handleMode={handleMode}
+                  logged={logged}
+                />
+                <Hero />
+              </>
+            )}
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -65,9 +73,9 @@ function App() {
           </div>
         </LanguageProvider>
       </I18nextProvider>
-      {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
-        <Footer />
-      )}
+      {location.pathname != "/login" &&
+        location.pathname != "/register" &&
+        !location.pathname.startsWith("/payment-result") && <Footer />}
     </div>
   );
 }
