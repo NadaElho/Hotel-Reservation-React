@@ -1,22 +1,27 @@
 import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import axiosInstance from "../../interceptor";
 import img from "/login.png";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const Login = ({ handleLog }) => {
   const navigate = useNavigate();
+  const { t } = useContext(LanguageContext);
+  const isDark = localStorage.getItem("dark") == "dark";
+
   const validate = (values) => {
     const errors = {};
     if (!values.email) {
-      errors.email = "Email is required";
+      errors.email = t("form.email-req");
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
+      errors.email = t("form.invalid-email");
     }
     if (!values.password) {
-      errors.password = "Password is required";
+      errors.password = t("form.password-req");
     }
     return errors;
   };
@@ -49,14 +54,14 @@ const Login = ({ handleLog }) => {
   return (
     <div className="flex justify-center lg:h-screen lg:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-16 lg:p-16 md:w-3/4 lg:w-1/2 flex flex-col justify-center">
-        <h1 className="text-primary text-4xl font-secondary uppercase fixed top-8 left-4 lg:left-16">
-          APEX
+        <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:right-4 md:rtl:right-16 ltr:left-4 md:ltr:left-12">
+          <Link to="/">APEX</Link>
         </h1>
-        <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
-          Welcome Back
+        <h3 className="ms-2 font-bold text-grey-600 dark:text-grey-400 text-2xl mt-[50px] lg:mt-0">
+          {t("form.welcome")}
         </h3>
-        <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
-          Please enter your details
+        <h5 className="ms-2 text-xs text-main-400 dark:text-main-150 mb-4 font-semibold">
+          {t("form.details")}
         </h5>
         <Formik
           initialValues={{
@@ -77,53 +82,55 @@ const Login = ({ handleLog }) => {
           }) => (
             <form onSubmit={handleSubmit} className="text-white">
               <div className="my-2">
-                <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 p-2">
-                  <AiOutlineMail color="white" />
+                <div className="flex items-center gap-2 rounded-full bg-main-300 my-1 p-2">
+                  <AiOutlineMail color={`${isDark ? "#1D1D1D" : "white"}`} />
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email"
-                    className="border-0 outline-none placeholder:text-slate-200 w-full"
+                    placeholder={t("form.email")}
+                    className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
                   />
                 </div>
-                <div className="text-red-500 text-sm ml-2">
+                <div className="text-red-500 text-sm ms-2">
                   {touched.email && errors.email}
                 </div>
               </div>
               <div className="my-2">
-                <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 p-2">
-                  <IoLockClosedOutline color="white" />
+                <div className="flex items-center gap-2 rounded-full bg-main-300 my-1 p-2">
+                  <IoLockClosedOutline
+                    color={`${isDark ? "#1D1D1D" : "white"}`}
+                  />
                   <input
                     type="password"
                     name="password"
-                    placeholder="Password"
-                    className="border-0 outline-none placeholder:text-slate-200 w-full"
+                    placeholder={t("form.password")}
+                    className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
                   />
                 </div>
-                <div className="text-red-500 text-sm ml-2">
+                <div className="text-red-500 text-sm ms-2">
                   {touched.password && errors.password}
                 </div>
               </div>
               <button
                 type="submit"
-                className="w-full bg-main-800 border rounded-full p-2 text-white disabled:opacity-50 my-2"
+                className="w-full bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
-                Login
+                {t("form.login")}
               </button>
-              <div className="text-sm font-bold text-main-400 mt-2 ml-2">
-                Don&apos;t have an account? &nbsp;
+              <div className="text-sm font-bold text-main-400 dark:text-main-25 mt-2 ms-2">
+                {t("form.don't-have")} &nbsp;
                 <span
-                  className="cursor-pointer text-grey-600"
+                  className="cursor-pointer text-[#464646] dark:text-main-200"
                   onClick={() => navigate("/register", { replace: true })}
                 >
-                  Sign up
+                  {t("form.signup")}
                 </span>
               </div>
             </form>

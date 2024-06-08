@@ -1,3 +1,74 @@
 {
-    "hello": "hello"
+    "booking":{
+        "request-book": "Request to book",
+        "trip": "Your trip",
+        "check-date": "Check date",
+        "start": "Start",
+        "end": "End",
+        "choose-pay": "Choose to pay",
+        "pay": "Pay",
+        "now": "now",
+        "pay-stripe": "Pay with stripe",
+        "policy": "Cancellation policy",
+        "cancel-not-allowed": "Cancellation today became not allowed",
+        "free-cancel": "Free cancellation before",
+        "before": "Cancel before check-in on ",
+        "refund": " for a partial refund",
+        "price-details": "Price details",
+        "stay": " Your stay will be",
+        "nights": "nights",
+        "per-night": "per night",
+        "book-now": "Book now",
+        "total": "Total"
+    },
+    "payment": {
+        "payment-success": "Ticket payment successful",
+        "payment-processed": "Your payment has been processed!",
+        "transaction-details": "Details of transaction are included below",
+        "total": "Total amount paid",
+        "paid-by": "Paid by",
+        "transaction-date": "Transaction date",
+        "master-card": "master card",
+        "back-home": "Back to home",
+        "payment-failed": "Ticket payment failed",
+        "error": "Your transaction has failed due to some technical error, Please try again",
+        "try": "Try again"
+    },
+    "search": {
+        "where": "Where",
+        "room-type": "Room type",
+        "destination": "Search destination",
+        "search-type": "Search room type"
+    },
+    "drop-down": {
+        "branches": "All branches",
+        "rooms": "All rooms",
+        "login": "Log in",
+        "logout": "Log out"
+    },
+    "form": {
+        "start": "Start for free",
+        "create-new": "Create new account",
+        "welcome": "Welcome Back",
+        "details": "Please enter your details",
+        "fname": "First Name",
+        "lname": "Last Name",
+        "email": "Email",
+        "password": "Password",
+        "confirm": "Confirm Password",
+        "create": "Create account",
+        "have": "Already have an account?",
+        "don't-have": "Don't have an account?",
+        "signup": "Sign up",
+        "login": "Log in",
+        "fname-req": "First name is required*",
+        "lname-req": "Last name is required*",
+        "email-req": "Email is required*",
+        "password-req": "Password is required*",
+        "confirm-req": "Confirm password is required*",
+        "invalid-email": "Invalid email address",
+        "invalid-password": "Invalid password, minimum 8 characters, at least one letter and one number",
+        "match": "Passwords must match"
+    },
+    "items": "Page items"
 }

@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-800`}>
+    <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-700`}>
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />

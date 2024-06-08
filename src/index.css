@@ -87,7 +87,7 @@ body {
 input {
   background-color: transparent;
 }
-.slick-prev:before,
+/* .slick-prev:before,
 .slick-next:before {
   color: #52381d;
 }
@@ -99,11 +99,14 @@ input {
   margin-right: -10px;
   z-index: 2;
   font-size: 30px;
+} */
+
+
+.range-slider .range-slider__thumb{
+  background: #52381d;
+
 }
 
-.range-slider .range-slider__thumb {
-  background: #52381d;
-}
 .range-slider .range-slider__range {
   background: #52381d;
 }
@@ -324,3 +327,4 @@ input {
   -ms-transform: translate(-5px, 0);
   -o-transform: translate(-5px, 0);
 }
+
