@@ -40,7 +40,7 @@ const DateRangePickerComponent = ({
   };
   return (
     <DateRangePicker
-      className="bg-white absolute top-[56px] z-10 -left-[95px] md:left-0"
+      className="bg-white absolute top-[56px] z-10 rtl:right-0 ltr:-left-[95px] md:left-0"
       ranges={[selectionRange]}
       onChange={handleSelect}
       minDate={new Date()}

@@ -1,18 +1,52 @@
 const ModeSwitch = ({ handleMode, mode }) => {
+  const darkIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 12 12"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1}
+        d="M10.177 7.677A4.5 4.5 0 014.323 1.823a4.502 4.502 0 002.676 8.823A4.502 4.502 0 0010.177 7.677z" // Adjusted path for half dimensions
+      />
+    </svg>
+  );
+
+  const lightIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 12 12"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1}
+        d="M6 1.5v0.5m0 8v0.5m4.5-4.5h-0.5M2 6H1.5m7.682 3.182l-.354-.354M3.171 3.171l-.354-.354m6.364 0l-.354.354M3.171 8.828l-.354.354M8 6a2 2 0 11-4 0 2 2 0 014 0z"
+      />
+    </svg>
+  );
+
   return (
     <>
-       <div onClick={handleMode} className={`toggle ${mode == "dark" ? "night" : ""}`}>
-            <div className="notch">
-                <div className="crater" />
-                <div className="crater" />
-            </div>
-            <div>
-                <div className="shape sm" />
-                <div className="shape sm" />
-                <div className="shape md" />
-                <div className="shape lg" />
-            </div>
+      <button
+        className={`w-10 h-5 rounded-full ${mode == "dark" ? "bg-gray-200" : "bg-amber-100"} flex items-center transition duration-300 focus:outline-none shadow`}
+        onClick={handleMode}
+      >
+        <div
+          className={`w-6 h-6 relative rounded-full transition duration-500 transform ${
+            mode == "dark"
+              ? "bg-gray-700 translate-x-full"
+              : "bg-yellow-500 -translate-x-2"
+          } p-1 text-white`}
+        >
+          {mode == "dark" ? darkIcon : lightIcon}
         </div>
+      </button>
     </>
   );
 };
