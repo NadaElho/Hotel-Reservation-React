@@ -28,7 +28,7 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
     <div
       dir="ltr"
       className={`w-screen fixed z-50 mx-auto top-0 left-1/2 transform -translate-x-1/2 shadow-none flex ${
-        isScrolled ? "bg-grey-100" : "bg-transparent"
+        isScrolled ? "bg-grey-100 dark:bg-main-700" : "bg-transparent"
       }`}
     >
       <nav className="w-full mx-auto flex justify-between items-center bg-transparent">

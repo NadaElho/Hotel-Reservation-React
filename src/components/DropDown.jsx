@@ -24,7 +24,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
             <span className="sr-only">Open user menu</span>
             <RiMenu3Line
               size="2em"
-              color={`${isScrolled ? "#52381D" : "white"}`}
+              color={`${isScrolled && localStorage.getItem("dark") != "dark" ? "#52381D" : "white"}`}
             />
           </button>
         </div>
@@ -32,7 +32,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
         dir={`${localStorage.getItem("lang") == 'ar' ? "rtl" : "ltr"}`}
           className={`${
             show ? "block" : "hidden"
-          } absolute right-0 z-10 mt-0 w-48 origin-top-right rounded-md bg-grey-100 shadow-md py-1`}
+          } absolute right-0 z-10 mt-0 w-48 origin-top-right rounded-md bg-grey-100 dark:bg-main-700 shadow-md py-1`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="user-menu-button"
@@ -42,7 +42,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
             <Link
               key={link.name}
               to={link.link}
-              className="block px-4 py-2 text-sm text-main-400"
+              className="block px-4 py-2 text-sm text-main-400 dark:text-main-25"
               role="menuitem"
               tabIndex={-1}
             >
@@ -52,7 +52,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           {logged && (
             <Link
               to="/login"
-              className="block px-4 py-2 text-sm text-main-400"
+              className="block px-4 py-2 text-sm text-main-400 dark:text-main-25"
               role="menuitem"
               tabIndex={-1}
             >
@@ -61,7 +61,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           )}
           {!logged && (
             <Link
-              className="block px-4 py-2 text-sm text-main-400"
+              className="block px-4 py-2 text-sm text-main-400 dark:text-main-25"
               role="menuitem"
               tabIndex={-1}
               to="/"

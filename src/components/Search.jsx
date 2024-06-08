@@ -4,6 +4,9 @@ import { IoSearchCircle } from "react-icons/io5";
 import DateRangePickerComponent from "./DateRangePicker";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../providers/LanguageContext";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { MdBedroomParent } from "react-icons/md";
 
 export const Search = () => {
   const [searchInput, setSearchInput] = useState({
@@ -100,15 +103,15 @@ export const Search = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className=" flex items-center gap-3 justify-center bg-white flex-col md:flex-row rounded-3xl p-2 md:p-0 md:rounded-full w-fit">
+      <div className=" flex items-center gap-3 justify-center bg-white flex-col md:flex-row rounded-3xl p-2 md:p-0 md:rounded-full w-fit dark:bg-main-1000 border dark:border-main-500">
         <div className="flex flex-col w-[200px] md:ms-6 items-center md:items-start">
-          <div className="text-main-400 font-bold pl-1 -mb-1">
-            {t("search.where")}
+          <div className="text-main-400 font-bold pl-1 -mb-1 dark:text-main-50 flex gap-1 items-center">
+            <FaLocationDot/> <span>{t("search.where")}</span>
           </div>
           <div className="relative group">
             <input
               id="search-input"
-              className="block w-full p-1 rounded-md rtl:md:placeholder:text-right text-main-400 outline-none text-sm placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
+              className="block w-full p-1 rounded-md rtl:md:placeholder:text-right text-main-400 outline-none text-sm placeholder:text-main-400 dark:placeholder:dark:text-main-500 placeholder:text-center md:placeholder:text-left"
               type="text"
               placeholder={t("search.destination")}
               onChange={handleSearchHotels}
@@ -148,10 +151,16 @@ export const Search = () => {
             data-id="button"
             className="text-main-800 px-4 w-[140px] rounded-3xl flex flex-col items-center md:items-start"
           >
-            <span data-id="button" className="text-main-400 font-bold">
-              {t("booking.check-date")}
+            <span
+              data-id="button"
+              className="text-main-400 font-bold dark:text-main-50 flex items-center gap-1"
+            >
+              <FaRegCalendarAlt/> <span>{t("booking.check-date")}</span>
             </span>
-            <span data-id="button" className="text-main-400 text-sm py-1">{`${
+            <span
+              data-id="button"
+              className="text-main-400 dark:text-main-500 text-sm py-1"
+            >{`${
               selectedDates[0]
                 ? selectedDates[0].toLocaleDateString(
                     isArabic ? "ar-EG" : "en-US",
@@ -177,13 +186,13 @@ export const Search = () => {
           )}
         </div>
         <div className="flex flex-col w-[200px] items-center md:items-start">
-          <div className="text-main-400 font-bold pl-1 -mb-1">
-            {t("search.room-type")}
+          <div className="text-main-400 dark:text-main-50 font-bold pl-1 -mb-1 flex items-center gap-1">
+            <MdBedroomParent/> <span>{t("search.room-type")}</span>
           </div>
           <div className="relative group">
             <input
               id="search-input"
-              className="block w-full p-1 rounded-md outline-none text-main-400 text-sm rtl:md:placeholder:text-right placeholder:text-main-400 placeholder:text-center md:placeholder:text-left"
+              className="block w-full p-1 rounded-md outline-none text-main-400 text-sm rtl:md:placeholder:text-right placeholder:text-main-400 dark:placeholder:dark:text-main-500 placeholder:text-center md:placeholder:text-left"
               type="text"
               placeholder={t("search.search-type")}
               onChange={handleSearchTypes}
@@ -226,7 +235,9 @@ export const Search = () => {
           }`}
         >
           <IoSearchCircle
-            color="#AA9383"
+            color={`${
+              localStorage.getItem("dark") == "dark" ? "#7C6555" : "#AA9383"
+            }`}
             size="3.5em"
             style={{ cursor: "pointer" }}
           />

@@ -94,16 +94,16 @@ function BookingForm() {
     <div className="p-4">
       <div className="flex flex-col justify-between md:flex-row">
         <div>
-          <h2 className="text-3xl text-main-800 font-bold">
+          <h2 className="text-3xl text-main-800 dark:text-main-50 font-bold">
             {t("booking.request-book")}
           </h2>
-          <h2 className="text-2xl text-main-800 py-5 font-medium">
+          <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
             {t("booking.trip")}
           </h2>
           <div className="flex w-[140px] md:w-[400px] justify-between flex-col md:flex-row">
             <div className="flex flex-col justify-between relative">
               <button
-                className="text-white bg-main-100 px-4 py-2 my-2 w-[140px] rounded-3xl flex items-center justify-between"
+                className="text-white bg-main-100 dark:text-main-1000 dark:font-bold dark:bg-main-600 px-4 py-2 my-2 w-[140px] rounded-3xl flex items-center justify-between"
                 onClick={toggleHandler}
               >
                 <span>{t("booking.check-date")}</span>
@@ -123,7 +123,7 @@ function BookingForm() {
               )}
             </div>
             <div className="flex justify-between gap-0 md:gap-4 flex-col md:flex-row">
-              <div className=" flex md:flex-col justify-between items-center text-main-100 ">
+              <div className=" flex md:flex-col justify-between items-center text-main-100 dark:text-main-150">
                 <span>{t("booking.start")}</span>
                 <div className="py-2 ">
                   {selectedDates[0]?.toLocaleDateString(
@@ -132,7 +132,7 @@ function BookingForm() {
                   )}
                 </div>
               </div>
-              <div className=" flex md:flex-col justify-between items-center text-main-100">
+              <div className=" flex md:flex-col justify-between items-center text-main-100 dark:text-main-150">
                 <span>{t("booking.end")}</span>
                 <span className="py-2">
                   {selectedDates[1]?.toLocaleDateString(
@@ -143,13 +143,13 @@ function BookingForm() {
               </div>
             </div>
           </div>
-          <h2 className="text-2xl text-main-800 pb-3 pt-6 font-bold">
+          <h2 className="text-2xl text-main-800 dark:text-main-50 pb-3 pt-6 font-bold">
             {t("booking.choose-pay")}
           </h2>
           <div>
             <div className="border border-main-100 my-4 rounded-2xl max-w-[300px]">
               <div className="flex justify-between border-main-100 border-b-2 p-2">
-                <div className="text-main-400">
+                <div className="text-main-400 dark:text-main-150">
                   {t("booking.pay")} {roomData.currency}
                   {calcTotalPrice} {t("booking.now")}
                 </div>
@@ -164,7 +164,7 @@ function BookingForm() {
                 />
               </div>
               <div className="flex justify-between p-2">
-                <div className="text-main-400">{t("booking.pay-stripe")}</div>
+                <div className="text-main-400 dark:text-main-150">{t("booking.pay-stripe")}</div>
                 <input
                   type="radio"
                   className="radio accent-main-200"
@@ -178,13 +178,13 @@ function BookingForm() {
             </div>
           </div>
           <div>
-            <h3 className="text-main-200 font-bold text-xl pt-4 pb-2">
+            <h3 className="text-main-200 dark:text-main-50 font-bold text-xl pt-4 pb-2">
               {t("booking.policy")}
             </h3>
             {new Date(selectedDates[0]) >
             new Date(new Date().setDate(new Date().getDate() + 2)) ? (
               <p className="text-main-200 font-bold py-3">
-                <span className="text-main-800 font-bold">
+                <span className="text-main-800 dark:text-main-25 font-bold">
                   {t("booking.free-cancel")} &nbsp;
                   {new Date(
                     new Date(selectedDates[0]).setDate(
@@ -207,7 +207,7 @@ function BookingForm() {
                 {t("booking.refund")}
               </p>
             ) : (
-              <p className="text-main-200 py-3">{t("cancel-not-allowed")}</p>
+              <p className="text-main-200 dark:text-main-150 py-3">{t("booking.cancel-not-allowed")}</p>
             )}
           </div>
         </div>
