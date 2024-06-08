@@ -24,7 +24,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
             <span className="sr-only">Open user menu</span>
             <RiMenu3Line
               size="2em"
-              color={`${isScrolled ? "#52381D" : "white"}`}
+              color={`${isScrolled && localStorage.getItem("dark") != "dark" ? "#52381D" : "white"}`}
             />
           </button>
         </div>

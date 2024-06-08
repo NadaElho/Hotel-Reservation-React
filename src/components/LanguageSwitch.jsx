@@ -12,10 +12,10 @@ const LanguageSwitch = ({ isScrolled }) => {
       <img
         src={
           localStorage.getItem("lang") == "ar"
-            ? isScrolled
+            ? isScrolled && localStorage.getItem("dark") != "dark"
               ? arabicDark
               : arabic
-            : isScrolled
+            : isScrolled && localStorage.getItem("dark") != "dark"
             ? englishDark
             : english
         }

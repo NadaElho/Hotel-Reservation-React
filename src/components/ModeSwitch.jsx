@@ -4,13 +4,13 @@ const ModeSwitch = ({ handleMode, mode }) => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 12 12"
-      stroke="currentColor"
+      stroke="#7C6555"
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1}
-        d="M10.177 7.677A4.5 4.5 0 014.323 1.823a4.502 4.502 0 002.676 8.823A4.502 4.502 0 0010.177 7.677z" // Adjusted path for half dimensions
+        d="M10.177 7.677A4.5 4.5 0 014.323 1.823a4.502 4.502 0 002.676 8.823A4.502 4.502 0 0010.177 7.677z"
       />
     </svg>
   );
@@ -20,7 +20,7 @@ const ModeSwitch = ({ handleMode, mode }) => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 12 12"
-      stroke="currentColor"
+      stroke="white"
     >
       <path
         strokeLinecap="round"
@@ -34,14 +34,14 @@ const ModeSwitch = ({ handleMode, mode }) => {
   return (
     <>
       <button
-        className={`w-10 h-5 rounded-full ${mode == "dark" ? "bg-gray-200" : "bg-amber-100"} flex items-center transition duration-300 focus:outline-none shadow`}
+        className={`w-10 h-5 rounded-full ${mode == "dark" ? "bg-main-600" : "bg-grey-500"} flex items-center transition duration-300 focus:outline-none shadow`}
         onClick={handleMode}
       >
         <div
           className={`w-6 h-6 relative rounded-full transition duration-500 transform ${
             mode == "dark"
-              ? "bg-gray-700 translate-x-full"
-              : "bg-yellow-500 -translate-x-2"
+              ? "bg-white translate-x-full"
+              : "bg-main-600 -translate-x-2"
           } p-1 text-white`}
         >
           {mode == "dark" ? darkIcon : lightIcon}

@@ -30,7 +30,7 @@ function PaymentResult() {
       <div className="md:p-4">
         {resultQuery == "success" ? (
           <div className="py-5 flex justify-center flex-col">
-            <h2 className="text-center pt-5 font-bold text-main-800 text-2xl md:text-3xl lg:text-4xl">
+            <h2 className="text-center pt-5 font-bold text-main-800 dark:text-main-25 text-2xl md:text-3xl lg:text-4xl">
               {t("payment.payment-success")}
             </h2>
             <div className="flex py-5 justify-between gap-0 md:gap-20 items-center">
@@ -38,26 +38,26 @@ function PaymentResult() {
                 src={success}
                 className="hidden md:inline-block md:w-[200px] lg:w-[400px]"
               />
-              <div className="border border-main-800 p-5 w-full rounded-3xl md:w-[400px] lg:w-[450px]">
-                <p className="text-main-800 font-bold pt-4">
+              <div className="border border-main-800 dark:border-main-25 p-5 w-full rounded-3xl md:w-[400px] lg:w-[450px]">
+                <p className="text-main-800 dark:text-main-50 font-bold pt-4">
                   {t("payment.payment-processed")}
                 </p>
-                <p className="text-main-800 font-bold pb-4">
+                <p className="text-main-800 dark:text-main-25 font-bold pb-4">
                   {t("payment.transaction-details")}
                 </p>
                 <div className="flex justify-between text-main-300">
-                  <div className="font-bold">{t("payment.total")}</div>
-                  <div>${price}</div>
+                  <div className="font-bold dark:text-main-50">{t("payment.total")}</div>
+                  <div className="dark:text-main-900">${price}</div>
                 </div>
                 <div className="flex justify-between text-main-300 py-4">
-                  <div className="font-bold">{t("payment.paid-by")}</div>
-                  <div>{t("payment.master-card")}</div>
+                  <div className="font-bold dark:text-main-50">{t("payment.paid-by")}</div>
+                  <div className="dark:text-main-900">{t("payment.master-card")}</div>
                 </div>
                 <div className="flex justify-between text-main-300 pb-4">
-                  <div className="font-bold">
+                  <div className="font-bold dark:text-main-50">
                     {t("payment.transaction-date")}
                   </div>
-                  <div>
+                  <div className="dark:text-main-900">
                     {new Date().toLocaleDateString(
                       isArabic ? "ar-EG" : "en-US",
                       {
@@ -75,7 +75,7 @@ function PaymentResult() {
             <div className="text-center mt-5">
               <Link
                 to="/"
-                className="rounded-3xl py-2 px-11 bg-main-800 text-white text-center"
+                className="rounded-3xl py-2 px-11 bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold text-white text-center"
               >
                 {t("payment.back-home")}
               </Link>
@@ -84,16 +84,16 @@ function PaymentResult() {
         ) : (
           <div className="flex justify-center items-center flex-col">
             <img className="w-3/4 lg:w-1/2 " src={fail} alt="" />
-            <h2 className="text-center pt-5 font-bold text-main-800 text-2xl md:text-3xl lg:text-4xl">
+            <h2 className="text-center pt-5 font-bold text-main-800 dark:text-main-25 text-2xl md:text-3xl lg:text-4xl">
               {t("payment.payment-failed")}
             </h2>
-            <p className="text-sm py-2 text-main-200 text-center">
+            <p className="text-sm py-2 text-main-200 dark:text-main-150 text-center">
               {t("payment.error")}
             </p>
             <div className="text-center mt-11 mb-5">
               <button
                 onClick={tryPaymentAgain}
-                className="rounded-3xl py-2 px-11 mb-3 bg-main-800 text-white text-center"
+                className="rounded-3xl py-2 px-11 mb-3 bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold text-white text-center"
               >
                 {t("payment.try")}
               </button>
