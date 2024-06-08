@@ -15,8 +15,8 @@ import PaymentResult from "./pages/PaymentResult.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
-import PrivateRoute from "./ProtectedRoutes/PrivateRoute.jsx";
-import Guard from "./ProtectedRoutes/Guard.jsx";
+import PrivateRoute from "./protectedRoutes/PrivateRoute.jsx";
+import Guard from "./protectedRoutes/Guard.jsx";
 import Branch from "./pages/Branch.jsx";
 
 function App() {
