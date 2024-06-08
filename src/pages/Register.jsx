@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
@@ -31,8 +31,7 @@ const Register = () => {
     } else if (
       !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)
     ) {
-      errors.password =
-        t("form.invalid-password")
+      errors.password = t("form.invalid-password");
     }
     if (!values.confirmPassword) {
       errors.confirmPassword = t("form.confirm-req");
@@ -71,13 +70,13 @@ const Register = () => {
     setSubmitting(false);
   };
 
-  const isDark = localStorage.getItem("dark") == "dark"
+  const isDark = localStorage.getItem("dark") == "dark";
 
   return (
     <div className="flex items-center justify-center md:h-screen md:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-12 md:w-2/3 lg:w-1/2">
         <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:right-4 md:rtl:right-16 ltr:left-4 md:ltr:left-12">
-          APEX
+          <Link to="/">APEX</Link>
         </h1>
         <h5 className="ms-2 text-xs text-main-400 dark:text-main-150 font-semibold mt-[100px] md:mt-0">
           {t("form.start")}
@@ -126,7 +125,7 @@ const Register = () => {
                 </div>
                 <div className="w-full md:w-1/2 my-2">
                   <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250  p-2">
-                    <FaRegUser  color={`${isDark ? "#1D1D1D" : "white"}`}  />
+                    <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
                     <input
                       type="text"
                       name="lname"
@@ -144,7 +143,7 @@ const Register = () => {
               </div>
               <div className="my-2">
                 <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                  <AiOutlineMail color={`${isDark ? "#1D1D1D" : "white"}`}  />
+                  <AiOutlineMail color={`${isDark ? "#1D1D1D" : "white"}`} />
                   <input
                     type="email"
                     name="email"
@@ -161,7 +160,9 @@ const Register = () => {
               </div>
               <div className="my-4 md:my-2">
                 <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                  <IoLockClosedOutline color={`${isDark ? "#1D1D1D" : "white"}`}  />
+                  <IoLockClosedOutline
+                    color={`${isDark ? "#1D1D1D" : "white"}`}
+                  />
                   <input
                     type="password"
                     name="password"
@@ -178,7 +179,9 @@ const Register = () => {
               </div>
               <div className="my-2">
                 <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                  <IoLockClosedOutline color={`${isDark ? "#1D1D1D" : "white"}`}  />
+                  <IoLockClosedOutline
+                    color={`${isDark ? "#1D1D1D" : "white"}`}
+                  />
                   <input
                     type="password"
                     name="confirmPassword"

@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import axiosInstance from "../../interceptor";
@@ -55,7 +55,7 @@ const Login = ({ handleLog }) => {
     <div className="flex justify-center lg:h-screen lg:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-16 lg:p-16 md:w-3/4 lg:w-1/2 flex flex-col justify-center">
         <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:right-4 md:rtl:right-16 ltr:left-4 md:ltr:left-12">
-          APEX
+          <Link to="/">APEX</Link>
         </h1>
         <h3 className="ms-2 font-bold text-grey-600 dark:text-grey-400 text-2xl mt-[50px] lg:mt-0">
           {t("form.welcome")}
