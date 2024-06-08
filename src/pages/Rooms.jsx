@@ -18,7 +18,7 @@ const Rooms = () => {
   const [truncated, setTruncated] = useState([]);
   const [isloading, setLoading] = useState(true);
 
-  const debounceValue = useDebounce(value, 1000);
+  const debounceValue = useDebounce(value, 500);
   const onValueChange = (values) => {
     setValue([...values]);
   };
