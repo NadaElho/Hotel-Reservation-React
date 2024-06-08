@@ -39,5 +39,11 @@
         "room-type": "Room type",
         "destination": "Search destination",
         "search-type": "Search room type"
+    },
+    "drop-down": {
+        "branches": "All branches",
+        "rooms": "All rooms",
+        "login": "Log in",
+        "logout": "Log out"
     }
 }
