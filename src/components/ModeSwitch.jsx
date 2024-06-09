@@ -34,7 +34,9 @@ const ModeSwitch = ({ handleMode, mode }) => {
   return (
     <>
       <button
-        className={`w-10 h-5 rounded-full ${mode == "dark" ? "bg-main-600" : "bg-grey-500"} flex items-center transition duration-300 focus:outline-none shadow`}
+        className={`w-10 h-5 rounded-full ${
+          mode == "dark" ? "bg-main-600" : "bg-grey-500"
+        } flex items-center transition duration-300 focus:outline-none shadow`}
         onClick={handleMode}
       >
         <div
