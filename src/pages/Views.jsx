@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
+
 const Views = () => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <>
       <div className="container mx-auto hidden xl:block">
         <h2 className="text-primary text-4xl font-secondary uppercase mx-10 mt-10 dark:text-PrimaryDark">
-          Mesmerising views you can’t ignore
+          {t("branch.views")}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-10 mt-10">

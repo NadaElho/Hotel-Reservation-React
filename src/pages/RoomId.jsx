@@ -3,13 +3,16 @@ import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptor";
 import RoomCard from "../components/RoomCard";
 import Loader from "../components/Loader";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const RoomId = () => {
   const [room, setRoom] = useState([]);
   const { id } = useParams();
   const [disabledDates, setDisabledDates] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { t } = useContext(LanguageContext);
+  const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get(`/rooms/${id}`);
@@ -33,7 +36,7 @@ const RoomId = () => {
         <div className="container mx-auto mt-8 ">
           <div className="mx-10" key={room._id}>
             <p className="text-primary font-bold text-3xl font-secondary dark:text-PrimaryDark">
-              {`${room.hotelId && room.hotelId.name_en} branch`}
+              {`${room.hotelId && isArabic ? room.hotelId.name_ar : room.hotelId.name_en} ${t("rooms.branch")}`}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-4 mt-4">
@@ -55,14 +58,16 @@ const RoomId = () => {
             <div>
               <div className="mx-10 w-2/4 mt-8 ">
                 <p className="text-primary font-600 text-3xl font-secondary dark:text-PrimaryDark">
-                  {room.roomTypeId && room.roomTypeId.type_en}
+                  {room.roomTypeId && isArabic ? room.roomTypeId.type_ar : room.roomTypeId.type_en}
                 </p>
-                <p className="text-primary mt-6 dark:text-[#CBB7A4]">{room.description_en}</p>
+                <p className="text-primary mt-6 dark:text-[#CBB7A4]">
+                  {isArabic ? room.description_ar : room.description_en}
+                </p>
               </div>
               {/* sec2 */}
               <div className="mx-10 mt-10">
                 <p className="text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
-                  Amenities Available
+                  {t("rooms.Amenitiy-vailable")}
                 </p>
                 <div className="flex mt-8">
                   <div className="flex flex-col gap-6">
@@ -77,7 +82,9 @@ const RoomId = () => {
                               height={"20px"}
                             />
                           </div>
-                          <span className="dark:text-[#F0C7AD]">{r.description_en && r.description_en}</span>
+                          <span className="dark:text-[#F0C7AD]">
+                            {r.description_en && isArabic ? r.description_ar : r.description_en}
+                          </span>
                         </div>
                       ))}
                   </div>
@@ -94,7 +101,7 @@ const RoomId = () => {
       ) : (
         <div className="text-center w-full mt-10">
           <p className="text-2xl text-primary text-center font-semibold">
-            No room found .
+            {t("rooms.room-not-found")} .
           </p>
         </div>
       )}
