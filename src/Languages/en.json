@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "branch": {
     "About": "About",
     "Branch": "Branch",
@@ -7,13 +6,15 @@
     "accommodation-desc": "The rooms in our hotel are meticulously designed to offer a sanctuary of comfort and relaxation. Each room boasts plush bedding with high-thread-count linens, ensuring a restful night’s sleep. The ambient lighting, coupled with carefully selected décor, creates a soothing atmosphere perfect for unwinding after a long day.",
     "View-Accommodations": "View Accommodations",
     "check-out": "Check out our other branches",
-    "no-branch": "No Branch is detected"
+    "no-branch": "No Branch is detected",
+    "text": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!",
+    "discover": "Discover our Branches",
+    "views": "Mesmerising views you can’t ignore"
   },
-
   "branches": {
     "Discover-our-Branches": "Discover our Branches",
     "branches-desc": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!"
-=======
+  },
   "rooms": {
     "filter": "Filter by Amenity",
     "filter-by": "Filter by",
@@ -32,13 +33,7 @@
     "Explore-branches": "Explore stays in our branches",
     "branch": "branch",
     "checkout": "Check out",
-    "book-now" : "Book now for"
-  },
-  "branch": {
-    "text": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!",
-    "discover": "Discover our Branches",
-    "views": "Mesmerising views you can’t ignore"
->>>>>>> 88740a3c59115bdd7ce7754e18e1d5d5bf047c5e
+    "book-now": "Book now for"
   },
   "booking": {
     "request-book": "Request to book",
@@ -111,10 +106,6 @@
     "invalid-password": "Invalid password, minimum 8 characters, at least one letter and one number",
     "match": "Passwords must match"
   },
-<<<<<<< HEAD
-  "items": "Page items"
-}
-=======
   "items": "Page items",
   "footer": {
     "start": "Ready to get started ?",
@@ -135,5 +126,3 @@
     "copy-right": "All Rights Reserved"
   }
 }
-
->>>>>>> 88740a3c59115bdd7ce7754e18e1d5d5bf047c5e

@@ -8,14 +8,9 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-<<<<<<< HEAD
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
-=======
-import { FreeMode, Pagination ,Navigation} from "swiper/modules";
-import { useContext } from "react";
-import { LanguageContext } from "../providers/LanguageContext";
 
->>>>>>> 88740a3c59115bdd7ce7754e18e1d5d5bf047c5e
+
 const Branches = () => {
   const isArabic = localStorage.getItem("lang") == "ar";
   const { t } = useContext(LanguageContext);
@@ -23,7 +18,6 @@ const Branches = () => {
     t(" Discover-our-Branches", "branches-desc");
   }
   const [branches, setBranches] = useState([]);
-
 
   useEffect(() => {
     async function fetchData() {
@@ -38,17 +32,10 @@ const Branches = () => {
     <>
       <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 lg:flex">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10 dark:text-PrimaryDark">
-<<<<<<< HEAD
           {t("branches.Discover-our-Branches")}
         </h2>
         <p className="w-64 py-1 text-primary font-custom font-semibold mx-10 dark:text-[#CBB7A4]">
           {t("branches.branches-desc")}
-=======
-          {t("branch.discover")}
-        </h2>
-        <p className="w-64 py-1 text-primary font-custom font-semibold mx-10 dark:text-[#CBB7A4]">
-          {t("branch.text")}
->>>>>>> 88740a3c59115bdd7ce7754e18e1d5d5bf047c5e
         </p>
       </div>
       <Swiper
@@ -75,20 +62,13 @@ const Branches = () => {
                     alt=""
                     className="h-full w-full object-cover"
                   />
-<<<<<<< HEAD
                   <div className="absolute bottom-6 left-6 right-6 w-full text-white ">
                     <p className="font-500 text-4xl font-secondary playfair-display">
                       {isArabic ? branch.name_ar : branch.name_en}
                     </p>
                     <p className="opacity-80 playfair-display">
                       {isArabic ? branch.address_ar : branch.address_en}
-=======
-                  <div className="absolute bottom-6 left-6 w-full text-white">
-                    <p className="font-400 text-3xl font-secondary">
-                      {isArabic ? branch.name_ar : branch.name_en}
->>>>>>> 88740a3c59115bdd7ce7754e18e1d5d5bf047c5e
                     </p>
-                    <p className="opacity-80">{isArabic ? branch.address_ar : branch.address_en}</p>
                   </div>
                 </div>
               </Link>

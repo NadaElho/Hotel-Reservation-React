@@ -236,7 +236,7 @@ export const Search = () => {
         >
           <IoSearchCircle
             color={`${
-              localStorage.getItem("dark") == "dark" ? "#7C6555" : "#AA9383"
+              localStorage.getItem("dark") == "dark" ? "#7C6555" : "#7C6555"
             }`}
             size="3.5em"
             style={{ cursor: "pointer" }}
