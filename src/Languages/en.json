@@ -7,9 +7,9 @@
     "View-Accommodations": "View Accommodations",
     "check-out": "Check out our other branches",
     "no-branch": "No Branch is detected",
-     "text": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!",
-     "discover": "Discover our Branches",
-     "views": "Mesmerising views you can’t ignore"
+    "text": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!",
+    "discover": "Discover our Branches",
+    "views": "Mesmerising views you can’t ignore"
   },
   "branches": {
     "Discover-our-Branches": "Discover our Branches",
@@ -33,7 +33,7 @@
     "Explore-branches": "Explore stays in our branches",
     "branch": "branch",
     "checkout": "Check out",
-    "book-now" : "Book now for"
+    "book-now": "Book now for"
   },
   "booking": {
     "request-book": "Request to book",
