@@ -8,9 +8,13 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { FreeMode, Pagination ,Navigation} from "swiper/modules";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const Branches = () => {
   const [branches, setBranches] = useState([]);
+  const {t} = useContext(LanguageContext)
+  const isArabic = localStorage.getItem("lang") == "ar"
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/hotels");
@@ -24,11 +28,10 @@ const Branches = () => {
     <>
       <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 lg:flex">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10 dark:text-PrimaryDark">
-          Discover our Branches
+          {t("branch.discover")}
         </h2>
         <p className="w-64 py-1 text-primary font-custom font-semibold mx-10 dark:text-[#CBB7A4]">
-          Embark on an unforgettable journey. Experience our unique culture, and
-          create lifetime memories. Your adventure starts here!
+          {t("branch.text")}
         </p>
       </div>
       <Swiper
@@ -57,9 +60,9 @@ const Branches = () => {
                   />
                   <div className="absolute bottom-6 left-6 w-full text-white">
                     <p className="font-400 text-3xl font-secondary">
-                      {branch.name_en}
+                      {isArabic ? branch.name_ar : branch.name_en}
                     </p>
-                    <p className="opacity-80">{branch.address_en}</p>
+                    <p className="opacity-80">{isArabic ? branch.address_ar : branch.address_en}</p>
                   </div>
                 </div>
               </Link>

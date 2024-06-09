@@ -8,10 +8,13 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { EffectCoverflow, Pagination, Navigation,Keyboard } from "swiper/modules";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const LimitedRooms = () => {
   const [rooms, setRooms] = useState([]);
-
+ const {t} = useContext(LanguageContext)
+  const isArabic = localStorage.getItem("lang") == "ar"
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
@@ -27,7 +30,7 @@ const LimitedRooms = () => {
   return (
     <div className="container mx-auto mt-20 px-4  overflow-hidden">
       <h2 className="text-primary text-2xl font-secondary uppercase mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
-        Check out our rooms
+        {t("rooms.Check-rooms")}
       </h2>
       <Swiper
         effect={"coverflow"}
@@ -63,7 +66,7 @@ const LimitedRooms = () => {
               <div className=" absolute bottom-0 left-0 flex  items-center ">
                 <div className="p-3 w-44 bg-secondary rounded dark:bg-[#7C6555]  ">
                   <p className="text-[#ffffff] font-semibold">
-                    {`${room.hotelId && room.hotelId.name_en} branch`}
+                    {`${room.hotelId && isArabic ? room.hotelId.name_ar : room.hotelId.name_en} branch`}
                   </p>
                   <div className=" flex text-xs space-x-2">
                     <span className="text-primary dark:text-[#ffffff]">
@@ -73,18 +76,18 @@ const LimitedRooms = () => {
                       <AiOutlineExclamationCircle />
                     </a>
                     <span className="text-primary  dark:text-[#ffffff]">
-                      Per night
+                      {t("rooms.Per-night")}
                     </span>
                   </div>
                   <p className="text-primary font-500 dark:text-[#ffffff]">
-                    Includes taxes & fees
+                    {t("rooms.taxes-fees")}
                   </p>
                 </div>
                 {/*  */}
                 <div className=" mx-6 mt-4">
                   <Link to={`reservation-room/${room._id}`}>
                     <button className="bg-primary text-white py-2 w-32  rounded dark:bg-[#E2C8AD] dark:text-customDark font-semibold">
-                      Reserve Now
+                      {t("rooms.Reserve-Now")}
                     </button>
                   </Link>
                 </div>

@@ -6,8 +6,14 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const Footer = () => {
+
+  //
+  const {t} = useContext(LanguageContext)
+
   return (
     <footer className="bg-footer dark:bg-[#1D1D1D] mt-4">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -20,74 +26,74 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <a href="#" className="items-center">
               <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-PrimaryDark text-primary font-secondary">
-                Ready to get started?
+                {t("footer.start")}
               </p>
               <p className="self-center text-custom whitespace-nowrap dark:text[#B4997E]">
-                Dicover Egypt through your eyes
+                {t("footer.discover")}
               </p>
             </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-4 text-sm font-semibold text-custom uppercase dark:text-[#FBFAF9]">
-                Resources
+                {t("footer.resource")}
               </h2>
               <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
                 <li className="mb-2">
                   <a href="#" className="hover:underline">
-                    Poducts
+                    {t("footer.Poducts")}
                   </a>
                 </li>
                 <li className="mb-2">
                   <a href="#" className="hover:underline">
-                    Service
+                    {t("footer.Service")}
                   </a>
                 </li>
                 <li className="mb-2">
                   <a href="#" className="hover:underline">
-                    Contact
+                    {t("footer.Contact")}
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:underline">
-                    About
+                    {t("footer.About")}
                   </a>
                 </li>
               </ul>
             </div>
             <div>
               <h2 className="mb-4 text-sm font-semibold text-custom dark:text-white dark:text-[#FBFAF9]">
-                Our branches
+                {t("footer.branches")}
               </h2>
               <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
-                    Luxor
+                  {t("footer.luxor")}
                   </a>
                 </li>
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
-                    Aswan
+                  {t("footer.aswan")}
                   </a>
                 </li>
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
-                    Cairo
+                  {t("footer.cairo")}
                   </a>
                 </li>{" "}
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
-                    Sinai
+                     {t("footer.sinai")}
                   </a>
-                </li>{" "}
+                </li>
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
-                    Giza
+                  {t("footer.giza")}
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:underline ">
-                    Siwa Qasis
+                    {t("footer.Siwa Qasis")}
                   </a>
                 </li>
               </ul>
@@ -95,7 +101,7 @@ const Footer = () => {
 
             <div>
               <h2 className="mb-4 text-sm font-semibold text-custom dark:text-[#FBFAF9]">
-                Telephones
+                {t("footer.Telephones")}
               </h2>
               <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
                 <li className="mb-2">
@@ -140,7 +146,7 @@ const Footer = () => {
             <a href="#" className="hover:underline">
               Apex™
             </a>
-            . All Rights Reserved.
+            . {t("footer.copy-right")}.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0 ">
             <a
