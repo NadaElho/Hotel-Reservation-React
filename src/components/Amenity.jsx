@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../interceptor";
 import { useNavigate } from "react-router-dom";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import { useContext } from "react";
+import { LanguageContext } from "../providers/LanguageContext";
 
 const Amenity = () => {
   const [amenities, setAmenities] = useState([]);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const {t} = useContext(LanguageContext)
+  const isArabic = localStorage.getItem("lang") == "ar"
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/amenities?limit=12&page=1");
@@ -28,7 +32,7 @@ const Amenity = () => {
         </span>
 
         <span className="flex items-center justify-center text-primary font-semibold dark:text-[#ffffff]">
-          Filter by Amenity
+          {t("rooms.filter")}
         </span>
       </div>
 
@@ -47,7 +51,7 @@ const Amenity = () => {
                 />
               </div>
               <p className="text-primary font-semibold dark:text-[#ffffff]">
-                {amenity.name_en}
+                { isArabic ? amenity.name_ar :  amenity.name_en}
               </p>
             </div>
           ))}
