@@ -6,12 +6,34 @@
     "accommodation-desc": "The rooms in our hotel are meticulously designed to offer a sanctuary of comfort and relaxation. Each room boasts plush bedding with high-thread-count linens, ensuring a restful night’s sleep. The ambient lighting, coupled with carefully selected décor, creates a soothing atmosphere perfect for unwinding after a long day.",
     "View-Accommodations": "View Accommodations",
     "check-out": "Check out our other branches",
-    "no-branch": "No Branch is detected"
+    "no-branch": "No Branch is detected",
+     "text": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!",
+     "discover": "Discover our Branches",
+     "views": "Mesmerising views you can’t ignore"
   },
-
   "branches": {
     "Discover-our-Branches": "Discover our Branches",
     "branches-desc": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!"
+  },
+  "rooms": {
+    "filter": "Filter by Amenity",
+    "filter-by": "Filter by",
+    "Price-night": "Price per night",
+    "Min": "Min",
+    "Max": "Max",
+    "less": "less",
+    "Check-details": "Check details",
+    "failed-request": " No rooms found matching your request.",
+    "Amenitiy-vailable": "Amenities Available",
+    "room-not-found": "No room found",
+    "Per-night": "Per night",
+    "taxes-fees": "Includes taxes & fees",
+    "Reserve-Now": "Reserve Now",
+    "Check-rooms": "Check out our rooms",
+    "Explore-branches": "Explore stays in our branches",
+    "branch": "branch",
+    "checkout": "Check out",
+    "book-now" : "Book now for"
   },
   "booking": {
     "request-book": "Request to book",
@@ -84,5 +106,23 @@
     "invalid-password": "Invalid password, minimum 8 characters, at least one letter and one number",
     "match": "Passwords must match"
   },
-  "items": "Page items"
+  "items": "Page items",
+  "footer": {
+    "start": "Ready to get started ?",
+    "discover": "Dicover Egypt through your eyes",
+    "resource": "Resources",
+    "Poducts": "Poducts",
+    "Service": "Service",
+    "Contact": "Contact",
+    "About": "About",
+    "branches": "Our branches",
+    "luxor": "Luxor",
+    "aswan": "Aswan",
+    "giza": "Giza",
+    "sinai": "Sinai",
+    "cairo": "Cairo",
+    "Siwa Qasis": "Siwa Qasis",
+    "Telephones": "Telephones",
+    "copy-right": "All Rights Reserved"
+  }
 }

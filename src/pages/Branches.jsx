@@ -9,6 +9,8 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
+
+
 const Branches = () => {
   const isArabic = localStorage.getItem("lang") == "ar";
   const { t } = useContext(LanguageContext);
@@ -16,6 +18,8 @@ const Branches = () => {
     t(" Discover-our-Branches", "branches-desc");
   }
   const [branches, setBranches] = useState([]);
+  const {t} = useContext(LanguageContext)
+  const isArabic = localStorage.getItem("lang") == "ar"
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/hotels");
@@ -66,6 +70,7 @@ const Branches = () => {
                     <p className="opacity-80 playfair-display">
                       {isArabic ? branch.address_ar : branch.address_en}
                     </p>
+                    <p className="opacity-80">{isArabic ? branch.address_ar : branch.address_en}</p>
                   </div>
                 </div>
               </Link>
