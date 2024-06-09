@@ -23,7 +23,7 @@ const Rooms = () => {
   //
   const {t} = useContext(LanguageContext)
 
-  const debounceValue = useDebounce(value, 1000);
+  const debounceValue = useDebounce(value, 500);
   const onValueChange = (values) => {
     setValue([...values]);
   };

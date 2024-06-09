@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../../interceptor";
 import Branches from "./Branches";
 import Loader from "../components/Loader";
+import { LanguageContext } from "../providers/LanguageContext";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -13,6 +14,18 @@ import "swiper/css/pagination";
 import "../../src/index.css";
 
 const Branch = () => {
+  const { t } = useContext(LanguageContext);
+  {
+    t(
+      "no-branch",
+      "check-out",
+      "About",
+      "Branch",
+      "Sleep-with-us",
+      "accommodation-desc",
+      "View-Accommodations"
+    );
+  }
   const [branch, setBranch] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const { id } = useParams();
@@ -63,20 +76,15 @@ const Branch = () => {
               <img
                 className="w-auto rounded-3xl"
                 src={branch.images[1]}
-                alt="View Accommodations"
+                alt={t("branch.View-Accommodations")}
               />
             </div>
             <div className="flex-1 w-full md:w-32 flex flex-col items-center justify-center order-2 md:order-1">
               <h1 className="text-center mt-10 text-5xl playfair-display text-main-800 font-semibold">
-                Sleep with us
+                {t("branch.Sleep-with-us")}
               </h1>
               <p className="text-start m-10 text-xl playfair-display text-main-800 font-medium">
-                The rooms in our hotel are meticulously designed to offer a
-                sanctuary of comfort and relaxation. Each room boasts plush
-                bedding with high-thread-count linens, ensuring a restful
-                night’s sleep. The ambient lighting, coupled with carefully
-                selected décor, creates a soothing atmosphere perfect for
-                unwinding after a long day.
+                {t("branch.accommodation-desc")}
                 <br />
                 <address>{branch.address_en}</address>
                 {branch.phoneNumber[0]}
@@ -86,7 +94,7 @@ const Branch = () => {
                 className="w-72 rounded-3xl px-4 py-2 bg-main-800 text-white text-center mt-5 hover:bg-main-400 hover:text-white"
                 onClick={() => navigate("/rooms")}
               >
-                View Accommodations
+                {t("branch.View-Accommodations")}
               </button>
             </div>
           </div>
@@ -142,7 +150,7 @@ const Branch = () => {
 
           <div>
             <h1 className="text-center mt-52 text-5xl playfair-display text-main-800 font-semibold">
-              Check out our other branches
+              {t("branch.check-out")}
             </h1>
             <Branches />
           </div>
@@ -150,7 +158,7 @@ const Branch = () => {
       ) : (
         <div className="text-center w-full mt-10">
           <p className="text-2xl text-primary text-center font-semibold">
-            No branch found.
+            {t("branch.no-branch")}
           </p>
         </div>
       )}
