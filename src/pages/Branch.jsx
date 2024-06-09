@@ -4,7 +4,6 @@ import axiosInstance from "../../interceptor";
 import Branches from "./Branches";
 import Loader from "../components/Loader";
 import { LanguageContext } from "../providers/LanguageContext";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
@@ -14,6 +13,7 @@ import "swiper/css/pagination";
 import "../../src/index.css";
 
 const Branch = () => {
+  const isArabic = localStorage.getItem("lang") == "ar";
   const { t } = useContext(LanguageContext);
   {
     t(
@@ -62,11 +62,12 @@ const Branch = () => {
               />
             </div>
             <div className="flex-1 w-full md:w-32 flex flex-col items-center justify-center">
-              <h1 className="text-center mt-10 text-5xl playfair-display text-main-800 font-semibold">
-                About {branch.name_en} Branch
+              <h1 className="text-center mt-10 text-5xl playfair-display text-main-800 font-semibold dark:text-[#E2C8AD]">
+                {t("branch.About")} {t("branch.Branch")}{" "}
+                {isArabic ? branch.name_ar : branch.name_en}{" "}
               </h1>
-              <p className="text-start m-5 md:m-10 text-lg md:text-xl playfair-display text-main-800 font-medium">
-                {branch.description_en}
+              <p className="text-start m-5 md:m-10 text-lg md:text-xl playfair-display text-main-800 font-medium dark:text-[#CBB7A4]">
+                {isArabic ? branch.description_ar : branch.description_en}
               </p>
             </div>
           </div>
@@ -80,18 +81,20 @@ const Branch = () => {
               />
             </div>
             <div className="flex-1 w-full md:w-32 flex flex-col items-center justify-center order-2 md:order-1">
-              <h1 className="text-center mt-10 text-5xl playfair-display text-main-800 font-semibold">
+              <h1 className="text-center mt-10 text-5xl playfair-display text-main-800 font-semibold dark:text-[#E2C8AD]">
                 {t("branch.Sleep-with-us")}
               </h1>
-              <p className="text-start m-10 text-xl playfair-display text-main-800 font-medium">
+              <p className="text-start m-10 text-xl playfair-display text-main-800 font-medium dark:text-[#CBB7A4]">
                 {t("branch.accommodation-desc")}
                 <br />
-                <address>{branch.address_en}</address>
+                <address>
+                  {isArabic ? branch.address_ar : branch.address_en}
+                </address>
                 {branch.phoneNumber[0]}
               </p>
 
               <button
-                className="w-72 rounded-3xl px-4 py-2 bg-main-800 text-white text-center mt-5 hover:bg-main-400 hover:text-white"
+                className="w-72 rounded-3xl px-4 py-2 bg-main-800 text-white text-center mt-5 hover:bg-main-400 hover:text-white dark:text-[#1D1D1D] dark:bg-[#E2C8AD]"
                 onClick={() => navigate("/rooms")}
               >
                 {t("branch.View-Accommodations")}
@@ -149,7 +152,7 @@ const Branch = () => {
           </Swiper>
 
           <div>
-            <h1 className="text-center mt-52 text-5xl playfair-display text-main-800 font-semibold">
+            <h1 className="text-center mt-52 text-5xl playfair-display text-main-800 font-semibold dark:text-[#E2C8AD]">
               {t("branch.check-out")}
             </h1>
             <Branches />
@@ -157,7 +160,7 @@ const Branch = () => {
         </>
       ) : (
         <div className="text-center w-full mt-10">
-          <p className="text-2xl text-primary text-center font-semibold">
+          <p className="text-2xl text-primary text-center font-semibold playfair-display dark:text-[#E2C8AD]">
             {t("branch.no-branch")}
           </p>
         </div>

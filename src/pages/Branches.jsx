@@ -1,15 +1,20 @@
 // Branches.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axiosInstance from "../../interceptor";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { LanguageContext } from "../providers/LanguageContext";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { FreeMode, Pagination ,Navigation} from "swiper/modules";
-
+import { FreeMode, Pagination, Navigation } from "swiper/modules";
 const Branches = () => {
+  const isArabic = localStorage.getItem("lang") == "ar";
+  const { t } = useContext(LanguageContext);
+  {
+    t(" Discover-our-Branches", "branches-desc");
+  }
   const [branches, setBranches] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -24,11 +29,10 @@ const Branches = () => {
     <>
       <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 lg:flex">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10 dark:text-PrimaryDark">
-          Discover our Branches
+          {t("branches.Discover-our-Branches")}
         </h2>
         <p className="w-64 py-1 text-primary font-custom font-semibold mx-10 dark:text-[#CBB7A4]">
-          Embark on an unforgettable journey. Experience our unique culture, and
-          create lifetime memories. Your adventure starts here!
+          {t("branches.branches-desc")}
         </p>
       </div>
       <Swiper
@@ -37,7 +41,7 @@ const Branches = () => {
         freeMode={true}
         pagination={{ clickable: true }}
         navigation={true}
-        modules={[FreeMode, Pagination,Navigation]}
+        modules={[FreeMode, Pagination, Navigation]}
         className="mySwiper container mx-auto mt-8"
         breakpoints={{
           0: { slidesPerView: 1, spaceBetween: 10 },
@@ -55,12 +59,12 @@ const Branches = () => {
                     alt=""
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute bottom-6 left-6 w-full text-white ">
+                  <div className="absolute bottom-6 left-6 right-6 w-full text-white ">
                     <p className="font-500 text-4xl font-secondary playfair-display">
-                      {branch.name_en}
+                      {isArabic ? branch.name_ar : branch.name_en}
                     </p>
                     <p className="opacity-80 playfair-display">
-                      {branch.address_en}
+                      {isArabic ? branch.address_ar : branch.address_en}
                     </p>
                   </div>
                 </div>
