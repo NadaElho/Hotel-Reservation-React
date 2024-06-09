@@ -71,9 +71,9 @@ function App() {
               </Route>
             </Routes>
           </div>
-          {location.pathname != "/login" && location.pathname != "/register" && !location.pathname.startsWith("/payment-result") && (
-        <Footer />
-      )}
+          {location.pathname != "/login" &&
+            location.pathname != "/register" &&
+            !location.pathname.startsWith("/payment-result") && <Footer />}
         </LanguageProvider>
       </I18nextProvider>
     </div>
