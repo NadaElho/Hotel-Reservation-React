@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../../src/index.css";
+import Map from "../components/Map";
 
 const Branch = () => {
   const isArabic = localStorage.getItem("lang") == "ar";
@@ -150,7 +151,7 @@ const Branch = () => {
               />
             </SwiperSlide>
           </Swiper>
-
+          <Map position={[{longitude: branch.longitude, latitude: branch.latitude, title: isArabic ? branch.name_ar : branch.name_en}]}/>
           <div>
             <h1 className="text-center mt-52 text-5xl playfair-display text-main-800 font-semibold dark:text-[#E2C8AD]">
               {t("branch.check-out")}

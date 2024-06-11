@@ -213,3 +213,6 @@ input {
 :root {
     --swiper-navigation-size: 30px;
 }
+.mapboxgl-popup-content{
+  background: #4a4646 !important;
+}
