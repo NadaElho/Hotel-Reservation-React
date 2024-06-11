@@ -1,15 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
+import { LanguageContext } from "../providers/LanguageContext";
+
 import Pagination from "../components/Pagination";
 import axiosInstance from "../../interceptor";
 import LinesEllipsis from "react-lines-ellipsis";
 import Loader from "../components/Loader";
 import Amenity from "../components/Amenity";
 import useDebounce from "../../useDebounce";
-import { useContext } from "react";
-import { LanguageContext } from "../providers/LanguageContext";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
+
 const Rooms = () => {
   const [value, setValue] = useState([0, 10000]);
   const [rooms, setRooms] = useState([]);
@@ -20,7 +21,7 @@ const Rooms = () => {
   const [truncated, setTruncated] = useState([]);
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar"
-  //
+
   const {t} = useContext(LanguageContext)
 
   const debounceValue = useDebounce(value, 500);
