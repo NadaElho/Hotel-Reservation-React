@@ -17,16 +17,15 @@ const Map = ({ position }) => {
     map.addControl(new tt.NavigationControl());
 
     const marker = new tt.Marker({ element: markerElement.current });
-    const popup = new tt.Popup({ closeButton: true }).setHTML(position[0].title);
+    const popup = new tt.Popup({ closeButton: true }).setHTML(
+      position[0].title
+    );
 
-    if (position[0].latitude && position[0].longitude) {
-      marker
-        .setLngLat([position[0].longitude, position[0].latitude])
-        .setPopup(popup)
-        .addTo(map);
-    } else {
-      console.log("Geolocation is not supported by your browser");
-    }
+    marker
+      .setLngLat([position[0].longitude, position[0].latitude])
+      .setPopup(popup)
+      .addTo(map);
+
     const markers = [];
     position.forEach((place) => {
       markers.push({

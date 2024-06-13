@@ -55,7 +55,9 @@
     "nights": "nights",
     "per-night": "per night",
     "book-now": "Book now",
-    "total": "Total"
+    "total": "Total",
+    "details": "Your details",
+    "room-reserved-successfully": "Room reserved successfully"
   },
   "payment": {
     "payment-success": "Ticket payment successful",
@@ -104,7 +106,10 @@
     "confirm-req": "Confirm password is required*",
     "invalid-email": "Invalid email address",
     "invalid-password": "Invalid password, minimum 8 characters, at least one letter and one number",
-    "match": "Passwords must match"
+    "match": "Passwords must match",
+    "phone": "Phone number",
+    "phone-req": "Phone required",
+    "invalid-phone": "Invalid phone number"
   },
   "items": "Page items",
   "footer": {

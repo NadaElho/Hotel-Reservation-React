@@ -104,11 +104,18 @@ input {
 
 .range-slider .range-slider__thumb{
   background: #52381d;
-
 }
 
 .range-slider .range-slider__range {
   background: #52381d;
+}
+
+.darkMode .range-slider__thumb{
+  background: #F0C7AD;
+}
+
+.darkMode .range-slider__range{
+  background: #F0C7AD;
 }
 
 .loader {

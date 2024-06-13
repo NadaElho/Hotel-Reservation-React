@@ -2,15 +2,20 @@ import DateRangePickerComponent from "../components/DateRangePicker";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import ReservationCard from "../components/ReservationCard";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axiosInstance from "../../interceptor";
 import { toast } from "react-toastify";
 import { LanguageContext } from "../providers/LanguageContext";
+import { Formik } from "formik";
+import { AiOutlineMail } from "react-icons/ai";
+import { MdOutlinePhone } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa6";
 
 function BookingForm() {
   const storedCheckIn = localStorage.getItem("checkin");
   const storedCheckOut = localStorage.getItem("checkout");
-  const isArabic = localStorage.getItem("lang") == "ar"
+  const isArabic = localStorage.getItem("lang") == "ar";
   const [payment, setPayment] = useState("cash");
   const [selectedDates, setSelectedDates] = useState([
     storedCheckIn ? new Date(storedCheckIn) : new Date(),
@@ -20,16 +25,18 @@ function BookingForm() {
   ]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [roomData, setRoomData] = useState({});
+  const [userData, setUserData] = useState(null);
   const [disabledDates, setDisabledDates] = useState([]);
   const navigate = useNavigate("reservations");
   const { id } = useParams();
   const { t } = useContext(LanguageContext);
-  const options =  {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  }
-  
+  const options = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  };
+  const formRef = useRef()
+
   async function reserve() {
     try {
       await axiosInstance.post("/reservations", {
@@ -63,7 +70,7 @@ function BookingForm() {
         }
       });
     } else {
-      toast.success("Room reserved successfully");
+      toast.success(t("booking.room-reserved-successfully"));
       navigate("/", { replace: true });
     }
   }
@@ -74,6 +81,14 @@ function BookingForm() {
       setRoomData(data.room);
       const res = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(res.data.data);
+    })();
+
+    (async function () {
+      const { data } = await axiosInstance.get(
+        `/users/${localStorage.getItem("userId")}`
+      );
+      console.log(data);
+      setUserData(data.data);
     })();
   }, [id]);
 
@@ -90,6 +105,72 @@ function BookingForm() {
     setShowCalendar((show) => (show = !show));
   };
 
+  const validate = (values) => {
+    const errors = {};
+    if (!values.fname) {
+      errors.fname = t("form.fname-req");
+    }
+    if (!values.lname) {
+      errors.lname = t("form.lname-req");
+    }
+    if (!values.email) {
+      errors.email = t("form.email-req");
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.phone = t("form.invalid-phone");
+    }
+    if (!values.phone) {
+      errors.phone = t("form.phone-req");
+    } else if (!/^\d{11}$/i.test(values.phone)) {
+      errors.phone = t("form.invalid-phone");
+    }
+
+    return errors;
+  };
+
+  const reserveNow = ()=>{
+    if (formRef.current) {
+      formRef.current.handleSubmit()
+    }
+  }
+
+  const onSubmit = async (
+    { fname, lname, phone, email },
+    { setSubmitting }
+  ) => {
+    try {
+      await axiosInstance.patch(
+        `/users/${localStorage.getItem('userId')}`,
+        {
+          firstName: fname,
+          lastName: lname,
+          phoneNumber: phone,
+          email
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      reserve()
+    } catch (err) {
+      console.log(err)
+    }
+    setSubmitting(false);
+  };
+
+  const isDark = localStorage.getItem("dark") == "dark";
+
+  const [disabled, setDisabled] = useState({
+    fName: true,
+    lName: true,
+    phone: true,
+  });
+
+  const toggleDisable = (property) => {
+    setDisabled((prev) => ({ ...prev, [property]: !prev[property] }));
+  };
+
   return (
     <div className="p-4">
       <div className="flex flex-col justify-between md:flex-row">
@@ -97,6 +178,130 @@ function BookingForm() {
           <h2 className="text-3xl text-main-800 dark:text-main-50 font-bold">
             {t("booking.request-book")}
           </h2>
+           <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
+            {t("booking.details")}
+          </h2>
+          {userData && (
+            <Formik
+            innerRef={formRef}
+              initialValues={{
+                email: userData.email,
+                fname: userData.firstName,
+                lname: userData.lastName,
+                phone: userData.phoneNumber,
+              }}
+              validate={validate}
+              onSubmit={onSubmit}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+              }) => (
+                <form onSubmit={handleSubmit} className="text-white">
+                  <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
+                    <div className="w-full md:w-1/2 my-2">
+                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 p-2">
+                        <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                        <input
+                          type="text"
+                          name="fname"
+                          placeholder={t("form.fname")}
+                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.fname}
+                          disabled={disabled.fName}
+                        />
+                        <MdOutlineEdit
+                          size={25}
+                          onClick={() => toggleDisable("fName")}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="text-red-500 text-sm ms-2">
+                        {touched.fname && errors.fname}
+                      </div>
+                    </div>
+                    <div className="w-full md:w-1/2 my-2">
+                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250  p-2">
+                        <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                        <input
+                          type="text"
+                          name="lname"
+                          placeholder={t("form.lname")}
+                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.lname}
+                          disabled={disabled.lName}
+                        />
+                        <MdOutlineEdit
+                          size={25}
+                          onClick={() => toggleDisable("lName")}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="text-red-500 text-sm ms-2">
+                        {touched.lname && errors.lname}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
+                    <div className="w-full md:w-1/2 my-2">
+                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
+                        <AiOutlineMail
+                          color={`${isDark ? "#1D1D1D" : "white"}`}
+                        />
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder={t("form.email")}
+                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                          disabled
+                        />
+                      </div>
+                      <div className="text-red-500 text-sm ms-2">
+                        {touched.email && errors.email}
+                      </div>
+                    </div>
+                    <div className="w-full md:w-1/2 my-2">
+                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
+                        <MdOutlinePhone
+                          color={`${isDark ? "#1D1D1D" : "white"}`}
+                        />
+                        <input
+                          type="text"
+                          name="phone"
+                          placeholder={t("form.phone")}
+                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.phone}
+                          disabled={disabled.phone}
+                        />
+                        <MdOutlineEdit
+                          size={25}
+                          onClick={() => toggleDisable("phone")}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="text-red-500 text-sm ms-2">
+                        {touched.phone && errors.phone}
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              )}
+            </Formik>
+          )}
           <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
             {t("booking.trip")}
           </h2>
@@ -164,7 +369,9 @@ function BookingForm() {
                 />
               </div>
               <div className="flex justify-between p-2">
-                <div className="text-main-400 dark:text-main-150">{t("booking.pay-stripe")}</div>
+                <div className="text-main-400 dark:text-main-150">
+                  {t("booking.pay-stripe")}
+                </div>
                 <input
                   type="radio"
                   className="radio accent-main-200"
@@ -190,24 +397,20 @@ function BookingForm() {
                     new Date(selectedDates[0]).setDate(
                       new Date(selectedDates[0]).getDate() - 2
                     )
-                  ).toLocaleDateString(
-                    isArabic ? "ar-EG" : "en-US",
-                    options
-                  )}
+                  ).toLocaleDateString(isArabic ? "ar-EG" : "en-US", options)}
                 </span>
                 . {t("booking.before")} &nbsp;
                 {new Date(
                   new Date(selectedDates[0]).setDate(
                     new Date(selectedDates[0]).getDate() - 1
                   )
-                ).toLocaleDateString(
-                  isArabic ? "ar-EG" : "en-US",
-                  options
-                )}
+                ).toLocaleDateString(isArabic ? "ar-EG" : "en-US", options)}
                 {t("booking.refund")}
               </p>
             ) : (
-              <p className="text-main-200 dark:text-main-150 py-3">{t("booking.cancel-not-allowed")}</p>
+              <p className="text-main-200 dark:text-main-150 py-3">
+                {t("booking.cancel-not-allowed")}
+              </p>
             )}
           </div>
         </div>
@@ -217,7 +420,7 @@ function BookingForm() {
               roomData={roomData}
               calcNoOfNights={calcNoOfNights}
               calcTotalPrice={calcTotalPrice}
-              reserve={reserve}
+              reserve={reserveNow}
             />
           )}
         </div>

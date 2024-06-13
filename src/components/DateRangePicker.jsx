@@ -33,11 +33,13 @@ const DateRangePickerComponent = ({
       localStorage.setItem("checkout", endDate);
     }
   };
+
   const selectionRange = {
     startDate: checkinDate,
     endDate: checkoutDate,
     key: "selection",
   };
+  
   return (
     <DateRangePicker
       className={`bg-white absolute top-[56px] z-10 rtl:right-0 ${from == 'search' ? '-left-[95px]' : "" } md:left-0`}

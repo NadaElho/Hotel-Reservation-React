@@ -85,7 +85,6 @@ const Rooms = () => {
     <>
       <div className="container mx-auto flex flex-col  mt-16">
         <Amenity />
-
         <div className="flex gap-10 mt-20">
           <div className="w-[400px] hidden xl:block">
             <p className="mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
@@ -142,10 +141,10 @@ const Rooms = () => {
                     />
                   </div>
                 </div>
-                <div className="flex mt-10 dark:text-PrimaryDark ">
+                <div className={`${localStorage.getItem("dark") == "dark" ? "darkMode" : "lightMode"} flex mt-10 dark:text-PrimaryDark `}>
                   <RangeSlider
                     min={0}
-                    max={10000}
+                    max={100000}
                     value={value}
                     onInput={onValueChange}
                   />
