@@ -18,6 +18,11 @@ import Login from "./pages/Login.jsx";
 import PrivateRoute from "./protectedRoutes/PrivateRoute.jsx";
 import Guard from "./protectedRoutes/Guard.jsx";
 import Branch from "./pages/Branch.jsx";
+import Profile from "./pages/Profile.jsx";
+import Account from "./pages/Account.jsx";
+import Favourites from "./pages/Favourites.jsx";
+import History from "./pages/History.jsx";
+import Plans from "./pages/Plans.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -64,6 +69,12 @@ function App() {
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
                 <Route path="payment-result" element={<PaymentResult />} />
+                <Route path="profile" element={<Profile />}>
+                  <Route path="" element={<Account/>}/>
+                  <Route path="favourites" element={<Favourites/>}/>
+                  <Route path="history" element={<History/>}/>
+                  <Route path="plans" element={<Plans/>}/>
+                </Route>
               </Route>
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />

@@ -116,6 +116,7 @@ input {
 .darkMode .range-slider__range{
   background: #F0C7AD;
 }
+
 .loader {
   transform: rotateZ(45deg);
   perspective: 1000px;
