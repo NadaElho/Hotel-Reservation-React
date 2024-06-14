@@ -87,7 +87,6 @@ function BookingForm() {
       const { data } = await axiosInstance.get(
         `/users/${localStorage.getItem("userId")}`
       );
-      console.log(data);
       setUserData(data.data);
     })();
   }, [id]);

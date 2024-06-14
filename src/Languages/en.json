@@ -109,7 +109,8 @@
     "match": "Passwords must match",
     "phone": "Phone number",
     "phone-req": "Phone required",
-    "invalid-phone": "Invalid phone number"
+    "invalid-phone": "Invalid phone number",
+    "emergencyContact": "Emergency contact"
   },
   "items": "Page items",
   "footer": {
