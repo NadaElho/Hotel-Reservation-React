@@ -199,7 +199,6 @@ function BookingForm() {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting,
               }) => (
                 <form onSubmit={handleSubmit} className="text-white">
                   <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">

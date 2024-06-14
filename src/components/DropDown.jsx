@@ -7,8 +7,9 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
   const [show, setShow] = useState(false);
   const {t} = useContext(LanguageContext)
   const links = [
-    { name: t("drop-down.branches"), link: "/#branches" },
+    { name: t("drop-down.profile"), link: "/profile" },
     { name: t("drop-down.rooms"), link: "/rooms" },
+    { name: t("drop-down.branches"), link: "/#branches" },
   ];
   return (
     <>

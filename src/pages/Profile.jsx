@@ -3,10 +3,12 @@ import Sidebar from "../components/Sidebar";
 import axiosInstance from "../../interceptor";
 import Loader from "../components/Loader";
 import { Outlet } from "react-router";
+import Tabs from "../components/Tabs";
 
-const Profile = () => {
+const Profile = ({handleLog}) => {
   const [userData, setUserData] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
+
   useEffect(() => {
     (async () => {
       const { data } = await axiosInstance.get(
@@ -43,8 +45,10 @@ const Profile = () => {
             data={userData}
             handleImageChange={handleImageChange}
             imageChanged={imageChanged}
+            handleLog={handleLog}
           />
           <div className="w-full rounded-3xl">
+            <Tabs/>
             <Outlet />
           </div>
         </div>
