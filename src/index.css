@@ -101,16 +101,21 @@ input {
   font-size: 30px;
 } */
 
-
 .range-slider .range-slider__thumb{
   background: #52381d;
-
 }
 
 .range-slider .range-slider__range {
   background: #52381d;
 }
 
+.darkMode .range-slider__thumb{
+  background: #F0C7AD;
+}
+
+.darkMode .range-slider__range{
+  background: #F0C7AD;
+}
 .loader {
   transform: rotateZ(45deg);
   perspective: 1000px;
@@ -203,16 +208,19 @@ input {
 }
 .swiper-pagination-bullet-active {
   background: #52381d;
-
 }
-.swiper-button-prev, .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
   color: #52381d;
   font-weight: bold;
-  } 
+}
 
 :root {
-    --swiper-navigation-size: 30px;
+  --swiper-navigation-size: 30px;
 }
-.mapboxgl-popup-content{
+.mapboxgl-popup-content {
   background: #4a4646 !important;
+}
+.darkRange {
+  background-color: forestgreen;
 }
