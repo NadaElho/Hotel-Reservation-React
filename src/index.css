@@ -101,7 +101,6 @@ input {
   font-size: 30px;
 } */
 
-
 .range-slider .range-slider__thumb{
   background: #52381d;
 }
@@ -210,16 +209,19 @@ input {
 }
 .swiper-pagination-bullet-active {
   background: #52381d;
-
 }
-.swiper-button-prev, .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
   color: #52381d;
   font-weight: bold;
-  } 
+}
 
 :root {
-    --swiper-navigation-size: 30px;
+  --swiper-navigation-size: 30px;
 }
-.mapboxgl-popup-content{
+.mapboxgl-popup-content {
   background: #4a4646 !important;
+}
+.darkRange {
+  background-color: forestgreen;
 }

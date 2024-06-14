@@ -20,9 +20,9 @@ const Rooms = () => {
   const [noOfPages, setNoOfPages] = useState(1);
   const [truncated, setTruncated] = useState([]);
   const [isloading, setLoading] = useState(true);
-  const isArabic = localStorage.getItem("lang") == "ar"
+  const isArabic = localStorage.getItem("lang") == "ar";
 
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
 
   const debounceValue = useDebounce(value, 500);
   const onValueChange = (values) => {
@@ -86,6 +86,8 @@ const Rooms = () => {
       <div className="container mx-auto flex flex-col  mt-16">
         <Amenity />
         <div className="flex gap-10 mt-20">
+
+        <div className="flex gap-2 mt-20">
           <div className="w-[400px] hidden xl:block">
             <p className="mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
@@ -95,8 +97,8 @@ const Rooms = () => {
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
                 </p>
-                <div className="flex space-x-3 mt-8">
-                  <div className="w-28 h-14 bg-white border border-custom p-1 rounded dark:bg-transparent dark:border-[#DBD6D3]">
+                <div className={`flex w-full gap-4 mt-8 `}>
+                  <div className="w-28 h-14 bg-white border border-custom p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="minInput"
                       className="font-semibold dark:text-[#DDD1C5]"
@@ -124,7 +126,7 @@ const Rooms = () => {
                       className="font-semibold dark:text-[#DDD1C5]"
                     >
                       {t("rooms.Max")}
-                      </label>
+                    </label>
                     <input
                       type="text"
                       value={value[1]}
@@ -142,6 +144,14 @@ const Rooms = () => {
                   </div>
                 </div>
                 <div className={`${localStorage.getItem("dark") == "dark" ? "darkMode" : "lightMode"} flex mt-10 dark:text-PrimaryDark `}>
+
+                <div
+                  className={`flex mt-10 ${
+                    localStorage.getItem("dark") == "dark"
+                      ? "darkMode"
+                      : "lightMode"
+                  } `}
+                >
                   <RangeSlider
                     min={0}
                     max={100000}
@@ -154,7 +164,7 @@ const Rooms = () => {
           </div>
           {/* card */}
 
-          <div className="flex flex-wrap justify-center gap-6 overflow-hidden ">
+          <div className=" w-full flex flex-wrap  justify-center gap-6 overflow-hidden ">
             {isloading ? (
               <div className="w-[600px] flex justify-center items-center">
                 <Loader />
@@ -162,7 +172,7 @@ const Rooms = () => {
             ) : rooms.length > 0 ? (
               rooms.map((room, index) => (
                 <div
-                  className="w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
+                  className="w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
                   key={room._id}
                 >
                   <img
@@ -172,12 +182,14 @@ const Rooms = () => {
                   />
                   <div className="px-6 py-4">
                     <div className="font-bold text-2xl mb-2 text-primary dark:text-PrimaryDark">
-                       {isArabic ? room.roomTypeId.type_ar :  room.roomTypeId.type_en}
+                      {isArabic
+                        ? room.roomTypeId.type_ar
+                        : room.roomTypeId.type_en}
                     </div>
                     <p className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>
-                          {isArabic ? room.description_ar :  room.description_en}
+                          {isArabic ? room.description_ar : room.description_en}
                           <button
                             className="underline"
                             onClick={() => toggleTruncated(index)}
@@ -187,7 +199,9 @@ const Rooms = () => {
                         </div>
                       ) : (
                         <LinesEllipsis
-                          text={isArabic ? room.description_ar : room.description_en}
+                          text={
+                            isArabic ? room.description_ar : room.description_en
+                          }
                           maxLine={2}
                           ellipsis={
                             <button onClick={() => toggleTruncated(index)}>
@@ -215,15 +229,17 @@ const Rooms = () => {
                           </div>
                         ))}
                     </div>
-                    <hr className=" border-primary opacity-40  mt-4 dark:border-footer" />
-                    <div className="w-full flex justify-between py-8">
-                      <button className="w-42 bg-primary text-white text-sm opacity-95 py-3 px-4 rounded-full inline-flex items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold">
+                    <hr className=" border-primary opacity-40 mt-4 dark:border-footer" />
+                    <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-8 ">
+                      <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
                           {t("rooms.book-now")} ${room.price}
                         </Link>
                       </button>
-                      <button className="w-40 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold py-2 px-4 inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]">
-                        <Link to={`/rooms/${room._id}`}>{t("rooms.Check-details")}</Link>
+                      <button className="w-1/3 text-xs py-2 md:py-3 md:w-40  md:text-sm bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]">
+                        <Link to={`/rooms/${room._id}`}>
+                          {t("rooms.Check-details")}
+                        </Link>
                       </button>
                     </div>
                   </div>
@@ -232,7 +248,7 @@ const Rooms = () => {
             ) : (
               <div className="text-center w-full mt-10 md:">
                 <p className="text-2xl text-primary text-center font-semibold dark:text-[#ffffff]">
-                 {t("rooms.failed-request")}
+                  {t("rooms.failed-request")}
                 </p>
               </div>
             )}
