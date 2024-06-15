@@ -9,7 +9,7 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
   const isDark = localStorage.getItem("dark") == "dark";
 
   return (
-    <div className="w-1/4 p-4 mt-[70px]">
+    <div className="w-full md:w-1/4 p-4 mt-[70px]">
       <div className="flex gap-4 mb-4 items-center">
         <label
           htmlFor="uploadFile1"
@@ -35,15 +35,15 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
         </div>
       </div>
       <div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mt-2">
           <AiOutlineMail color={`${isDark ? "white" : "1D1D1D"}`} />
           {data.email}
         </div>
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-2 mt-4">
           <MdOutlinePhone color={`${isDark ? "white" : "1D1D1D"}`} size={15}/>
           {data.phoneNumber}
         </div>
-        <button className="bg-main-800 text-white rounded-3xl py-2 px-10 mt-8" onClick={handleLog}>
+        <button className="bg-main-800 text-white rounded-3xl py-2 px-10 mt-8 hidden md:block" onClick={handleLog}>
           {t("drop-down.logout")}
         </button>
       </div>

@@ -1,6 +1,11 @@
+import { useEffect, useState } from "react"
+
 const History = () => {
+  const [reservations, setReservations] = useState(null)
+ 
   return (
-    <div>History</div>
+    <div>
+    </div>
   )
 }
 

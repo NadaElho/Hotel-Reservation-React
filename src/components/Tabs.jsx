@@ -16,7 +16,7 @@ const Tabs = () => {
 
   return (
     <div>
-      <div className="text-sm font-medium text-center mt-[70px]">
+      <div className="text-sm font-medium text-center md:mt-[70px]">
         <ul className="flex flex-wrap -mb-px">
           {links.map((link, i) => (
             <div key={link.title} className="my-2">

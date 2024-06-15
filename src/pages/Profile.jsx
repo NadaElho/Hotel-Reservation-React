@@ -40,7 +40,7 @@ const Profile = ({handleLog}) => {
   return (
     <div className="p-4">
       {userData ? (
-        <div className="flex justify-between gap-5">
+        <div className="flex justify-between gap-5 flex-col md:flex-row">
           <Sidebar
             data={userData}
             handleImageChange={handleImageChange}

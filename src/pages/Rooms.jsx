@@ -85,7 +85,6 @@ const Rooms = () => {
     <>
       <div className="container mx-auto flex flex-col  mt-16">
         <Amenity />
-        <div className="flex gap-10 mt-20">
 
         <div className="flex gap-2 mt-20">
           <div className="w-[400px] hidden xl:block">
@@ -143,7 +142,6 @@ const Rooms = () => {
                     />
                   </div>
                 </div>
-                <div className={`${localStorage.getItem("dark") == "dark" ? "darkMode" : "lightMode"} flex mt-10 dark:text-PrimaryDark `}>
 
                 <div
                   className={`flex mt-10 ${
@@ -154,7 +152,7 @@ const Rooms = () => {
                 >
                   <RangeSlider
                     min={0}
-                    max={100000}
+                    max={10000}
                     value={value}
                     onInput={onValueChange}
                   />
@@ -186,7 +184,7 @@ const Rooms = () => {
                         ? room.roomTypeId.type_ar
                         : room.roomTypeId.type_en}
                     </div>
-                    <p className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
+                    <div className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>
                           {isArabic ? room.description_ar : room.description_en}
@@ -210,7 +208,7 @@ const Rooms = () => {
                           }
                         />
                       )}
-                    </p>
+                    </div>
                     <hr className=" border-primary opacity-40 mt-4 dark:border-footer" />
                   </div>
                   <div className="px-6 text-center">
