@@ -13,6 +13,8 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
         window.scrollY >= screen.availHeight - 50
           ? setIsScrolled(true)
           : setIsScrolled(false);
+      }else if(location.pathname.startsWith("/profile")){
+        window.scrollY >=0 ? setIsScrolled(true) : setIsScrolled(false);
       } else {
         window.scrollY >= "380" ? setIsScrolled(true) : setIsScrolled(false);
       }

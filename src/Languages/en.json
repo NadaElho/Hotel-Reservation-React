@@ -82,15 +82,16 @@
     "branches": "All branches",
     "rooms": "All rooms",
     "login": "Log in",
-    "logout": "Log out"
+    "logout": "Log out",
+    "profile": "Profile"
   },
   "form": {
     "start": "Start for free",
     "create-new": "Create new account",
     "welcome": "Welcome Back",
     "details": "Please enter your details",
-    "fname": "First Name",
-    "lname": "Last Name",
+    "fname": "First name",
+    "lname": "Last name",
     "email": "Email",
     "password": "Password",
     "confirm": "Confirm Password",
@@ -110,7 +111,11 @@
     "phone": "Phone number",
     "phone-req": "Phone required",
     "invalid-phone": "Invalid phone number",
-    "emergencyContact": "Emergency contact"
+    "emergencyContact": "Emergency contact",
+    "change-pass": "Change password",
+    "current-pass": "Current password",
+    "new-pass": "New password",
+    "password-changed": "Password changed successfully"
   },
   "items": "Page items",
   "footer": {
@@ -130,5 +135,13 @@
     "Siwa Qasis": "Siwa Qasis",
     "Telephones": "Telephones",
     "copy-right": "All Rights Reserved"
+  },
+  "profile": {
+    "hi": "Hi,",
+    "edit": "Edit profile",
+    "account": "My account",
+    "history": "History",
+    "favourites": "My favourites",
+    "plans": "Plans"
   }
 }

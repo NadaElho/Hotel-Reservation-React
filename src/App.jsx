@@ -69,11 +69,14 @@ function App() {
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
                 <Route path="payment-result" element={<PaymentResult />} />
-                <Route path="profile" element={<Profile />}>
-                  <Route path="" element={<Account/>}/>
-                  <Route path="favourites" element={<Favourites/>}/>
-                  <Route path="history" element={<History/>}/>
-                  <Route path="plans" element={<Plans/>}/>
+                <Route
+                  path="profile"
+                  element={<Profile handleLog={handleLog} />}
+                >
+                  <Route path="" element={<Account />} />
+                  <Route path="favourites" element={<Favourites />} />
+                  <Route path="history" element={<History />} />
+                  <Route path="plans" element={<Plans />} />
                 </Route>
               </Route>
               <Route element={<PrivateRoute />}>

@@ -2,9 +2,9 @@ import { Formik } from "formik";
 import axiosInstance from "../../interceptor";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext, useEffect, useState } from "react";
-import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlineEdit, MdOutlinePhone } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
+import ChangePassword from "../components/ChangePassword";
 
 const Account = () => {
   const [userData, setUserData] = useState(null);
@@ -42,7 +42,7 @@ const Account = () => {
   };
 
   const onSubmit = async (
-    { fname, lname, phone, email, emergencyContact, gender },
+    { fname, lname, phone, email, emergencyContact },
     { setSubmitting }
   ) => {
     try {
@@ -53,7 +53,6 @@ const Account = () => {
           lastName: lname,
           phoneNumber: phone,
           emergencyContact,
-          gender: gender,
           email,
         },
         {
@@ -84,7 +83,7 @@ const Account = () => {
 
   return (
     <div>
-      <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
+      <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
         {t("booking.details")}
       </h2>
       {userData && (
@@ -110,10 +109,13 @@ const Account = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className="text-white">
-              <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
+              <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-main-800 dark:text-white me-2">
                 <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 p-2">
-                    <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                  <label htmlFor="fname" className="text-main-800 mb-2">
+                    {t("form.fname")}
+                  </label>
+                  <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
+                    <FaRegUser color={`${isDark ? "white" : "#1D1D1D"}`} />
                     <input
                       type="text"
                       name="fname"
@@ -135,8 +137,11 @@ const Account = () => {
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250  p-2">
-                    <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                  <label htmlFor="fname" className="text-main-800 mb-2">
+                    {t("form.lname")}
+                  </label>
+                  <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
+                    <FaRegUser color={`${isDark ? "white" : "#1D1D1D"}`} />
                     <input
                       type="text"
                       name="lname"
@@ -158,10 +163,13 @@ const Account = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
+              <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-main-800 dark:text-white me-2">
                 <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                    <MdOutlinePhone color={`${isDark ? "#1D1D1D" : "white"}`} />
+                  <label htmlFor="emergencyContact" className="text-main-800 mb-2">
+                    {t("form.emergencyContact")}
+                  </label>
+                  <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
+                    <MdOutlinePhone color={`${isDark ? "white" : "#1D1D1D"}`} />
                     <input
                       type="text"
                       name="emergencyContact"
@@ -183,8 +191,11 @@ const Account = () => {
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                    <MdOutlinePhone color={`${isDark ? "#1D1D1D" : "white"}`} />
+                <label htmlFor="phone" className="text-main-800 mb-2">
+                    {t("form.phone")}
+                  </label>
+                  <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
+                    <MdOutlinePhone color={`${isDark ? "white" : "#1D1D1D"}`} />
                     <input
                       type="text"
                       name="phone"
@@ -208,62 +219,20 @@ const Account = () => {
               </div>
               <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
                 <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
-                    <AiOutlineMail color={`${isDark ? "#1D1D1D" : "white"}`} />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={t("form.email")}
-                      className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                      disabled
-                    />
-                    <MdOutlineEdit
-                      size={25}
-                      onClick={() => toggleDisable("phone")}
-                      className="opacity-0"
-                    />
-                  </div>
-                  <div className="text-red-500 text-sm ms-2">
-                    {touched.email && errors.email}
-                  </div>
-                </div>
-                <div className="w-full md:w-1/2 my-2">
-                  <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250  p-2">
-                    <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
-                    <select
-                      name="gender"
-                      className="focus:border-0 outline-none bg-main-300 w-full"
-                      value={values.gender}
-                      onChange={handleChange}
-                      disabled={disabled.gender}
-                    >
-                      <option value="male" className="py-2">
-                        male
-                      </option>
-                      <option value="female">female</option>
-                    </select>
-                    <MdOutlineEdit
-                      size={25}
-                      onClick={() => toggleDisable("gender")}
-                      className="cursor-pointer"
-                    />
-                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
+                    disabled={isSubmitting}
+                  >
+                    {t("profile.edit")}
+                  </button>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
-                disabled={isSubmitting}
-              >
-                {t("Change")}
-              </button>
             </form>
           )}
         </Formik>
       )}
+      <ChangePassword />
     </div>
   );
 };
