@@ -32,7 +32,7 @@ const Contact = () => {
 
   const onSubmit = async ({ name, email, message }, { setSubmitting }) => {
     try {
-      await axiosInstance.post(
+      const res = await axiosInstance.post(
         "/contact",
         {
           firstName: name,
@@ -45,8 +45,8 @@ const Contact = () => {
           },
         }
       );
-      navigate("/");
       toast.success("message sent successfully");
+      navigate("/");
     } catch (err) {
       toast.error(err.response.data.message);
     }

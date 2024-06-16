@@ -83,7 +83,8 @@
     "rooms": "All rooms",
     "login": "Log in",
     "logout": "Log out",
-    "profile": "Profile"
+    "profile": "Profile",
+    "contact": "Contact us"
   },
   "form": {
     "start": "Start for free",
