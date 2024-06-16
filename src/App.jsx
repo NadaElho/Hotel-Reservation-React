@@ -23,6 +23,7 @@ import Account from "./pages/Account.jsx";
 import Favourites from "./pages/Favourites.jsx";
 import History from "./pages/History.jsx";
 import Plans from "./pages/Plans.jsx";
+import Contact from "./pages/Contact.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -66,6 +67,7 @@ function App() {
               <Route path="/branch/:id" element={<Branch />} />
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/rooms/:id" element={<RoomId />} />
+              <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
                 <Route path="payment-result" element={<PaymentResult />} />

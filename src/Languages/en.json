@@ -115,7 +115,13 @@
     "change-pass": "Change password",
     "current-pass": "Current password",
     "new-pass": "New password",
-    "password-changed": "Password changed successfully"
+    "password-changed": "Password changed successfully",
+    "name": "Name",
+    "name-req": "Name is required*",
+    "message": "Message",
+    "message-req": "Message is required*",
+    "conversation": "Let's start a conversation",
+    "send": "Send"
   },
   "items": "Page items",
   "footer": {
