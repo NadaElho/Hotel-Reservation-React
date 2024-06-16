@@ -23,6 +23,9 @@ import Account from "./pages/Account.jsx";
 import Favourites from "./pages/Favourites.jsx";
 import History from "./pages/History.jsx";
 import Plans from "./pages/Plans.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
+import CheckEmail from "./pages/CheckEmail.jsx";
+import NewPassword from "./pages/NewPassword.jsx";
 import Contact from "./pages/Contact.jsx";
 
 function App() {
@@ -50,6 +53,10 @@ function App() {
 
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
+            location.pathname != "/resetpassword" &&
+            location.pathname != "/checkemail" &&
+            location.pathname != "/subscription" &&
+            !location.pathname.startsWith("/newPassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
                 <Navbar
@@ -84,11 +91,18 @@ function App() {
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login handleLog={handleLog} />} />
+                <Route path="/resetpassword" element={<ResetPassword />} />
+                <Route path="/checkemail" element={<CheckEmail />} />
+                <Route path="/newpassword/:id" element={<NewPassword />} />
               </Route>
             </Routes>
           </div>
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
+            location.pathname != "/resetpassword" &&
+            location.pathname != "/checkemail" &&
+            location.pathname != "/subscription" &&
+            !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && <Footer />}
         </LanguageProvider>
       </I18nextProvider>
