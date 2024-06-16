@@ -50,7 +50,6 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
             location.pathname != "/resetpassword" &&
