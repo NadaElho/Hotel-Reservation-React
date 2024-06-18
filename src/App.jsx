@@ -26,6 +26,7 @@ import Plans from "./pages/Plans.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import CheckEmail from "./pages/CheckEmail.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
+import Subscription from "./pages/Subscription.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -86,6 +87,7 @@ function App() {
                   <Route path="plans" element={<Plans />} />
                 </Route>
               </Route>
+              <Route path="/subscription" element={<Subscription />} />
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login handleLog={handleLog} />} />

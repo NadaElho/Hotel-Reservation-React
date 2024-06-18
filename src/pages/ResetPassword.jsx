@@ -5,9 +5,23 @@ import { AiOutlineMail } from "react-icons/ai";
 import img from "/resetpassword.png";
 import { toast } from "react-toastify";
 import axiosInstance from "../../interceptor";
+import { LanguageContext } from "../providers/LanguageContext";
+import { useContext } from "react";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const { t } = useContext(LanguageContext);
+  {
+    t(
+      "resetpassword",
+      "enteremail",
+      "btnresetpassword",
+      "rememberpassword",
+      "login",
+      "email"
+    );
+  }
+
   const validate = (values) => {
     const errors = {};
     if (!values.email) {
@@ -42,10 +56,10 @@ const ResetPassword = () => {
           <Link to="/">APEX</Link>
         </h1>
         <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
-          Reset Password
+          {t("resetpassword.resetpassword")}
         </h3>
         <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
-          Please enter your email address to request a password reset
+          {t("resetpassword.enteremail")}
         </h5>
         <Formik
           initialValues={{
@@ -70,7 +84,7 @@ const ResetPassword = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder={t("resetpassword.email")}
                     className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -87,12 +101,12 @@ const ResetPassword = () => {
                 className="w-full bg-main-800 border rounded-full p-2 text-white disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
-                ResetPassword
+                {t("resetpassword.resetpassword")}
               </button>
               <div className="text-sm font-bold  text-main-400 dark:text-main-25 mt-2 ms-2">
-                You remember your password?
+                {t("resetpassword.rememberpassword")}
                 <Link to="/login" className="text-[#464646] underline ">
-                  Login
+                  {t("resetpassword.login")}
                 </Link>
               </div>
             </form>
