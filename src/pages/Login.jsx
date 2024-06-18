@@ -135,7 +135,7 @@ const Login = ({ handleLog }) => {
                   </span>
                 </div>
                 <Link to="/resetpassword" className="text-[#52381D] underline ">
-                  Forgot Password
+                  {t("forgotpassword")}
                 </Link>
               </div>
             </form>
