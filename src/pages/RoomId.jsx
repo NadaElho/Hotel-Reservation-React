@@ -7,15 +7,16 @@ import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import Reviews from "../components/Reviews";
 
-const RoomId = ({truncated , toggleTruncated }) => {
+const RoomId = ({ truncated, toggleTruncated }) => {
   const [room, setRoom] = useState([]);
   const { id } = useParams();
   const [disabledDates, setDisabledDates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [reviews , setReviews] = useState([])
- 
+  const [reviews, setReviews] = useState([]);
+  const [reviewAdded, setReviewAdded] = useState(false);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
+
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get(`/rooms/${id}`);
@@ -24,24 +25,22 @@ const RoomId = ({truncated , toggleTruncated }) => {
       setLoading(false);
       const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(data.data);
-      // 
       const reviewData = await axiosInstance.get(`/reviews/${id}`);
-      console.log(reviewData.data.data);
       setReviews(reviewData.data.data);
     }
-     
-    fetchData();
-  }, [id]);
 
-  const handleDelete = async(id)=>{
-    console.log(id);
-    await axiosInstance.delete(`/reviews/${id}`); 
-    const deletedReview = reviews.filter((r)=>r._id !==id )
-    setReviews(deletedReview)
-  }
+    fetchData();
+  }, [id, reviewAdded]);
+
+  const handleDelete = async (id) => {
+    await axiosInstance.delete(`/reviews/${id}`);
+    const deletedReview = reviews.filter((r) => r._id !== id);
+    setReviews(deletedReview);
+  };
 
   const addReview = (newReview) => {
     setReviews((prev) => [...prev, newReview]);
+    setReviewAdded((prev) => !prev);
   };
 
   return (
@@ -60,7 +59,6 @@ const RoomId = ({truncated , toggleTruncated }) => {
                   : room.hotelId.name_en
               } ${t("rooms.branch")}`}
             </p>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-4 mt-4">
               {room.images &&
                 room.images.map((image, index) => (
@@ -124,7 +122,13 @@ const RoomId = ({truncated , toggleTruncated }) => {
             {/* card */}
           </div>
           {/* reviews */}
-          <Reviews truncated={truncated} toggleTruncated={toggleTruncated} reviews={reviews} addReview={addReview} handleDelete={handleDelete}/>
+          <Reviews
+            truncated={truncated}
+            toggleTruncated={toggleTruncated}
+            reviews={reviews}
+            addReview={addReview}
+            handleDelete={handleDelete}
+          />
         </div>
       ) : (
         <div className="text-center w-full mt-10">

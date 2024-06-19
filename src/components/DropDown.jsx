@@ -44,7 +44,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
             <Link
               key={link.name}
               to={link.link}
-              className="block px-4 py-2 text-sm text-main-400 dark:text-main-25"
+              className={`${logged && link.link == '/profile' ? 'hidden' : 'block'} px-4 py-2 text-sm text-main-400 dark:text-main-25`}
               role="menuitem"
               tabIndex={-1}
             >

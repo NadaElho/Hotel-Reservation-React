@@ -7,28 +7,34 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import translationEN from "../languages/en.json";
 import translationAR from "../languages/ar.json";
 
-const Subscription = () => {
+const Subscription = ({ from, addSubscription, subChanged }) => {
   const [subscription, setSubscription] = useState([]);
+  const [userData, setUserData] = useState(null);
   const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await axiosInstance.get(`/subscriptions`);
         const data = res.data.data;
-        // console.log(data);
         setSubscription(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
     fetchData();
-  }, []);
+    (async function () {
+      let { data } = await axiosInstance.get(
+        `/users/${localStorage.getItem("userId")}`
+      );
+      setUserData(data.data);
+    })();
+  }, [subChanged]);
 
   const cardStyles = {
     width: "270px",
-    height: "550px",
+    height: "580px",
     borderRadius: "40px",
-    border: "1px solid #496041",
+    border: "1px solid #10324E",
   };
 
   const renderAdvantages = (advantages) => {
@@ -36,13 +42,13 @@ const Subscription = () => {
       <li key={index} className="flex items-start">
         {advantage.name_en.startsWith("Increased") ? (
           <IoAddCircleOutline
-            className={`${isArabic ? "ml-2" : "mr-2"} `}
+            className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
             style={{ width: "35px", height: "20px" }}
           />
         ) : (
           <FontAwesomeIcon
             icon={faCircleCheck}
-            className={`${isArabic ? "ml-2" : "mr-2"} `}
+            className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
           />
         )}
         {isArabic ? advantage.name_ar : advantage.name_en}
@@ -56,7 +62,7 @@ const Subscription = () => {
       return (
         <div
           key={plan._id}
-          className={`bg-[#496041] mt-0 lg:mt-24 text-[#fff7f2] p-6 rounded-lg flex flex-col justify-between mx-auto relative ${
+          className={`bg-[#10324E] mt-0 lg:mt-24 text-[#fff7f2] p-6 rounded-lg flex flex-col justify-between mx-auto relative ${
             isMostPopular ? "lg:top-[-80px]" : ""
           }`}
           style={cardStyles}
@@ -70,6 +76,19 @@ const Subscription = () => {
               </span>
             )}
             <div>
+              <div className={`${
+                  userData.subscriptionId?._id == plan._id
+                    ? "inline-block"
+                    : "hidden"
+                } mb-4 text-right w-full`}>
+                <span
+                className={`rounded-xl bg-white px-4 py-1 mt-2 inline-block text-[#10324E]`}
+              >
+                {isArabic
+                  ? translationAR.profile.active
+                  : translationEN.profile.active}
+              </span>
+              </div>
               <h4 className="text-3xl mt-3 font-semibold text-center">
                 {isArabic ? plan.name_ar : plan.name_en}
               </h4>
@@ -94,7 +113,8 @@ const Subscription = () => {
             </div>
           </div>
           <button
-            className={`w-full mt-4 bg-[#769C68] text-[#FFF7F2] px-4 py-2 rounded-full `}
+            className={`w-full mt-4 bg-[#134D7D] text-[#FFF7F2] px-4 py-2 rounded-full `}
+            onClick={()=>addSubscription(plan._id)}
           >
             {plan.name_en === "Basic plan"
               ? isArabic
@@ -110,41 +130,57 @@ const Subscription = () => {
   };
 
   return (
-    <div className="roboto flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="w-full p-4 md:p-16 lg:p-16 flex flex-col justify-center items-center mx-auto">
-        <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:left-4 md:rtl:left-16 ltr:left-4 md:ltr:left-12">
-          <Link to="/">APEX</Link>
-        </h1>
+    <div>
+      {userData && subscription && (
         <div
-          className={`mt-16 lg:mt-0 ${
-            isArabic ? "text-right" : "text-left"
-          } relative`}
+          className={`${
+            from === "profile" ? "bg-transparent" : "bg-gray-50"
+          } roboto flex justify-center items-center min-h-screen`}
         >
-          <div>
-            <h3
-              className={`font-bold text-gray-600  text-4xl  ${
-                isArabic ? "text-right" : "  left-36 top-20"
-              }`}
+          <div className="w-full p-4 md:p-16 lg:p-16 flex flex-col justify-center items-center mx-auto">
+            <h1
+              className={`${
+                from === "profile" ? "hidden" : "block"
+              } text-primary dark:text-main-25 text-4xl font-secondary uppercase text-left ml-2 mt-2 w-full`}
             >
-              {isArabic
-                ? translationAR.subscription.chooseyourplan
-                : translationEN.subscription.chooseyourplan}
-            </h3>
-            <h5
-              className={`text-xl mb-2 text-main-400 font-normal ${
-                isArabic ? "text-right" : " left-36 top-32"
-              } `}
+              <Link to="/">APEX</Link>
+            </h1>
+            <div
+              className={`mt-16 lg:mt-0 ${
+                isArabic ? "text-right" : "text-left"
+              } relative`}
             >
-              {isArabic
-                ? translationAR.subscription.pickplan
-                : translationEN.subscription.pickplan}
-            </h5>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            {renderPlans()}
+              <div>
+                <h3
+                  className={`${
+                    from === "profile" ? "hidden" : "block"
+                  } font-bold text-gray-600 text-4xl ${
+                    isArabic ? "text-right" : "left-36 top-20"
+                  }`}
+                >
+                  {isArabic
+                    ? translationAR.subscription.chooseyourplan
+                    : translationEN.subscription.chooseyourplan}
+                </h3>
+                <h5
+                  className={`${
+                    from === "profile" ? "hidden" : "block"
+                  } text-xl mb-2 text-main-400 font-normal ${
+                    isArabic ? "text-right" : "left-36 top-32"
+                  }`}
+                >
+                  {isArabic
+                    ? translationAR.subscription.pickplan
+                    : translationEN.subscription.pickplan}
+                </h5>
+              </div>
+              <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+                {renderPlans()}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

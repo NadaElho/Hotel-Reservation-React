@@ -32,7 +32,7 @@ const Contact = () => {
 
   const onSubmit = async ({ name, email, message }, { setSubmitting }) => {
     try {
-      const res = await axiosInstance.post(
+      await axiosInstance.post(
         "/contact",
         {
           firstName: name,
