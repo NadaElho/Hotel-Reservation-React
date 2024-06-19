@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import axiosInstance from "../../interceptor";
 import Amenity from "../components/Amenity";
-import Hotel from "./Hotel";
-import LimitedRooms from "./LimitedRooms";
+import Deals from "./Deals";
 import Views from "./Views";
 import Branches from "./Branches";
 import Map from "../components/Map";
-
+import RoomRated from "./RoomRated";
 const Home = () => {
   const branchesRef = useRef(null);
   const { hash } = useLocation();
@@ -44,9 +43,9 @@ const Home = () => {
             <Branches />
           </div>
           <Map position={position} />
-          <LimitedRooms />
+          <Deals />
           <Views />
-          <Hotel />
+          <RoomRated/>
         </>
       )}
     </div>

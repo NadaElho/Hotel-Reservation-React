@@ -23,6 +23,7 @@ import Account from "./pages/Account.jsx";
 import Favourites from "./pages/Favourites.jsx";
 import History from "./pages/History.jsx";
 import Plans from "./pages/Plans.jsx";
+import AllReviews from "./pages/AllReviews.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import CheckEmail from "./pages/CheckEmail.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
@@ -34,18 +35,23 @@ function App() {
   const [logged, setLogged] = useState(
     localStorage.getItem("token") ? false : true
   );
+  const [truncated, setTruncated] = useState([]);
+
   const location = useLocation();
 
   const handleLog = () => {
     logged ? "" : localStorage.setItem("token", "");
     setLogged((logged) => (logged = !logged));
   };
-
+  
   const handleMode = () => {
     localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
   };
-
+  const toggleTruncated = (index) => {
+    setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+  
   return (
     <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-700`}>
       <I18nextProvider i18n={i18n}>
@@ -72,8 +78,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/branch/:id" element={<Branch />} />
-              <Route path="/rooms" element={<Rooms />} />
-              <Route path="/rooms/:id" element={<RoomId />} />
+              <Route path="/rooms" element={<Rooms truncated={truncated} toggleTruncated={toggleTruncated} />}  />
+              <Route path="/rooms/:id" element={<RoomId truncated={truncated} toggleTruncated={toggleTruncated} />} />
+              <Route path="/allReviews" element={<AllReviews/>}/>
               <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />

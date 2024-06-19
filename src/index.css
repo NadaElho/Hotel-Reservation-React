@@ -116,6 +116,11 @@ input {
 .darkMode .range-slider__range {
   background: #f0c7ad;
 }
+/* for model */
+.bg-white{
+  background: #fff7f2;
+  border-radius: 2rem;
+}
 
 .loader {
   transform: rotateZ(45deg);
@@ -225,6 +230,14 @@ input {
 .darkRange {
   background-color: forestgreen;
 }
+
+/* for placeholder in input */
+/* @layer utilities {
+  .placeholder-style::placeholder {
+    padding: 4px;
+  }
+
+} */
 
 .roboto {
   font-family: "Roboto", sans-serif;
