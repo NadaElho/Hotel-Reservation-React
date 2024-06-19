@@ -39,10 +39,10 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
           <AiOutlineMail color={`${isDark ? "white" : "1D1D1D"}`} />
           {data.email}
         </div>
-        <div className="flex items-center gap-2 mt-4">
+        {data.phoneNumber && <div className={`flex items-center gap-2 mt-4`}>
           <MdOutlinePhone color={`${isDark ? "white" : "1D1D1D"}`} size={15}/>
           {data.phoneNumber}
-        </div>
+        </div>}
         <button className="bg-main-800 text-white rounded-3xl py-2 px-10 mt-8 hidden md:block" onClick={handleLog}>
           {t("drop-down.logout")}
         </button>

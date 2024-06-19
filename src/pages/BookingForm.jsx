@@ -70,7 +70,7 @@ function BookingForm() {
         }
       });
     } else {
-      toast.success(t("booking.room-reserved-successfully"));
+      // toast.success(t("booking.room-reserved-successfully"));
       navigate("/", { replace: true });
     }
   }

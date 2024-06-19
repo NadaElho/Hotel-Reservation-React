@@ -149,6 +149,12 @@
     "account": "My account",
     "history": "History",
     "favourites": "My favourites",
-    "plans": "Plans"
+    "plans": "Plans",
+    "amenities": "Room amenities",
+    "date": "Booking date",
+    "status": "Reservation status",
+    "id": "Booking id",
+    "no-reservations": "No reservations found for this user",
+    "room-type": "Room type"
   }
 }
