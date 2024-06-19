@@ -5,12 +5,15 @@ import RoomCard from "../components/RoomCard";
 import Loader from "../components/Loader";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
+import Reviews from "../components/Reviews";
 
-const RoomId = () => {
+const RoomId = ({truncated , toggleTruncated }) => {
   const [room, setRoom] = useState([]);
   const { id } = useParams();
   const [disabledDates, setDisabledDates] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reviews , setReviews] = useState([])
+ 
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
@@ -21,10 +24,25 @@ const RoomId = () => {
       setLoading(false);
       const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(data.data);
+      // 
+      const reviewData = await axiosInstance.get(`/reviews/${id}`);
+      console.log(reviewData.data.data);
+      setReviews(reviewData.data.data);
     }
-
+     
     fetchData();
   }, [id]);
+
+  const handleDelete = async(id)=>{
+    console.log(id);
+    await axiosInstance.delete(`/reviews/${id}`); 
+    const deletedReview = reviews.filter((r)=>r._id !==id )
+    setReviews(deletedReview)
+  }
+
+  const addReview = (newReview) => {
+    setReviews((prev) => [...prev, newReview]);
+  };
 
   return (
     <>
@@ -105,6 +123,8 @@ const RoomId = () => {
             </div>
             {/* card */}
           </div>
+          {/* reviews */}
+          <Reviews truncated={truncated} toggleTruncated={toggleTruncated} reviews={reviews} addReview={addReview} handleDelete={handleDelete}/>
         </div>
       ) : (
         <div className="text-center w-full mt-10">
