@@ -13,13 +13,14 @@ const Plans = () => {
     await axiosInstance.delete("/users/delete-subscription", {
       user: localStorage.getItem("userId"),
     });
-    setSubChanged((prev) => !prev);
+    setSubChanged(false);
   };
+
   const addSubscription = async (id) => {
     await axiosInstance.patch(`/users/add-subscription/${id}`, {
       user: localStorage.getItem("userId"),
     });
-    setSubChanged((prev) => !prev);
+    setSubChanged(true);
   };
 
   return (
@@ -32,16 +33,20 @@ const Plans = () => {
         addSubscription={addSubscription}
         subChanged={subChanged}
       />
-      <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
-        {t("profile.end")}
-      </h2>
-      <p className="text-main-100 text-lg">{t("profile.after-cancellation")}</p>
-      <button
-        className="bg-main-800 px-6 py-2 rounded-3xl text-white my-4"
-        onClick={() => setShowModal(true)}
-      >
-        {t("profile.end")}
-      </button>
+      <div className={subChanged ? 'block' : 'hidden'}>
+        <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
+          {t("profile.end")}
+        </h2>
+        <p className="text-main-100 text-lg">
+          {t("profile.after-cancellation")}
+        </p>
+        <button
+          className="bg-main-800 px-6 py-2 rounded-3xl text-white my-4"
+          onClick={() => setShowModal(true)}
+        >
+          {t("profile.end")}
+        </button>
+      </div>
       {showModal && (
         <Confirm
           onClose={() => setShowModal(false)}
