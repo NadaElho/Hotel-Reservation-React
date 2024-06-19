@@ -19,6 +19,7 @@ const Reviews = ({
   const handleShowModel = () => {
     setShowModel(!showModel);
   };
+  console.log(reviews)
   return (
     <div className="container mt-16 mx-10">
       <h3 className="text-custom font-semibold text-lg">{`${+reviews.length} Reviews`}</h3>
@@ -46,7 +47,7 @@ const Reviews = ({
                       )}
                     <div>
                       <span className="text-primary font-semibold">
-                        {review.userId &&
+                        {review.userId.firstName &&
                           review.userId.firstName +
                             " " +
                             review.userId.lastName}

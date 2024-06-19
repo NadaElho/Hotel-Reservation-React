@@ -155,7 +155,17 @@
     "status": "Reservation status",
     "id": "Booking id",
     "no-reservations": "No reservations found for this user",
-    "room-type": "Room type"
+    "room-type": "Room type",
+    "add-review": "Add review",
+    "sure": "Are you sure?",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "cancel-reservation": "Do you want to cancel this reservation?",
+    "plan": "Your plan",
+    "end": "End subscription" ,
+    "after-cancellation": "Upon cancelling you will lose all the benefits",
+    "active": "active"
   },
   "subscription": {
     "month": "month",

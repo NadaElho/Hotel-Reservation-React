@@ -11,7 +11,7 @@ import Confirm from "../components/Confirm";
 function History() {
   const [userReservations, setUserReservations] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
@@ -49,11 +49,10 @@ function History() {
     });
   };
 
-  const cancelReservation = async (reservationId) =>{
-    await axiosInstance.patch(`/reservations/${reservationId}/cancel`)
-    getAllUserReservations()
-  }
-
+  const cancelReservation = async (reservationId) => {
+    await axiosInstance.patch(`/reservations/${reservationId}/cancel`);
+    getAllUserReservations();
+  };
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -83,12 +82,8 @@ function History() {
       const roomsData = roomsResponse.data.data;
 
       const formattedData = data.data.map((reservationUser) => {
-        const checkInDate = new Date(
-          reservationUser?.checkIn
-        )
-        const checkOutDate = new Date(
-          reservationUser?.checkOut
-        )
+        const checkInDate = new Date(reservationUser?.checkIn);
+        const checkOutDate = new Date(reservationUser?.checkOut);
         const timeDifference = checkOutDate - checkInDate;
         const numberOfNights = timeDifference / (1000 * 3600 * 24);
         const roomDetails = roomsData.find(
@@ -100,8 +95,14 @@ function History() {
           user: reservationUser.userId,
           room: roomDetails,
           status: reservationUser.status,
-          checkIn: new Date(reservationUser?.checkIn).toLocaleDateString(isArabic ? "ar-EG" : "en-US", options),
-          checkOut: new Date(reservationUser?.checkOut).toLocaleDateString(isArabic ? "ar-EG" : "en-US", options),
+          checkIn: new Date(reservationUser?.checkIn).toLocaleDateString(
+            isArabic ? "ar-EG" : "en-US",
+            options
+          ),
+          checkOut: new Date(reservationUser?.checkOut).toLocaleDateString(
+            isArabic ? "ar-EG" : "en-US",
+            options
+          ),
           night: numberOfNights,
           images: roomDetails.images,
           changeImage: 0,
@@ -152,7 +153,9 @@ function History() {
                     </p>
                   </div>
                   <div className=" mt-5">
-                    <button className="rounded-3xl bg-main-800 px-6 py-2 text-white">Add review</button>
+                    <button className="rounded-3xl bg-main-800 px-6 py-2 text-white">
+                      {t("profile.add-review")}
+                    </button>
                   </div>
                 </div>
                 <div className="flex justify-evenly items-center col-span-0 lg:col-span-2 col-span-3 my-2 w-100 rtl:flex-row-reverse">
@@ -221,30 +224,39 @@ function History() {
                     </p>
                   </div>
                 </div>
-                  <div className="">
-                    <p className="text-main-800 font-bold">
-                      {t("profile.status")}
-                    </p>
-                    <p className={getStatusClass(reservation.status.name_en)}>
-                      {isArabic
-                        ? reservation.status.name_ar
-                        : reservation.status.name_en}
-                    </p>
-                  </div>
-                  <div>
-                    <button className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500 ${reservation.status.name_en == 'canceled' ? 'hidden' : 'inline-block'}`} onClick={()=>setShowModal(true)}>Cancel</button>
-                  </div>
+                <div className="">
+                  <p className="text-main-800 font-bold">
+                    {t("profile.status")}
+                  </p>
+                  <p className={getStatusClass(reservation.status.name_en)}>
+                    {isArabic
+                      ? reservation.status.name_ar
+                      : reservation.status.name_en}
+                  </p>
+                </div>
+                <div>
+                  <button
+                    className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500 ${
+                      reservation.status.name_en == "canceled"
+                        ? "hidden"
+                        : "inline-block"
+                    }`}
+                    onClick={() => setShowModal(true)}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
             {showModal && (
-          <Confirm
-            onClose={() => setShowModal(false)}
-            onConfirm={() => {
-              cancelReservation(reservation.id)
-              setShowModal(false);
-            }}
-          />
-        )}
+              <Confirm
+                onClose={() => setShowModal(false)}
+                onConfirm={() => {
+                  cancelReservation(reservation.id);
+                  setShowModal(false);
+                }}
+              />
+            )}
           </div>
         ))
       ) : (
