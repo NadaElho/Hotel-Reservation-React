@@ -82,15 +82,17 @@
     "branches": "All branches",
     "rooms": "All rooms",
     "login": "Log in",
-    "logout": "Log out"
+    "logout": "Log out",
+    "profile": "Profile",
+    "contact": "Contact us"
   },
   "form": {
     "start": "Start for free",
     "create-new": "Create new account",
     "welcome": "Welcome Back",
     "details": "Please enter your details",
-    "fname": "First Name",
-    "lname": "Last Name",
+    "fname": "First name",
+    "lname": "Last name",
     "email": "Email",
     "password": "Password",
     "confirm": "Confirm Password",
@@ -110,9 +112,20 @@
     "phone": "Phone number",
     "phone-req": "Phone required",
     "invalid-phone": "Invalid phone number",
-    "emergencyContact": "Emergency contact"
+    "emergencyContact": "Emergency contact",
+    "change-pass": "Change password",
+    "current-pass": "Current password",
+    "new-pass": "New password",
+    "password-changed": "Password changed successfully",
+    "name": "Name",
+    "name-req": "Name is required*",
+    "message": "Message",
+    "message-req": "Message is required*",
+    "conversation": "Let's start a conversation",
+    "send": "Send"
   },
   "items": "Page items",
+
   "footer": {
     "start": "Ready to get started ?",
     "discover": "Dicover Egypt through your eyes",
@@ -130,5 +143,44 @@
     "Siwa Qasis": "Siwa Qasis",
     "Telephones": "Telephones",
     "copy-right": "All Rights Reserved"
+  },
+  "profile": {
+    "hi": "Hi,",
+    "edit": "Edit profile",
+    "account": "My account",
+    "history": "History",
+    "favourites": "My favourites",
+    "plans": "Plans"
+  },
+  "subscription": {
+    "month": "month",
+    "mostpopular": "most popular",
+    "upgrade": "Upgrade",
+    "getStarted": "Get Started",
+    "chooseyourplan": "Choose your plan",
+    "pickplan": "Pick up the plan that best suits your travels!"
+  },
+  "forgotpassword": "Forgot Password",
+  "resetpassword": {
+    "resetpassword": "Reset Password",
+    "enteremail": "Please enter your email address to request a password reset",
+    "btnresetpassword": "ResetPassword",
+    "rememberpassword": "You remember your password?",
+    "login": "Login",
+    "email": "Email"
+  },
+  "newpassword": {
+    "newpassword": "Create New Password",
+    "differentpassword": "This password should be different from the previous password.",
+    "resetpassword": "Reset Password",
+    "password": "password",
+    "confirmpassword": "Confirm Password"
+  },
+  "checkemail": {
+    "checkemail": "Check your Email",
+    "rememberpassword": "You remember your password?",
+    "openemail": "Open Email",
+    "sentemail": " We have sent a reset password to your email address.",
+    "login": "Login"
   }
 }

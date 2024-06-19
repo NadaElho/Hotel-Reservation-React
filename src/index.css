@@ -101,7 +101,7 @@ input {
   font-size: 30px;
 } */
 
-.range-slider .range-slider__thumb{
+.range-slider .range-slider__thumb {
   background: #52381d;
 }
 
@@ -109,12 +109,12 @@ input {
   background: #52381d;
 }
 
-.darkMode .range-slider__thumb{
-  background: #F0C7AD;
+.darkMode .range-slider__thumb {
+  background: #f0c7ad;
 }
 
-.darkMode .range-slider__range{
-  background: #F0C7AD;
+.darkMode .range-slider__range {
+  background: #f0c7ad;
 }
 /* for model */
 .bg-white{
@@ -230,6 +230,7 @@ input {
 .darkRange {
   background-color: forestgreen;
 }
+
 /* for placeholder in input */
 /* @layer utilities {
   .placeholder-style::placeholder {
@@ -237,3 +238,7 @@ input {
   }
 
 } */
+
+.roboto {
+  font-family: "Roboto", sans-serif;
+}

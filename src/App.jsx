@@ -24,6 +24,11 @@ import Favourites from "./pages/Favourites.jsx";
 import History from "./pages/History.jsx";
 import Plans from "./pages/Plans.jsx";
 import AllReviews from "./pages/AllReviews.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
+import CheckEmail from "./pages/CheckEmail.jsx";
+import NewPassword from "./pages/NewPassword.jsx";
+import Subscription from "./pages/Subscription.jsx";
+import Contact from "./pages/Contact.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -52,9 +57,12 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
+            location.pathname != "/resetpassword" &&
+            location.pathname != "/checkemail" &&
+            location.pathname != "/subscription" &&
+            !location.pathname.startsWith("/newPassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
                 <Navbar
@@ -73,24 +81,36 @@ function App() {
               <Route path="/rooms" element={<Rooms truncated={truncated} toggleTruncated={toggleTruncated} />}  />
               <Route path="/rooms/:id" element={<RoomId truncated={truncated} toggleTruncated={toggleTruncated} />} />
               <Route path="/allReviews" element={<AllReviews/>}/>
+              <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
                 <Route path="payment-result" element={<PaymentResult />} />
-                <Route path="profile" element={<Profile />}>
-                  <Route path="" element={<Account/>}/>
-                  <Route path="favourites" element={<Favourites/>}/>
-                  <Route path="history" element={<History/>}/>
-                  <Route path="plans" element={<Plans/>}/>
+                <Route
+                  path="profile"
+                  element={<Profile handleLog={handleLog} />}
+                >
+                  <Route path="" element={<Account />} />
+                  <Route path="favourites" element={<Favourites />} />
+                  <Route path="history" element={<History />} />
+                  <Route path="plans" element={<Plans />} />
                 </Route>
               </Route>
+              <Route path="/subscription" element={<Subscription />} />
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login handleLog={handleLog} />} />
+                <Route path="/resetpassword" element={<ResetPassword />} />
+                <Route path="/checkemail" element={<CheckEmail />} />
+                <Route path="/newpassword/:id" element={<NewPassword />} />
               </Route>
             </Routes>
           </div>
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
+            location.pathname != "/resetpassword" &&
+            location.pathname != "/checkemail" &&
+            location.pathname != "/subscription" &&
+            !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && <Footer />}
         </LanguageProvider>
       </I18nextProvider>

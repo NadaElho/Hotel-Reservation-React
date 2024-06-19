@@ -193,7 +193,6 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                         : room.roomTypeId.type_en}
                     </div>
                     <ReactStars size={16} value={room.ratingAvg} edit={false}/>
-
                     <div className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>

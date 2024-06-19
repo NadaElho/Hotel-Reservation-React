@@ -124,14 +124,19 @@ const Login = ({ handleLog }) => {
               >
                 {t("form.login")}
               </button>
-              <div className="text-sm font-bold text-main-400 dark:text-main-25 mt-2 ms-2">
-                {t("form.don't-have")} &nbsp;
-                <span
-                  className="cursor-pointer text-[#464646] dark:text-main-200"
-                  onClick={() => navigate("/register", { replace: true })}
-                >
-                  {t("form.signup")}
-                </span>
+              <div className="text-sm font-bold flex justify-between text-main-400 dark:text-main-25 mt-2 ms-2">
+                <div>
+                  {t("form.don't-have")} &nbsp;
+                  <span
+                    className="cursor-pointer text-[#464646] dark:text-main-200"
+                    onClick={() => navigate("/register", { replace: true })}
+                  >
+                    {t("form.signup")}
+                  </span>
+                </div>
+                <Link to="/resetpassword" className="text-[#52381D] underline ">
+                  {t("forgotpassword")}
+                </Link>
               </div>
             </form>
           )}

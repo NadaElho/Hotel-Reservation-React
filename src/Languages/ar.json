@@ -100,7 +100,9 @@
     "branches": "كل الفروع",
     "rooms": "كل الغرف",
     "login": "تسجيل الدخول",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي",
+    "contact": "تواصل معنا"
   },
   "form": {
     "start": "ابدأ مجانًا",
@@ -128,7 +130,56 @@
     "phone": "رقم الموبايل",
     "phone-req": "رقم الموبايل مطلوب",
     "invalid-phone": "رقم موبايل غير صالح",
-    "emergencyContact": "رقم الطوارئ"
+    "emergencyContact": "رقم الطوارئ",
+    "change-pass": "تغيير كلمة المرور",
+    "current-pass": "كلمة المرور الحالية",
+    "new-pass": "كلمة المرور الجديدة",
+    "password-changed": "تم تغيير كلمة المرور بنجاح",
+    "name": "الاسم",
+    "name-req": "*الاسم مطلوب",
+    "message": "الرسالة",
+    "message-req": "*الرسالة مطلوبة",
+    "conversation":"دعنا  نبدأ محادثة الآن",
+    "send": "ارسال"
   },
-  "items": "عدد عناصر الصفحة"
+  "items": "عدد عناصر الصفحة",
+  "profile": {
+    "hi": "أهلاً",
+    "edit": "تعديل",
+    "account": "حسابي",
+    "history": "السجل",
+    "favourites": "المفضلة",
+    "plans": "الاشتراكات"
+  },
+  "subscription": {
+    "month": "/شهرياً",
+    "mostpopular": "الاكثر انتشارا",
+    "upgrade": "تحديث",
+    "getStarted": "ابدأ الآن",
+    "chooseyourplan": "اختر خطتك",
+    "pickplan": "اختر الخطة التي تناسب رحلاتك!"
+  },
+  "forgotpassword": "نسيت كلمة المرور",
+  "resetpassword": {
+    "resetpassword": "إعادة تعيين كلمة المرور",
+    "enteremail": "الرجاء إدخال عنوان بريدك الإلكتروني لطلب إعادة تعيين كلمة المرور",
+    "btnresetpassword": "إعادة تعيين كلمة المرور",
+    "rememberpassword": "هل تتذكر كلمة المرور الخاصة بك؟",
+    "login": "دخول",
+    "email": "بريد إلكتروني"
+  },
+  "newpassword": {
+    "newpassword": "إنشاء كلمة مرور جديدة",
+    "differentpassword": "يجب أن تكون كلمة المرور هذه مختلفة عن كلمة المرور السابقة",
+    "resetpassword": "إعادة تعيين كلمة المرور",
+    "password": "كلمة المرور",
+    "confirmpassword": "تأكيد كلمة المرور"
+  },
+  "checkemail": {
+    "checkemail": "تحقق من بريدك الإلكتروني",
+    "rememberpassword": "هل تتذكر كلمة المرور الخاصة بك؟",
+    "openemail": "فتح البريد الإلكتروني",
+    "sentemail": "لقد أرسلنا كلمة المرور لإعادة تعيينها إلى عنوان بريدك الإلكتروني.",
+    "login": "دخول"
+  }
 }
