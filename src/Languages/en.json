@@ -156,5 +156,36 @@
     "id": "Booking id",
     "no-reservations": "No reservations found for this user",
     "room-type": "Room type"
+  },
+  "subscription": {
+    "month": "month",
+    "mostpopular": "most popular",
+    "upgrade": "Upgrade",
+    "getStarted": "Get Started",
+    "chooseyourplan": "Choose your plan",
+    "pickplan": "Pick up the plan that best suits your travels!"
+  },
+  "forgotpassword": "Forgot Password",
+  "resetpassword": {
+    "resetpassword": "Reset Password",
+    "enteremail": "Please enter your email address to request a password reset",
+    "btnresetpassword": "ResetPassword",
+    "rememberpassword": "You remember your password?",
+    "login": "Login",
+    "email": "Email"
+  },
+  "newpassword": {
+    "newpassword": "Create New Password",
+    "differentpassword": "This password should be different from the previous password.",
+    "resetpassword": "Reset Password",
+    "password": "password",
+    "confirmpassword": "Confirm Password"
+  },
+  "checkemail": {
+    "checkemail": "Check your Email",
+    "rememberpassword": "You remember your password?",
+    "openemail": "Open Email",
+    "sentemail": "We have sent a reset password to your email address.",
+    "login": "Login"
   }
 }

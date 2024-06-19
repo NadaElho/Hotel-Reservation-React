@@ -156,5 +156,36 @@
     "id": "رقم الحجز",
     "no-reservations": "لا يوجد حجوزات لهذا المستخدم",
     "room-type": "نوع الغرفة"
+  },
+  "subscription": {
+    "month": "/شهرياً",
+    "mostpopular": "الاكثر انتشارا",
+    "upgrade": "تحديث",
+    "getStarted": "ابدأ الآن",
+    "chooseyourplan": "اختر خطتك",
+    "pickplan": "اختر الخطة التي تناسب رحلاتك!"
+  },
+  "forgotpassword": "نسيت كلمة المرور",
+  "resetpassword": {
+    "resetpassword": "إعادة تعيين كلمة المرور",
+    "enteremail": "الرجاء إدخال عنوان بريدك الإلكتروني لطلب إعادة تعيين كلمة المرور",
+    "btnresetpassword": "إعادة تعيين كلمة المرور",
+    "rememberpassword": "هل تتذكر كلمة المرور الخاصة بك؟",
+    "login": "دخول",
+    "email": "بريد إلكتروني"
+  },
+  "newpassword": {
+    "newpassword": "إنشاء كلمة مرور جديدة",
+    "differentpassword": "يجب أن تكون كلمة المرور هذه مختلفة عن كلمة المرور السابقة",
+    "resetpassword": "إعادة تعيين كلمة المرور",
+    "password": "كلمة المرور",
+    "confirmpassword": "تأكيد كلمة المرور"
+  },
+  "checkemail": {
+    "checkemail": "تحقق من بريدك الإلكتروني",
+    "rememberpassword": "هل تتذكر كلمة المرور الخاصة بك؟",
+    "openemail": "فتح البريد الإلكتروني",
+    "sentemail": "لقد أرسلنا كلمة المرور لإعادة تعيينها إلى عنوان بريدك الإلكتروني.",
+    "login": "دخول"
   }
 }

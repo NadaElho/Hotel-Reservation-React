@@ -4,13 +4,23 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import img from "/createnewpassword.png";
 import { toast } from "react-toastify";
 import axiosInstance from "../../interceptor";
+import { LanguageContext } from "../providers/LanguageContext";
+import { useContext } from "react";
 
 const NewPassword = () => {
   let userId = useParams();
   const token = userId.id;
-
   const navigate = useNavigate();
-
+  const { t } = useContext(LanguageContext);
+  {
+    t(
+      "newpassword",
+      "differentpassword",
+      "resetpassword",
+      "password",
+      "confirmpassword"
+    );
+  }
   const validate = (values) => {
     const errors = {};
 
@@ -50,10 +60,10 @@ const NewPassword = () => {
           <Link to="/">APEX</Link>
         </h1>
         <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
-          Create New Password
+          {t("newpassword.newpassword")}
         </h3>
         <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
-          This password should be different from the previous password.
+          {t("newpassword.differentpassword")}
         </h5>
         <Formik
           initialValues={{
@@ -79,7 +89,7 @@ const NewPassword = () => {
                   <input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder={t("newpassword.password")}
                     className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-fulls"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -97,7 +107,7 @@ const NewPassword = () => {
                   <input
                     type="password"
                     name="confirmPassword"
-                    placeholder="Confirm Password"
+                    placeholder={t("newpassword.confirmpassword")}
                     className="border-0 h-8 outline-none focus:ring-0 placeholder:text-slate-200 w-full bg-main-300"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -116,7 +126,7 @@ const NewPassword = () => {
                 className="w-full bg-main-800 border rounded-full p-2 text-white disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
-                Reset Password
+                {t("newpassword.resetpassword")}
               </button>
             </form>
           )}
