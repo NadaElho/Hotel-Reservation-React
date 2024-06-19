@@ -6,10 +6,12 @@ import { IoKeyOutline } from "react-icons/io5";
 import Loader from "../components/Loader";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
+import Confirm from "../components/Confirm";
 
 function History() {
   const [userReservations, setUserReservations] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
@@ -46,6 +48,12 @@ function History() {
       return newReservations;
     });
   };
+
+  const cancelReservation = async (reservationId) =>{
+    await axiosInstance.patch(`/reservations/${reservationId}/cancel`)
+    getAllUserReservations()
+  }
+
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -144,14 +152,7 @@ function History() {
                     </p>
                   </div>
                   <div className=" mt-5">
-                    <p className="text-main-800 font-bold">
-                      {t("profile.status")}
-                    </p>
-                    <p className={getStatusClass(reservation.status.name_en)}>
-                      {isArabic
-                        ? reservation.status.name_ar
-                        : reservation.status.name_en}
-                    </p>
+                    <button className="rounded-3xl bg-main-800 px-6 py-2 text-white">Add review</button>
                   </div>
                 </div>
                 <div className="flex justify-evenly items-center col-span-0 lg:col-span-2 col-span-3 my-2 w-100 rtl:flex-row-reverse">
@@ -178,7 +179,7 @@ function History() {
                       reservation.changeImage === reservation.images.length - 1
                         ? "opacity-50 border-main-100 "
                         : " border-main-800 "
-                    } border rounded-full  mx-0 md:mx-3 hidden md:block p-1`}
+                    } border rounded-full  mx-0 hidden md:block p-1`}
                     onClick={() => nextSlider(index)}
                     disabled={
                       reservation.changeImage === reservation.images.length - 1
@@ -200,7 +201,7 @@ function History() {
                     .join(", ")}
                 </p>
               </div>
-              <div className="flex mt-4 ">
+              <div className="flex mt-4 justify-between">
                 <div className="me-32 flex items-center">
                   <p className=" rounded-full text-3xl text-white bg-main-300 p-3 me-2 w-14 h-14">
                     <IoKeyOutline />
@@ -220,8 +221,30 @@ function History() {
                     </p>
                   </div>
                 </div>
+                  <div className="">
+                    <p className="text-main-800 font-bold">
+                      {t("profile.status")}
+                    </p>
+                    <p className={getStatusClass(reservation.status.name_en)}>
+                      {isArabic
+                        ? reservation.status.name_ar
+                        : reservation.status.name_en}
+                    </p>
+                  </div>
+                  <div>
+                    <button className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500 ${reservation.status.name_en == 'canceled' ? 'hidden' : 'inline-block'}`} onClick={()=>setShowModal(true)}>Cancel</button>
+                  </div>
               </div>
             </div>
+            {showModal && (
+          <Confirm
+            onClose={() => setShowModal(false)}
+            onConfirm={() => {
+              cancelReservation(reservation.id)
+              setShowModal(false);
+            }}
+          />
+        )}
           </div>
         ))
       ) : (

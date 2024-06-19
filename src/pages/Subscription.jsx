@@ -15,7 +15,6 @@ const Subscription = () => {
       try {
         const res = await axiosInstance.get(`/subscriptions`);
         const data = res.data.data;
-        // console.log(data);
         setSubscription(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -112,7 +111,7 @@ const Subscription = () => {
   return (
     <div className="roboto flex justify-center items-center min-h-screen bg-gray-50">
       <div className="w-full p-4 md:p-16 lg:p-16 flex flex-col justify-center items-center mx-auto">
-        <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:left-4 md:rtl:left-16 ltr:left-4 md:ltr:left-12">
+        <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase text-left ml-2 mt-2 w-full">
           <Link to="/">APEX</Link>
         </h1>
         <div
