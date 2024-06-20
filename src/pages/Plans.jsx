@@ -3,6 +3,7 @@ import Subscription from "./Subscription";
 import { LanguageContext } from "../providers/LanguageContext";
 import Confirm from "../components/Confirm";
 import axiosInstance from "../../interceptor";
+import { toast } from "react-toastify";
 
 const Plans = () => {
   const { t } = useContext(LanguageContext);
@@ -20,6 +21,15 @@ const Plans = () => {
     await axiosInstance.patch(`/users/add-subscription/${id}`, {
       user: localStorage.getItem("userId"),
     });
+    try {
+      const { data } = await axiosInstance.post(
+        `/subscriptions/${id}/payment`, {
+          user: localStorage.getItem("userId"),
+        });
+      window.location.href = data.session.url;
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
     setSubChanged(true);
   };
 

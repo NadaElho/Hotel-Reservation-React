@@ -84,7 +84,8 @@
     "login": "Log in",
     "logout": "Log out",
     "profile": "Profile",
-    "contact": "Contact us"
+    "contact": "Contact us",
+    "subscription": "Subscription plans"
   },
   "form": {
     "start": "Start for free",
