@@ -55,9 +55,9 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             <p className="text-primary font-bold text-3xl font-secondary dark:text-PrimaryDark">
               {`${
                 room.hotelId && isArabic
-                  ? room.hotelId.name_ar
-                  : room.hotelId.name_en
-              } ${t("rooms.branch")}`}
+                  ? t("rooms.branch") + " " + room.hotelId.name_ar
+                  : room.hotelId.name_en + " " + t("rooms.branch")
+              }`}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-4 mt-4">
               {room.images &&
@@ -128,6 +128,7 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             reviews={reviews}
             addReview={addReview}
             handleDelete={handleDelete}
+            id={id}
           />
         </div>
       ) : (

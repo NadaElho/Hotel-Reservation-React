@@ -7,12 +7,16 @@ import Loader from "../components/Loader";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import Confirm from "../components/Confirm";
+import { ReviewModel } from "../components/ReviewModel";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 function History() {
   const [userReservations, setUserReservations] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [id, setId] = useState(null);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -65,6 +69,12 @@ function History() {
       default:
         return "";
     }
+  };
+
+  const navigate = useNavigate();
+  const addReview = (data, id) => {
+    navigate(`/rooms/${id}`);
+    toast.success("review added successfully");
   };
 
   const getAllUserReservations = async () => {
@@ -120,10 +130,8 @@ function History() {
   };
   if (isLoading) {
     return (
-      <div className="lg:p-14 p-7 sm:ml-64 h-full">
-        <div className="flex justify-center items-center h-full">
-          <Loader />
-        </div>
+      <div className="h-screen">
+        <Loader />
       </div>
     );
   }
@@ -132,7 +140,7 @@ function History() {
     <div className="lg:px-16 lg:py-10 p-7 ">
       {userReservations.length ? (
         userReservations.map((reservation, index) => (
-          <div key={reservation.id} className="">
+          <div key={reservation.id}>
             <div className="border border-main-800 rounded-3xl xl:w-full p-5 md:p-10 mb-10 text-main-400">
               <div className="grid grid-cols-1 md:grid-cols-3 ">
                 <div>
@@ -153,10 +161,19 @@ function History() {
                     </p>
                   </div>
                   <div className=" mt-5">
-                    <button className="rounded-3xl bg-main-800 px-6 py-2 text-white">
+                    <button
+                      className="rounded-3xl bg-main-800 px-6 py-2 text-white"
+                      onClick={() => {
+                        setShowAddModal(true);
+                        setId(reservation.room._id);
+                      }}
+                    >
                       {t("profile.add-review")}
                     </button>
                   </div>
+                  {showAddModal && (
+                    <ReviewModel addReview={addReview} id={id} />
+                  )}
                 </div>
                 <div className="flex justify-evenly items-center col-span-0 lg:col-span-2 col-span-3 my-2 w-100 rtl:flex-row-reverse">
                   <button
@@ -234,16 +251,18 @@ function History() {
                       : reservation.status.name_en}
                   </p>
                 </div>
-                <div>
+                <div
+                  className={`${
+                    reservation.status.name_en == "canceled"
+                      ? "hidden"
+                      : "inline-block"
+                  }`}
+                >
                   <button
-                    className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500 ${
-                      reservation.status.name_en == "canceled"
-                        ? "hidden"
-                        : "inline-block"
-                    }`}
+                    className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500`}
                     onClick={() => setShowModal(true)}
                   >
-                    Cancel
+                    {t("profile.cancel")}
                   </button>
                 </div>
               </div>

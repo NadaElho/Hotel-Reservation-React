@@ -2,10 +2,9 @@ import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import axiosInstance from "../../interceptor";
-import { useParams } from "react-router";
-export function ReviewModel({ addReview }) {
+
+export function ReviewModel({ addReview, id }) {
   const [openModal, setOpenModal] = useState(true);
-  const { id } = useParams();
   const [review, setReview] = useState({
     title: "",
     rating: 0,
@@ -18,9 +17,11 @@ export function ReviewModel({ addReview }) {
     }
     fetchData();
   }, [id]);
+
   function onCloseModal() {
     setOpenModal(false);
   }
+  
   const handleAddReview = async () => {
     const userId = localStorage.getItem("userId");
     const { data } = await axiosInstance.post("/reviews", {
@@ -29,8 +30,7 @@ export function ReviewModel({ addReview }) {
       userId,
       roomId : id
     });
-    console.log(data.data);
-    addReview(data.data);
+    addReview(data.data, id);
     onCloseModal();
   };
 
@@ -48,10 +48,9 @@ export function ReviewModel({ addReview }) {
       ...review,
       rating: newRating,
     });
-    console.log(newRating);
   };
   return (
-    <>
+    <div className={`fixed bg-gray-400 inset-0 bg-opacity-50 z-50 flex justify-center items-center ${openModal ? "block" : "hidden"}`}>
       <Modal
         className="w-1/2 mx-auto"
         show={openModal}
@@ -93,6 +92,6 @@ export function ReviewModel({ addReview }) {
           </div>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }
