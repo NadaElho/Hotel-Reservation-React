@@ -9,7 +9,7 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
   const isDark = localStorage.getItem("dark") == "dark";
 
   return (
-    <div className="w-full md:w-1/4 p-4 mt-[70px]">
+    <div className="w-full md:w-1/4 p-4 mt-[70px] me-2">
       <div className="flex gap-4 mb-4 items-center">
         <label
           htmlFor="uploadFile1"
