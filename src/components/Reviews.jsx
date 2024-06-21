@@ -14,6 +14,7 @@ const Reviews = ({
   reviews,
   addReview,
   handleDelete,
+  id
 }) => {
   const [showModel, setShowModel] = useState(false);
   const handleShowModel = () => {
@@ -119,7 +120,7 @@ const Reviews = ({
             Write a review
           </button>
         </div>
-        {showModel && <ReviewModel addReview={addReview} />}
+        {showModel && <ReviewModel addReview={addReview} id={id}/>}
       </div>
     </div>
   );
