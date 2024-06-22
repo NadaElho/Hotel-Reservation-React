@@ -103,7 +103,8 @@
     "login": "Log in",
     "logout": "Log out",
     "profile": "Profile",
-    "contact": "Contact us"
+    "contact": "Contact us",
+    "subscription": "Subscription plans"
   },
   "form": {
     "start": "Start for free",
@@ -181,6 +182,7 @@
     "yes": "Yes",
     "no": "No",
     "cancel-reservation": "Do you want to cancel this reservation?",
+    "end-subscription": "Do you want to end your subscription?",
     "plan": "Your plan",
     "end": "End subscription" ,
     "after-cancellation": "Upon cancelling you will lose all the benefits",

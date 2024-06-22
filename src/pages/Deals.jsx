@@ -1,7 +1,5 @@
 import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -15,14 +13,13 @@ import {
 } from "swiper/modules";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
-import ReactStars from "react-rating-stars-component";
-import { CiHeart } from "react-icons/ci";
+import Card from "../components/Card";
 
 const Deals = () => {
   const [rooms, setRooms] = useState([]);
   const [subscription, setSubscription] = useState([]);
   const { t } = useContext(LanguageContext);
-  const isArabic = localStorage.getItem("lang") == "ar";
+
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
@@ -30,8 +27,7 @@ const Deals = () => {
       setRooms(data);
 
       const subData = await axiosInstance.get("/subscriptions");
-      setSubscription(subData.data.data);
-      console.log(subData.data.data);
+      setSubscription(subData.data.data)
     }
     fetchData();
   }, []);
@@ -68,7 +64,7 @@ const Deals = () => {
       >
         {limitedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <div className="relative w-[320px] h-64 rounded-3xl overflow-hidden mt-10 ">
+            /*<div className="relative w-[320px] h-64 rounded-3xl overflow-hidden mt-10 ">
               <img
                 className="h-full w-full object-cover"
                 src={room.images}
@@ -148,7 +144,6 @@ const Deals = () => {
                     {t("rooms.taxes-fees")}
                   </p>
                 </div>
-                {/*  */}
                 <div className=" mx-6 mt-16">
                   <Link to={`reservation-room/${room._id}`}>
                     <button className="bg-primary text-white text-xs py-1 w-32 font-semibold rounded-full dark:bg-[#E2C8AD] dark:text-customDark ">
@@ -157,7 +152,8 @@ const Deals = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div>*/
+            <Card room={room}/>
           </SwiperSlide>
         ))}
       </Swiper>

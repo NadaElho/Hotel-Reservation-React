@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 
 const ReviewModel = ({ addReview, updateReview, currentReview, onClose }) => {
+    const [openModal, setOpenModal] = useState(true);
   const [reviewData, setReviewData] = useState({
     title: "",
     rating: 0,

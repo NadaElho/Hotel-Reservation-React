@@ -22,6 +22,7 @@ const Reviews = ({
   room,
   isShow = true,
   design = {},
+  id
 }) => {
   const [showModel, setShowModel] = useState(false);
   const [currentReview, setCurrentReview] = useState(null);
@@ -188,6 +189,7 @@ const Reviews = ({
           isUpdated={isUpdated}
           currentReview={currentReview}
           onClose={() => setShowModel(false)}
+          id={id}
         />
       )}
     </div>

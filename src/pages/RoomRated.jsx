@@ -21,13 +21,11 @@ import { CiHeart } from "react-icons/ci";
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
   const { t } = useContext(LanguageContext);
-  const isArabic = localStorage.getItem("lang") == "ar";
 
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
       const data = res.data.data;
-      console.log(data);
       setRooms(data);
     }
     fetchData();

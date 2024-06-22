@@ -33,7 +33,6 @@ const ResetPassword = () => {
   };
 
   const onSubmit = async ({ email }, { setSubmitting }) => {
-    console.log(email);
     try {
       let { data } = await axiosInstance.post("users/forgotPassword", {
         email,

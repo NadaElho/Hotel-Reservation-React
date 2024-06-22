@@ -71,7 +71,11 @@ const RoomId = ({ truncated, toggleTruncated }) => {
         <div className="container mx-auto mt-8 ">
           <div className="mx-10" key={room._id}>
             <p className="text-primary font-bold text-3xl font-secondary dark:text-PrimaryDark">
-              {room.hotelId && isArabic ? (<>{t("rooms.branch")} {room.hotelId.name_ar}</>) : (<>{room.hotelId.name_en} {t("rooms.branch")}</>)}
+              {`${
+                room.hotelId && isArabic
+                  ? t("rooms.branch") + " " + room.hotelId.name_ar
+                  : room.hotelId.name_en + " " + t("rooms.branch")
+              }`}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-4 mt-4">
               {room.images &&
@@ -135,6 +139,7 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             updateReview={updateReview}
             isUpdated={isUpdated}
             room = {room}
+            id={id}
           />
         </div>
       ) : (

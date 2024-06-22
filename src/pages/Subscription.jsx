@@ -6,11 +6,14 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { IoAddCircleOutline } from "react-icons/io5";
 import translationEN from "../languages/en.json";
 import translationAR from "../languages/ar.json";
+import { toast } from "react-toastify";
 
-const Subscription = ({ from, addSubscription, subChanged }) => {
+const Subscription = ({ from, addSubscription, subChanged, userData }) => {
   const [subscription, setSubscription] = useState([]);
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const isArabic = localStorage.getItem("lang") == "ar";
+  const isLogged = localStorage.getItem("token");
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -22,38 +25,31 @@ const Subscription = ({ from, addSubscription, subChanged }) => {
       }
     }
     fetchData();
-    (async function () {
-      let { data } = await axiosInstance.get(
-        `/users/${localStorage.getItem("userId")}`
-      );
-      setUserData(data.data);
-    })();
-  }, [subChanged]);
+  }, [subChanged, isLogged]);
 
   const cardStyles = {
     width: "270px",
-    height: "580px",
+    minHeight: "580px",
     borderRadius: "40px",
     border: "1px solid #10324E",
   };
 
   const renderAdvantages = (advantages) => {
-    return advantages.map((advantage, index) => (
-      <li key={index} className="flex items-start">
-        {advantage.name_en.startsWith("Increased") ? (
-          <IoAddCircleOutline
-            className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
-            style={{ width: "35px", height: "20px" }}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faCircleCheck}
-            className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
-          />
-        )}
-        {isArabic ? advantage.name_ar : advantage.name_en}
-      </li>
-    ));
+    return (
+      <>
+        {advantages.map((advantage, index) => (
+          <>
+            <li key={index} className="flex items-start">
+              <FontAwesomeIcon
+                icon={faCircleCheck}
+                className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
+              />
+              {isArabic ? advantage.name_ar : advantage.name_en}
+            </li>
+          </>
+        ))}
+      </>
+    );
   };
 
   const renderPlans = () => {
@@ -76,18 +72,20 @@ const Subscription = ({ from, addSubscription, subChanged }) => {
               </span>
             )}
             <div>
-              <div className={`${
-                  userData.subscriptionId?._id == plan._id
+              <div
+                className={`${
+                  userData?.subscriptionId?._id == plan._id
                     ? "inline-block"
                     : "hidden"
-                } mb-4 text-right w-full`}>
-                <span
-                className={`rounded-xl bg-white px-4 py-1 mt-2 inline-block text-[#10324E]`}
+                } mb-4 text-right w-full`}
               >
-                {isArabic
-                  ? translationAR.profile.active
-                  : translationEN.profile.active}
-              </span>
+                <span
+                  className={`rounded-xl bg-white px-4 py-1 mt-2 inline-block text-[#10324E]`}
+                >
+                  {isArabic
+                    ? translationAR.profile.active
+                    : translationEN.profile.active}
+                </span>
               </div>
               <h4 className="text-3xl mt-3 font-semibold text-center">
                 {isArabic ? plan.name_ar : plan.name_en}
@@ -109,12 +107,25 @@ const Subscription = ({ from, addSubscription, subChanged }) => {
                 }`}
               >
                 {renderAdvantages(plan.subscriptionAdvantageIds)}
+                <li className="flex items-start">
+                  <IoAddCircleOutline
+                    className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
+                    style={{ width: "35px", height: "20px" }}
+                  />
+                  {isArabic
+                    ? `احصل على خصم ${plan.percentage}% على حجز الغرف طوال العام`
+                    : `Receive a ${plan.percentage}% discount on room bookings all year round.`}
+                </li>
               </ul>
             </div>
           </div>
           <button
             className={`w-full mt-4 bg-[#134D7D] text-[#FFF7F2] px-4 py-2 rounded-full `}
-            onClick={()=>addSubscription(plan._id)}
+            onClick={() =>
+              isLogged
+                ? addSubscription(plan._id)
+                : toast.error("please login first")
+            }
           >
             {plan.name_en === "Basic plan"
               ? isArabic
@@ -131,7 +142,7 @@ const Subscription = ({ from, addSubscription, subChanged }) => {
 
   return (
     <div>
-      {userData && subscription && (
+      {((userData && subscription) || (!isLogged && subscription)) && (
         <div
           className={`${
             from === "profile" ? "bg-transparent" : "bg-gray-50"
