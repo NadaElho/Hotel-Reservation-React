@@ -29,12 +29,31 @@
     "Per-night": "Per night",
     "taxes-fees": "Includes taxes & fees",
     "Reserve-Now": "Reserve Now",
-    "Check-rooms": "Check out our rooms",
-    "Explore-branches": "Explore stays in our branches",
+    "deals": "Our deals",
+    "rated-rooms": "our top rated rooms",
     "branch": "branch",
     "checkout": "Check out",
-    "book-now": "Book now for"
+    "book-now": "Book now for",
+    "room" : "Room",
+    "guests" : "loved by the guests",
+    "Rating" : "Rating",
+    "off" : "off"
+    
   },
+  "reviews" : {
+    "reviews" : "reviews",
+    "member" : "Professional member",
+    "write-review" : "write a review",
+    "Show-all-reviews" : "Show all reviews",
+    "Update-review" : "Update a review",
+    "placeholder" : "Write what do you think",
+    "Overall-rating" : "Overall rating",
+    "update" : "Update",
+    "add" : "Add",
+    "choose-rating" : "Please choose rating",
+    "enter-review" : "Please write your review"
+  },
+
   "booking": {
     "request-book": "Request to book",
     "trip": "Your trip",

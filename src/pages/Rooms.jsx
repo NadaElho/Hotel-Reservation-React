@@ -14,7 +14,7 @@ import ReactStars from "react-rating-stars-component";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
-  const [ratingAvg , setRatingAvg] = useState(1)
+  const [ratingAvg, setRatingAvg] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [params] = useSearchParams();
   const [pageNum, setPageNum] = useState(0);
@@ -25,13 +25,13 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
   const { t } = useContext(LanguageContext);
 
-  const debounceValue = useDebounce(value, 500); 
+  const debounceValue = useDebounce(value, 500);
   const onValueChange = (values) => {
     setValue([...values]);
   };
-  const onRatingChange = (rating)=>{
-    setRatingAvg(rating) 
-  }
+  const onRatingChange = (rating) => {
+    setRatingAvg(rating);
+  };
 
   const filterObj = useMemo(() => {
     const arr = params.toString().split("&");
@@ -63,7 +63,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
           params: {
             "price[gt]": debounceValue[0],
             "price[lt]": debounceValue[1],
-            "ratingAvg[gte]" :ratingAvg,
+            "ratingAvg[gte]": ratingAvg,
             page: pageNum + 1,
             limit: limit,
             ...filterObj,
@@ -79,7 +79,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
       }
     }
     fetchData();
-  }, [debounceValue,ratingAvg, pageNum, limit, filterObj]);
+  }, [debounceValue, ratingAvg, pageNum, limit, filterObj]);
 
   return (
     <>
@@ -92,7 +92,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
               {t("rooms.filter-by")}
             </p>
             <div className="w-[380px] h-64 mx-10 flex flex-col justify-around mt-12 ">
-              <div className="mx-10 mt-4">
+              <div className="mx-4 mt-4">
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
                 </p>
@@ -100,7 +100,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                   <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="minInput"
-                      className="font-semibold text-secondary mx-2 dark:text-[#DDD1C5]"
+                      className="font-semibold text-secondary mx-4 dark:text-[#DDD1C5]"
                     >
                       {t("rooms.Min")}
                     </label>
@@ -116,13 +116,13 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                           value[1],
                         ])
                       }
-                      className="w-full text-secondary  mx-2 border-none border-b-2 border-black focus:outline-none focus:border-custom-500 dark:text-[#F0C7AD]"
+                      className="w-full text-secondary  mx-4 border-none border-b-2 border-black focus:outline-none focus:border-custom-500 dark:text-[#F0C7AD]"
                     />
                   </div>
                   <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="maxInput"
-                      className="font-semibold text-secondary  mx-2 dark:text-[#DDD1C5]"
+                      className="font-semibold text-secondary  mx-4 dark:text-[#DDD1C5]"
                     >
                       {t("rooms.Max")}
                     </label>
@@ -138,7 +138,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                         ])
                       }
                       min="0"
-                      className="w-full mx-2 text-secondary border-none border-b-2 border-black focus:outline-none focus:border-blue-500 dark:text-[#F0C7AD]"
+                      className="w-full mx-4 text-secondary border-none border-b-2 border-black focus:outline-none focus:border-blue-500 dark:text-[#F0C7AD]"
                     />
                   </div>
                 </div>
@@ -158,10 +158,10 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col mt-10 mx-10">
+              <div className="flex flex-col mt-10 mx-4">
                 <hr className="border border-secondary" />
                 <p className="text-primary font-semibold text-xl mt-10 dark:text-PrimaryDark">
-                  Rating
+                  {t("rooms.Rating")}
                 </p>
                 <ReactStars size={30} onChange={onRatingChange} />
               </div>
@@ -186,14 +186,14 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     src={room.images[0]}
                     alt=""
                   />
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-2xl mb-2 text-primary dark:text-PrimaryDark">
+                  <div className="px-2 py-3 flex flex-col">
+                    <div className="font-bold text-2xl capitalize text-primary dark:text-PrimaryDark">
                       {isArabic
                         ? room.roomTypeId.type_ar
-                        : room.roomTypeId.type_en}
+                        : room.roomTypeId.type_en + " " + "Room"}
                     </div>
-                    <ReactStars size={16} value={room.ratingAvg} edit={false}/>
-                    <div className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
+                    <ReactStars size={16} value={room.ratingAvg} edit={false} />
+                    <div className="text-primary opacity-80 font-semibold text-sm dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>
                           {isArabic ? room.description_ar : room.description_en}
@@ -236,8 +236,10 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                           </div>
                         ))}
                     </div>
-                    <hr className=" border-primary opacity-40 mt-4 dark:border-footer" />
-                    <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-8 ">
+                    <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
+
+                    <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
+                     
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
                           {t("rooms.book-now")} ${room.price}
