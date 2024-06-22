@@ -80,7 +80,7 @@ function App() {
               <Route path="/branch/:id" element={<Branch />} />
               <Route path="/rooms" element={<Rooms truncated={truncated} toggleTruncated={toggleTruncated} />}  />
               <Route path="/rooms/:id" element={<RoomId truncated={truncated} toggleTruncated={toggleTruncated} />} />
-              <Route path="/allReviews" element={<AllReviews/>}/>
+              <Route path="/allReviews/:id" element={<AllReviews truncated={truncated} toggleTruncated={toggleTruncated}/>}/>
               <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />

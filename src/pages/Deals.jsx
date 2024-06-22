@@ -20,7 +20,7 @@ import { CiHeart } from "react-icons/ci";
 
 const Deals = () => {
   const [rooms, setRooms] = useState([]);
-  const [subscription,setSubscription] = useState([])
+  const [subscription, setSubscription] = useState([]);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
@@ -30,7 +30,7 @@ const Deals = () => {
       setRooms(data);
 
       const subData = await axiosInstance.get("/subscriptions");
-      setSubscription(subData.data.data)
+      setSubscription(subData.data.data);
       console.log(subData.data.data);
     }
     fetchData();
@@ -41,8 +41,8 @@ const Deals = () => {
 
   return (
     <div className="container mx-auto mt-20 px-4  overflow-hidden">
-      <h2 className="text-primary text-2xl font-secondary uppercase mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
-        {t("rooms.Check-rooms")}
+      <h2 className="text-primary text-2xl font-secondary  mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
+        {t("rooms.deals")}
       </h2>
       <Swiper
         effect={"coverflow"}
@@ -74,58 +74,84 @@ const Deals = () => {
                 src={room.images}
                 alt="Room"
               />
-              <div className="absolute top-2 px-2 w-full flex justify-between">
+              <div
+                className={`absolute top-2 px-4 w-full flex ${
+                  isArabic ? "flex-row-reverse" : "flex-row"
+                } justify-between items-center`}
+              >
                 {room.promotionId.map((promotion) => (
                   <div
-                    className="bg-[#C2AF00] text-white px-2 py-1 rounded-full mt-2"
+                    className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
                     key={promotion._id}
                   >
-                    <p>{promotion.percentage}% off</p>
+                    <p>
+                      {isArabic ? (
+                        <>
+                          {t("rooms.off")} {promotion.percentage}%{" "}
+                        </>
+                      ) : (
+                        <>
+                          {promotion.percentage}% {t("rooms.off")}
+                        </>
+                      )}
+                    </p>
                   </div>
                 ))}
 
-                <div className="absolute top-2 right-2 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
+                <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
                   <span className="text-red-900 text-3xl text-center cursor-pointer ">
                     <CiHeart />
                   </span>
                 </div>
               </div>
-              <div className=" absolute bottom-0 left-0 flex  items-center ">
-                <div className="p-3 w-40 bg-secondary rounded dark:bg-[#7C6555]  ">
+              <div className=" absolute bottom-0 left-0 flex items-center justify-center  ">
+                <div
+                  className={`py-1 ${
+                    isArabic ? "px-7" : "px-4"
+                  } w-40 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
+                >
                   <p className="text-white font-semibold text-sm">
-                    {`${
-                      room.hotelId && isArabic
-                        ? room.hotelId.name_ar
-                        : room.hotelId.name_en
-                    } branch`}
+                    {room.hotelId && isArabic ? (
+                      <>
+                        {t("rooms.branch")} {room.hotelId.name_ar}
+                      </>
+                    ) : (
+                      <>
+                        {room.hotelId.name_en} {t("rooms.branch")}
+                      </>
+                    )}
                   </p>
-                  <p className="text-white text-sm">
-                    {room.roomTypeId && room.roomTypeId.type_en}
+                  <p className="text-white text-sm opacity-95">
+                    {`${
+                      room.roomTypeId && isArabic
+                        ? room.roomTypeId.type_ar
+                        : room.roomTypeId.type_en
+                    }`}
                   </p>
                   <ReactStars
                     value={room.ratingAvg}
                     edit={false}
                     color="#ffffff"
                   />
-                  <div className=" flex text-xs space-x-2">
-                    <span className="text-primary dark:text-[#ffffff]">
+                  <div className=" flex text-xs gap-1">
+                    <span className="text-primary dark:text-PrimaryDark">
                       ${room.price}
                     </span>
-                    <a className="text-primary mt-0.5 dark:text-[#ffffff]">
+                    <a className="text-primary mt-0.5 dark:text-PrimaryDark">
                       <AiOutlineExclamationCircle />
                     </a>
-                    <span className="text-primary dark:text-[#ffffff]">
+                    <span className="text-primary dark:text-PrimaryDark">
                       {t("rooms.Per-night")}
                     </span>
                   </div>
-                  <p className="text-primary font-500 text-xs font-semibold dark:text-[#ffffff]">
+                  <p className="text-primary font-500 text-xs font-semibold dark:text-PrimaryDark">
                     {t("rooms.taxes-fees")}
                   </p>
                 </div>
                 {/*  */}
                 <div className=" mx-6 mt-16">
                   <Link to={`reservation-room/${room._id}`}>
-                    <button className="bg-primary text-white text-xs py-1 w-32  rounded-full dark:bg-[#E2C8AD] dark:text-customDark ">
+                    <button className="bg-primary text-white text-xs py-1 w-32 font-semibold rounded-full dark:bg-[#E2C8AD] dark:text-customDark ">
                       {t("rooms.Reserve-Now")}
                     </button>
                   </Link>
