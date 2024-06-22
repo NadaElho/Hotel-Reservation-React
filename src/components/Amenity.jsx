@@ -28,15 +28,15 @@ const Amenity = () => {
         <span
         className="w-6 h-6  flex items-center justify-center ms-2 border border-primary rounded-lg dark:border-custom"
         >
-          <HiAdjustmentsHorizontal className="text-primary text-lg flex items-center justify-center dark:text-[#ffffff]" />
+          <HiAdjustmentsHorizontal className="text-primary text-lg flex items-center justify-center dark:text-PrimaryDark" />
         </span>
 
-        <span className="flex items-center justify-center text-primary font-semibold dark:text-[#ffffff]">
+        <span className="flex items-center justify-center text-primary font-semibold dark:text-PrimaryDark">
           {t("rooms.filter")}
         </span>
       </div>
 
-      <div className="rounded-3xl w-full flex items-center justify-center border border-custom  mt-4">
+      <div className="rounded-3xl w-full flex items-center justify-center mt-4">
         <div className="flex justify-center items-center mx-10 my-8 gap-3">
           {amenities.map((amenity) => (
             <div key={amenity._id} className="flex flex-col items-center">
@@ -50,7 +50,7 @@ const Amenity = () => {
                   className="w-16 h-16 object-cover"
                 />
               </div>
-              <p className="text-primary font-semibold dark:text-[#ffffff]">
+              <p className="text-primary font-semibold dark:text-PrimaryDark">
                 { isArabic ? amenity.name_ar :  amenity.name_en}
               </p>
             </div>
