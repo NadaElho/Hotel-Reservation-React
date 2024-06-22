@@ -86,7 +86,7 @@ const Account = () => {
     <div>
       {userData ? (
         <>
-          <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
+          <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800 dark:border-main-25">
             {t("booking.details")}
           </h2>
           <Formik
@@ -113,7 +113,10 @@ const Account = () => {
               <form onSubmit={handleSubmit} className="text-white">
                 <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-main-800 dark:text-white me-2">
                   <div className="w-full md:w-1/2 my-2">
-                    <label htmlFor="fname" className="text-main-800 mb-2">
+                    <label
+                      htmlFor="fname"
+                      className="text-main-800 dark:text-main-25 text-base mb-2"
+                    >
                       {t("form.fname")}
                     </label>
                     <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
@@ -122,7 +125,7 @@ const Account = () => {
                         type="text"
                         name="fname"
                         placeholder={t("form.fname")}
-                        className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.fname}
@@ -139,7 +142,10 @@ const Account = () => {
                     </div>
                   </div>
                   <div className="w-full md:w-1/2 my-2">
-                    <label htmlFor="fname" className="text-main-800 mb-2">
+                    <label
+                      htmlFor="fname"
+                      className="text-main-800 dark:text-main-25 text-base mb-2"
+                    >
                       {t("form.lname")}
                     </label>
                     <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
@@ -148,7 +154,7 @@ const Account = () => {
                         type="text"
                         name="lname"
                         placeholder={t("form.lname")}
-                        className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.lname}
@@ -169,7 +175,7 @@ const Account = () => {
                   <div className="w-full md:w-1/2 my-2">
                     <label
                       htmlFor="emergencyContact"
-                      className="text-main-800 mb-2"
+                      className="text-main-800 dark:text-main-25 text-base mb-2"
                     >
                       {t("form.emergencyContact")}
                     </label>
@@ -181,7 +187,7 @@ const Account = () => {
                         type="text"
                         name="emergencyContact"
                         placeholder={t("form.emergencyContact")}
-                        className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.emergencyContact}
@@ -198,7 +204,10 @@ const Account = () => {
                     </div>
                   </div>
                   <div className="w-full md:w-1/2 my-2">
-                    <label htmlFor="phone" className="text-main-800 mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="text-main-800 dark:text-main-25 text-base mb-2"
+                    >
                       {t("form.phone")}
                     </label>
                     <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
@@ -209,7 +218,7 @@ const Account = () => {
                         type="text"
                         name="phone"
                         placeholder={t("form.phone")}
-                        className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.phone}

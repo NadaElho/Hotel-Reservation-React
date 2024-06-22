@@ -56,7 +56,7 @@ const Plans = () => {
 
   return userData ? (
     <div>
-      <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
+      <h2 className="text-2xl text-main-800 dark:text-main-50  dark:border-main-25  my-5 w-fit py-2 font-medium border-b-2 border-main-800">
         {t("profile.plan")}
       </h2>
       <Subscription
@@ -66,14 +66,14 @@ const Plans = () => {
         userData={userData}
       />
       <div className={userData?.subscriptionId?.name_en ? "block" : "hidden"}>
-        <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
+        <h2 className="text-2xl text-main-800 dark:text-main-50 dark:border-main-25  my-5 w-fit py-2 font-medium border-b-2 border-main-800">
           {t("profile.end")}
         </h2>
         <p className="text-main-100 text-lg">
           {t("profile.after-cancellation")}
         </p>
         <button
-          className="bg-main-800 px-6 py-2 rounded-3xl text-white my-4"
+          className="bg-main-800 px-6 py-2 dark:bg-main-25 dark:text-main-800  rounded-3xl text-white my-4"
           onClick={() => setShowModal(true)}
         >
           {t("profile.end")}

@@ -63,7 +63,7 @@ function History() {
       case "pending":
         return "text-amber-400";
       case "canceled":
-        return "text-red-800";
+        return "text-red-800 dark:text-red-300";
       case "Completed":
         return "text-green-500";
       default:
@@ -141,16 +141,25 @@ function History() {
       {userReservations.length ? (
         userReservations.map((reservation, index) => (
           <div key={reservation.id}>
-            <div className="border border-main-800 rounded-3xl xl:w-full p-5 md:p-10 mb-10 text-main-400">
+            <div className="border border-main-800 dark:border-main-25 rounded-3xl xl:w-full p-5 md:p-10 mb-10 text-main-400 dark:text-main-50">
               <div className="grid grid-cols-1 md:grid-cols-3 ">
                 <div>
-                  <p className="text-3xl text-main-800 mb-4  font-bold">
+                  <p className="text-2xl text-main-800 dark:text-main-25 mb-0 font-bold">
                     {isArabic
-                      ? reservation.room.title_ar
-                      : reservation.room.title_en}
+                      ? reservation.room.title_ar + " "
+                      : reservation.room.title_en + " "}
                   </p>
+                    <div className="text-sm mb-4">
+                      {isArabic
+                        ? t("rooms.branch") +
+                          " " +
+                          reservation.room.hotelId.name_ar
+                        : reservation.room.hotelId.name_en +
+                          " " +
+                          t("rooms.branch")}
+                    </div>
                   <div>
-                    <p className="font-bold text-main-800">
+                    <p className="font-bold text-main-800 dark:text-main-25">
                       {t("profile.date")}
                     </p>
                     <p>
@@ -162,7 +171,7 @@ function History() {
                   </div>
                   <div className=" mt-5">
                     <button
-                      className="rounded-3xl bg-main-800 px-6 py-2 text-white"
+                      className="rounded-3xl bg-main-800 dark:bg-main-25 dark:text-main-800 px-6 py-2 text-white"
                       onClick={() => {
                         setShowAddModal(true);
                         setId(reservation.room._id);
@@ -180,7 +189,7 @@ function History() {
                     className={`${
                       reservation.changeImage === 0
                         ? "opacity-50 border-main-100 "
-                        : " border-main-800"
+                        : " border-main-800 dark:border-main-25"
                     } border rounded-full hidden md:block p-1`}
                     onClick={() => prevSlider(index)}
                     disabled={reservation.changeImage === 0}
@@ -198,7 +207,7 @@ function History() {
                     className={`${
                       reservation.changeImage === reservation.images.length - 1
                         ? "opacity-50 border-main-100 "
-                        : " border-main-800 "
+                        : " border-main-800 dark:border-main-25 "
                     } border rounded-full  mx-0 hidden md:block p-1`}
                     onClick={() => nextSlider(index)}
                     disabled={
@@ -209,8 +218,8 @@ function History() {
                   </button>
                 </div>
               </div>
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-xl font-bold text-main-800">
+              <div className="flex items-center justify-start gap-4 mt-4">
+                <p className="text-xl font-bold text-main-800 dark:text-main-25">
                   {t("profile.amenities")}
                 </p>
                 <p>
@@ -221,7 +230,7 @@ function History() {
                     .join(", ")}
                 </p>
               </div>
-              <div className="flex mt-4 justify-between">
+              <div className="flex mt-4 items-center justify-between">
                 <div className="me-32 flex items-center">
                   <p className=" rounded-full text-3xl text-white bg-main-300 p-3 me-2 w-14 h-14">
                     <IoKeyOutline />
@@ -242,7 +251,7 @@ function History() {
                   </div>
                 </div>
                 <div className="">
-                  <p className="text-main-800 font-bold">
+                  <p className="text-main-800 dark:text-main-25 font-bold">
                     {t("profile.status")}
                   </p>
                   <p className={getStatusClass(reservation.status.name_en)}>
@@ -259,7 +268,7 @@ function History() {
                   }`}
                 >
                   <button
-                    className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 hover:text-white transition-all duration-300 hover:bg-red-500`}
+                    className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 transition-all duration-300 dark:text-white dark:bg-red-500 hover:text-white hover:bg-red-500`}
                     onClick={() => setShowModal(true)}
                   >
                     {t("profile.cancel")}

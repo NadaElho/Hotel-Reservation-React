@@ -252,7 +252,7 @@ input {
 } 
 
 .loader img {
-  width: 120px;
+  width: 90px;
   animation: spinlogo 2s linear infinite;
   -webkit-animation: spinlogo 2s linear infinite;
 } 
@@ -262,9 +262,13 @@ input {
       transform: rotate(0deg); 
   } 
 
-  100% { 
-      transform: rotate(360deg); 
-  } 
+  100% {
+      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+} 
 } 
 
 @keyframes spinlogo { 

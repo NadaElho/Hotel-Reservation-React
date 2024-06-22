@@ -3,7 +3,6 @@ import axiosInstance from "../../interceptor";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
-import { IoAddCircleOutline } from "react-icons/io5";
 import translationEN from "../languages/en.json";
 import translationAR from "../languages/ar.json";
 import { toast } from "react-toastify";
@@ -108,9 +107,9 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
               >
                 {renderAdvantages(plan.subscriptionAdvantageIds)}
                 <li className="flex items-start">
-                  <IoAddCircleOutline
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
                     className={`mt-1 ${isArabic ? "ml-2" : "mr-2"} `}
-                    style={{ width: "35px", height: "20px" }}
                   />
                   {isArabic
                     ? `احصل على خصم ${plan.percentage}% على حجز الغرف طوال العام`

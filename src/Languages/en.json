@@ -167,10 +167,11 @@
     "plan": "Your plan",
     "end": "End subscription" ,
     "after-cancellation": "Upon cancelling you will lose all the benefits",
-    "active": "active"
+    "active": "active",
+    "member": "member"
   },
   "subscription": {
-    "month": "month",
+    "month": "/month",
     "mostpopular": "most popular",
     "upgrade": "Upgrade",
     "getStarted": "Get Started",

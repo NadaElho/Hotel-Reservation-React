@@ -60,7 +60,6 @@ const Card = ({ room }) => {
               {t("rooms.taxes-fees")}
             </p>
           </div>
-          {/*  */}
           <div className=" mx-6 mt-16">
             <Link to={`reservation-room/${room._id}`}>
               <button className="bg-primary text-white text-xs py-1 w-32  rounded-full dark:bg-[#E2C8AD] dark:text-customDark ">

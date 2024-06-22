@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptor";
 import Branches from "./Branches";
 import Loader from "../components/Loader";
 import { LanguageContext } from "../providers/LanguageContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -30,7 +31,6 @@ const Branch = () => {
   const [branch, setBranch] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -94,12 +94,12 @@ const Branch = () => {
                 {branch.phoneNumber[0]}
               </p>
 
-              <button
+              <Link
+                to="/rooms"
                 className="w-72 rounded-3xl px-4 py-2 bg-main-800 text-white text-center mt-5 hover:bg-main-400 hover:text-white dark:text-[#1D1D1D] dark:bg-[#E2C8AD]"
-                onClick={() => navigate("/rooms")}
               >
                 {t("branch.View-Accommodations")}
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -151,7 +151,15 @@ const Branch = () => {
               />
             </SwiperSlide>
           </Swiper>
-          <Map position={[{longitude: branch.longitude, latitude: branch.latitude, title: isArabic ? branch.name_ar : branch.name_en}]}/>
+          <Map
+            position={[
+              {
+                longitude: branch.longitude,
+                latitude: branch.latitude,
+                title: isArabic ? branch.name_ar : branch.name_en,
+              },
+            ]}
+          />
           <div>
             <h1 className="text-center mt-52 text-5xl playfair-display text-main-800 font-semibold dark:text-[#E2C8AD]">
               {t("branch.check-out")}

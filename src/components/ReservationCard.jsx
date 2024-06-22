@@ -6,7 +6,7 @@ function ReservationCard({ roomData, calcNoOfNights,  calcTotalPrice, reserve}) 
   const isArabic = localStorage.getItem("lang") == "ar"
 
   return (
-    <div className="p-4 w-full  md:max-w-[300px] lg:w-[400px] border rounded-2xl border-main-800 dark:border-main-25">
+    <div className="p-4 w-full md:max-w-[300px] lg:w-[400px] border rounded-2xl border-main-800 dark:border-main-25">
       <div className="flex justify-between gap-2 border-b-2 border-main-800 dark:border-main-25 pb-2">
        {roomData.images && <img className="w-[100px] rounded-2xl" src={roomData?.images[0]} alt="" />}
         <div>
