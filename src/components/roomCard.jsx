@@ -3,6 +3,7 @@ import DateRangePickerComponent from "./DateRangePicker";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../providers/LanguageContext";
+import ReactStars from "react-rating-stars-component";
 
 const RoomCard = ({ disabledDates, roomData }) => {
   const storedCheckIn = localStorage.getItem("checkin");
@@ -34,14 +35,14 @@ const RoomCard = ({ disabledDates, roomData }) => {
     setShowCalendar((show) => (show = !show));
   };
   return (
-    <div className="p-4 w-full md:max-w-[500px] border rounded-2xl border-main-800 dark:border-main-25">
-      <h3 className="text-main-800 font-bold ml-2 text-lg dark:text-main-50">
+    <div className="p-4 w-100 md:max-w-[400px] border rounded-2xl border-main-800 mx-4 md:mx-0 dark:border-main-25">
+      <h3 className="text-main-800 font-bold ml-2 text-xl dark:text-main-50">
         {t("booking.price-details")}
       </h3>
       <h4 className="text-sm text-main-400 dark:text-main-150 ml-2">
         ${roomData.price} {t("booking.per-night")}
       </h4>
-      <div className="flex w-[140px] md:w-[400px] justify-between flex-col md:flex-row my-2">
+      <div className="flex w-[140px] md:w-[350px] justify-between flex-col md:flex-row my-2">
         <div className="flex flex-col justify-between relative">
           <button
             className="text-white bg-main-100 dark:bg-main-600 dark:text-main-1000 dark:font-bold px-4 py-2 my-2 w-[140px] rounded-3xl flex items-center justify-between"
@@ -84,14 +85,23 @@ const RoomCard = ({ disabledDates, roomData }) => {
           </div>
         </div>
       </div>
-      <div className="text-center text-main-300 mt-8 dark:text-main-50">
+      <div className="flex justify-center mb-6">
+        <ReactStars
+          value={roomData.ratingAvg}
+          edit={false}
+          size={24}
+          isHalf={true}
+          color="#e4e5e9"
+        />
+      </div>
+      <div className="text-center text-main-300 dark:text-main-50">
         {t("booking.stay")}
         <span className="text-white bg-main-300 dark:bg-main-600 dark:text-main-1000 dark:font-bold px-2 py-1 mx-2 rounded">
           {calcNoOfNights}
         </span>
         {t("booking.nights")}
       </div>
-      <div className="text-main-800 my-4 text-center font-bold text-lg dark:text-main-25">
+      <div className="text-main-800 my-4 text-center font-bold text-xl dark:text-main-25">
         <div>{t("booking.total")}</div>
         <div>${calcTotalPrice}</div>
       </div>

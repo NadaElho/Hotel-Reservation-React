@@ -29,6 +29,7 @@ import CheckEmail from "./pages/CheckEmail.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
 import Subscription from "./pages/Subscription.jsx";
 import Contact from "./pages/Contact.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -43,7 +44,7 @@ function App() {
     logged ? "" : localStorage.setItem("token", "");
     setLogged((logged) => (logged = !logged));
   };
-  
+
   const handleMode = () => {
     localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
@@ -51,7 +52,7 @@ function App() {
   const toggleTruncated = (index) => {
     setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
   };
-  
+
   return (
     <div className={`${dark} bg-grey-100 dark:text-white dark:bg-main-700`}>
       <I18nextProvider i18n={i18n}>
@@ -62,6 +63,7 @@ function App() {
             location.pathname != "/resetpassword" &&
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
+            location.pathname != "/not-found" &&
             !location.pathname.startsWith("/newPassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
@@ -95,14 +97,16 @@ function App() {
                   <Route path="plans" element={<Plans />} />
                 </Route>
               </Route>
-              <Route path="/subscription" element={<Subscription />} />
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login handleLog={handleLog} />} />
                 <Route path="/resetpassword" element={<ResetPassword />} />
                 <Route path="/checkemail" element={<CheckEmail />} />
                 <Route path="/newpassword/:id" element={<NewPassword />} />
+                <Route path="/subscription" element={<Subscription />} />
               </Route>
+              <Route path="/not-found" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           {location.pathname != "/login" &&
@@ -110,6 +114,7 @@ function App() {
             location.pathname != "/resetpassword" &&
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
+            location.pathname != "/not-found" &&
             !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && <Footer />}
         </LanguageProvider>

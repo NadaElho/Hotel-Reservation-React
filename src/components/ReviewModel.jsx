@@ -6,8 +6,7 @@ import { useParams } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 
-const ReviewModel = ({ addReview, updateReview, currentReview, onClose }) => {
-    const [openModal, setOpenModal] = useState(true);
+const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) => {
   const [reviewData, setReviewData] = useState({
     title: "",
     rating: 0,
@@ -15,6 +14,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose }) => {
   const { id } = useParams();
   const [isError, setIsError] = useState(false);
   const { t } = useContext(LanguageContext);
+
   useEffect(() => {
     setReviewData(currentReview);
   }, [currentReview]);
@@ -56,14 +56,15 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose }) => {
       setIsError(true);
       return;
     }
+  
     const userId = localStorage.getItem("userId");
     const { data } = await axiosInstance.post("/reviews", {
       title: reviewData.title,
       rating: reviewData.rating,
       userId,
-      roomId: id,
+      roomId: id ? id : _id,
     });
-    addReview(data.data);
+    addReview(data.data, _id);
     onClose();
   };
 
@@ -78,7 +79,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose }) => {
       <Modal.Header />
       <Modal.Body>
         <div className="mx-10 flex flex-col gap-10 justify-center h-80 mb-5 ">
-          <h3 className="text-lg text-primary opacity-80 font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg opacity-80 font-semibold text-gray-900 dark:text-white">
             {currentReview  ? t("reviews.Update-review") : t("reviews.write-review")}
           </h3>
           <textarea

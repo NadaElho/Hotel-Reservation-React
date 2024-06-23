@@ -77,12 +77,11 @@ const Contact = () => {
             handleSubmit,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit} className="text-white">
-           
+            <form onSubmit={handleSubmit} className="text-main-25">
               <div className="my-2">
                 <div className="flex gap-2 items-center mb-2">
-                <FaRegUser color={`${isDark ? "white" : "#1D1D1D"}`} />
-                <label htmlFor="name" className="text-main-800">
+                <FaRegUser color={`${isDark ? "#E2C8AD" : "#1D1D1D"}`} />
+                <label htmlFor="name" className="text-main-800 dark:text-main-25">
                   {t("form.name")}
                 </label>
                 </div>
@@ -91,7 +90,7 @@ const Contact = () => {
                     type="text"
                     name="name"
                     placeholder={t("form.name")}
-                    className="border border-main-800 rounded-3xl outline-none text-main-800 placeholder:text-main-400 p-2 dark:placeholder:text-main-1000 w-full"
+                    className="border border-main-800 dark:border-main-25 rounded-3xl outline-none text-main-800 dark:text-main-25 placeholder:text-main-400 p-2 dark:placeholder:text-main-100 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.name}
@@ -103,8 +102,8 @@ const Contact = () => {
               </div>
               <div className="my-2">
                 <div className="flex gap-2 items-center mb-2">
-                <AiOutlineMail color={`${isDark ? "white" : "#1D1D1D"}`} />
-                <label htmlFor="email" className="text-main-800">
+                <AiOutlineMail color={`${isDark ? "#E2C8AD" : "#1D1D1D"}`} />
+                <label htmlFor="email" className="text-main-800 dark:text-main-25">
                   {t("form.email")}
                 </label>
                 </div>
@@ -113,7 +112,7 @@ const Contact = () => {
                     type="text"
                     name="email"
                     placeholder={t("form.email")}
-                    className="border border-main-800 rounded-3xl outline-none text-main-800 placeholder:text-main-400 p-2 dark:placeholder:text-main-1000 w-full"
+                    className="border border-main-800 dark:border-main-25 rounded-3xl outline-none text-main-800 dark:text-main-25 placeholder:text-main-400 p-2 dark:placeholder:text-main-100 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
@@ -125,8 +124,8 @@ const Contact = () => {
               </div>
               <div className="my-2">
                 <div className="flex gap-2 items-center">
-                <LuMessageSquare color={`${isDark ? "white" : "#1D1D1D"}`} />
-                <label htmlFor="message" className="text-main-800 mb-2">
+                <LuMessageSquare color={`${isDark ? "#E2C8AD" : "#1D1D1D"}`} />
+                <label htmlFor="message" className="text-main-800 dark:text-main-25 mb-2">
                   {t("form.message")}
                 </label>
                 </div>
@@ -135,7 +134,7 @@ const Contact = () => {
                     type="text"
                     name="message"
                     placeholder={t("form.message")}
-                    className="border border-main-800 rounded-3xl outline-none bg-transparent text-main-800 placeholder:text-main-400 p-2 dark:placeholder:text-main-1000 w-full"
+                    className="border border-main-800 dark:border-main-25 rounded-3xl outline-none bg-transparent text-main-800 dark:text-main-25 placeholder:text-main-400 p-2 dark:placeholder:text-main-100 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.message}
@@ -151,7 +150,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-main-500 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
+                className="w-full bg-main-500 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-main-25 disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
                 {t("form.send")}

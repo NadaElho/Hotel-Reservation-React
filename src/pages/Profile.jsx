@@ -53,7 +53,7 @@ const Profile = ({handleLog}) => {
           </div>
         </div>
       ) : (
-        <Loader />
+        <div className="h-screen"><Loader /></div>
       )}
     </div>
   );
