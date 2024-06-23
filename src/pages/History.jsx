@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import Confirm from "../components/Confirm";
-import { ReviewModel } from "../components/ReviewModel";
+import ReviewModel from "../components/ReviewModel";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
@@ -149,15 +149,15 @@ function History() {
                       ? reservation.room.title_ar + " "
                       : reservation.room.title_en + " "}
                   </p>
-                    <div className="text-sm mb-4">
-                      {isArabic
-                        ? t("rooms.branch") +
-                          " " +
-                          reservation.room.hotelId.name_ar
-                        : reservation.room.hotelId.name_en +
-                          " " +
-                          t("rooms.branch")}
-                    </div>
+                  <div className="text-sm mb-4">
+                    {isArabic
+                      ? t("rooms.branch") +
+                        " " +
+                        reservation.room.hotelId.name_ar
+                      : reservation.room.hotelId.name_en +
+                        " " +
+                        t("rooms.branch")}
+                  </div>
                   <div>
                     <p className="font-bold text-main-800 dark:text-main-25">
                       {t("profile.date")}
@@ -181,7 +181,10 @@ function History() {
                     </button>
                   </div>
                   {showAddModal && (
-                    <ReviewModel addReview={addReview} id={id} />
+                    <ReviewModel
+                      addReview={addReview}
+                      _id={id}
+                    />
                   )}
                 </div>
                 <div className="flex justify-evenly items-center col-span-0 lg:col-span-2 col-span-3 my-2 w-100 rtl:flex-row-reverse">
