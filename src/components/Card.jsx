@@ -5,9 +5,24 @@ import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 
-const Card = ({ room }) => {
+const Card = ({ room, userData }) => {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
+
+  const calcPrice = (room) => {
+    let calcTotalPrice = 0;
+
+    if (room.promotionId[0]) {
+      calcTotalPrice = room.price * (1 - room.promotionId[0].percentage / 100);
+    } else {
+      calcTotalPrice = room.price;
+    }
+
+    if (userData?.subscriptionId) {
+      calcTotalPrice *= 1 - userData.subscriptionId.percentage / 100;
+    }
+    return Math.round(calcTotalPrice);
+  };
 
   return (
     <>
@@ -72,10 +87,19 @@ const Card = ({ room }) => {
               }`}
             </p>
             <ReactStars value={room.ratingAvg} edit={false} color="#ffffff" />
-            <div className=" flex text-xs gap-1">
-              <span className="text-primary dark:text-PrimaryDark">
+            <div className="flex text-xs gap-1">
+              <span
+                className={`${
+                  room.price != calcPrice(room) ? "line-through" : ""
+                } text-primary dark:text-PrimaryDark`}
+              >
                 ${room.price}
               </span>
+              {room.price != calcPrice(room) && (
+                <span className="text-primary dark:text-PrimaryDark">
+                  ${calcPrice(room)}
+                </span>
+              )}
               <a className="text-primary mt-0.5 dark:text-PrimaryDark">
                 <AiOutlineExclamationCircle />
               </a>

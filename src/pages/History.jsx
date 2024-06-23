@@ -19,7 +19,7 @@ function History() {
   const [id, setId] = useState(null);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
-
+ 
   const options = {
     weekday: "short",
     month: "short",
@@ -272,7 +272,7 @@ function History() {
                 >
                   <button
                     className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 transition-all duration-300 dark:text-white dark:bg-red-500 hover:text-white hover:bg-red-500`}
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {setShowModal(true); setId(reservation.id)}}
                   >
                     {t("profile.cancel")}
                   </button>
@@ -283,7 +283,7 @@ function History() {
               <Confirm
                 onClose={() => setShowModal(false)}
                 onConfirm={() => {
-                  cancelReservation(reservation.id);
+                  cancelReservation(id);
                   setShowModal(false);
                 }}
               />

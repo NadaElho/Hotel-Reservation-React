@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
+import calculateTotalPrice from "../utils/calcTotalPrice";
 
 function ReservationCard({
   roomData,
@@ -9,6 +10,19 @@ function ReservationCard({
 }) {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState(0);
+
+  useEffect(() => {
+    const fetchDataAndCalculatePrice = async () => {
+      try {
+        const price = await calculateTotalPrice(roomData, 1);
+        setPriceAfterDiscount(price);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAndCalculatePrice();
+  }, [roomData]);
 
   return (
     <div className="p-4 w-full md:max-w-[300px] lg:w-[400px] border rounded-2xl border-main-800 dark:border-main-25">
@@ -56,14 +70,45 @@ function ReservationCard({
       </h4>
       <div className="flex justify-between text-main-300 dark:text-main-25">
         <div>
-          {roomData.currency}
-          {roomData.price} x {calcNoOfNights}
+          <span
+            className={
+              priceAfterDiscount != roomData.price
+                ? "line-through decoration-red-700"
+                : ""
+            }
+          >
+            {roomData.currency}
+            {roomData.price}
+          </span>
+          x {calcNoOfNights}
         </div>
-        <div className="font-bold">
+        <div
+          className={`font-bold
+             ${
+               priceAfterDiscount != roomData.price
+                 ? "line-through decoration-red-700"
+                 : ""
+             }`}
+        >
           {roomData.currency}
           {calcTotalPrice}
         </div>
       </div>
+      {priceAfterDiscount != roomData.price && (
+        <div className="flex justify-between text-main-300 dark:text-main-25">
+          <div>
+            <span>
+              {roomData.currency}
+              {priceAfterDiscount}
+            </span>
+            x {calcNoOfNights}
+          </div>
+          <div className="font-bold">
+            {roomData.currency}
+            {priceAfterDiscount * calcNoOfNights}
+          </div>
+        </div>
+      )}
       <h5 className="py-2 text-main-300 dark:text-main-25">
         {calcNoOfNights} {t("booking.nights")}
       </h5>

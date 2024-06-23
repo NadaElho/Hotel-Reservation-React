@@ -11,6 +11,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlinePhone } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
+import calculateTotalPrice from "../utils/calcTotalPrice";
 
 function BookingForm() {
   const storedCheckIn = localStorage.getItem("checkin");
@@ -31,6 +32,19 @@ function BookingForm() {
   const { t } = useContext(LanguageContext);
   const navigate = useNavigate("reservations");
   const formRef = useRef();
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState(0);
+
+  useEffect(() => {
+    const fetchDataAndCalculatePrice = async () => {
+      try {
+        const price = await calculateTotalPrice(roomData, 1);
+        setPriceAfterDiscount(price);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAndCalculatePrice();
+  }, [roomData]);
 
   const options = {
     weekday: "short",
@@ -378,7 +392,7 @@ function BookingForm() {
               <div className="flex justify-between border-main-100 border-b-2 p-2">
                 <div className="text-main-400 dark:text-main-150">
                   {t("booking.pay")} {roomData.currency}
-                  {calcTotalPrice} {t("booking.now")}
+                  {calcNoOfNights * priceAfterDiscount} {t("booking.now")}
                 </div>
                 <input
                   type="radio"

@@ -19,7 +19,9 @@ const Deals = () => {
   const [rooms, setRooms] = useState([]);
   const [subscription, setSubscription] = useState([]);
   const { t } = useContext(LanguageContext);
-
+  const [userData, setUserData] = useState(null);
+  const userId = localStorage.getItem("userId");
+ 
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
@@ -30,6 +32,13 @@ const Deals = () => {
       setSubscription(subData.data.data)
     }
     fetchData();
+    if (userId) {
+      (async function () {
+        const { data } = await axiosInstance.get(`/users/${userId}`);
+        setUserData(data.data);
+        console.log(data.data)
+      })();
+    }
   }, []);
 
   const shuffleRoom = rooms.sort(() => Math.random() - 0.5);
@@ -64,7 +73,7 @@ const Deals = () => {
       >
         {limitedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <Card room={room}/>
+            <Card room={room} userData={userData}/>
           </SwiperSlide>
         ))}
       </Swiper>
