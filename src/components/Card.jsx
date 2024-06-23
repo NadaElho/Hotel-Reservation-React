@@ -90,7 +90,7 @@ const Card = ({ room, userData }) => {
             <div className="flex text-xs gap-1">
               <span
                 className={`${
-                  room.price != calcPrice(room) ? "line-through" : ""
+                  room.price != calcPrice(room) ? "line-through decoration-red-700" : ""
                 } text-primary dark:text-PrimaryDark`}
               >
                 ${room.price}
