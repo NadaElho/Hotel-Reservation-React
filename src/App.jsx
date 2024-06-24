@@ -42,7 +42,10 @@ function App() {
   const location = useLocation();
 
   const handleLog = () => {
-    logged ? "" : localStorage.setItem("token", "");
+    if (!logged) {
+      localStorage.setItem("token", "");
+      localStorage.setItem("userId", "");
+    }
     setLogged((logged) => (logged = !logged));
   };
 
