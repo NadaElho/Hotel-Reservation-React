@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptor";
+import { useParams } from "react-router";
 import RoomCard from "../components/RoomCard";
 import Loader from "../components/Loader";
 import { useContext } from "react";
