@@ -11,6 +11,8 @@ import useDebounce from "../../useDebounce";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import ReactStars from "react-rating-stars-component";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
@@ -22,10 +24,13 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const [noOfPages, setNoOfPages] = useState(1);
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar";
+  const [favouriteRooms, setFavouriteRooms] = useState([]);
+  const [isFavourite, setIsFavourite] = useState(false);
 
   const { t } = useContext(LanguageContext);
-
   const debounceValue = useDebounce(value, 500);
+  const userId = localStorage.getItem("userId");
+
   const onValueChange = (values) => {
     setValue([...values]);
   };
@@ -58,29 +63,41 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const res = await axiosInstance.get("/rooms", {
-          params: {
-            "price[gt]": debounceValue[0],
-            "price[lt]": debounceValue[1],
-            "ratingAvg[gte]": ratingAvg,
-            page: pageNum + 1,
-            limit: limit,
-            ...filterObj,
-          },
-        });
-        const data = res.data.data;
-        setRooms(data);
-        setLoading(false);
-        setNoOfPages(res.data.pagination.numberPages);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [debounceValue, ratingAvg, pageNum, limit, filterObj]);
+      const res = await axiosInstance.get("/rooms", {
+        params: {
+          "price[gt]": debounceValue[0],
+          "price[lt]": debounceValue[1],
+          "ratingAvg[gte]": ratingAvg,
+          page: pageNum + 1,
+          limit: limit,
+          ...filterObj,
+        },
+      });
+      setRooms(res.data.data);
+      setLoading(false);
+      setNoOfPages(res.data.pagination.numberPages);
+      setLoading(false);
 
+      //
+
+      const { data } = await axiosInstance.get(`/rooms/favourites/${userId}`);
+      setFavouriteRooms(data.data);
+    }
+
+    fetchData();
+  }, [debounceValue, ratingAvg, pageNum, limit, filterObj, userId]);
+
+  const handleAddToFavourite = async (roomId) => {
+    if (favouriteRooms.includes(roomId)) {
+      setFavouriteRooms((prev) => prev.filter((favRoom) => favRoom !== roomId));
+    } else {
+      const { data } = await axiosInstance.post(`/rooms/favourites/${userId}`, {
+        roomId,
+      });
+      setFavouriteRooms((prev) => [...prev, roomId]);
+    }
+    // setIsFavourite((prev) => !prev)
+  };
   return (
     <>
       <div className="container mx-auto flex flex-col  mt-16">
@@ -178,7 +195,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ) : rooms.length > 0 ? (
               rooms.map((room, index) => (
                 <div
-                  className="w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
+                  className="relative w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
                   key={room._id}
                 >
                   <img
@@ -186,6 +203,42 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     src={room.images[0]}
                     alt=""
                   />
+                  <div
+                    className={`absolute top-2 px-4 w-full flex ${
+                      isArabic ? "flex-row-reverse" : "flex-row"
+                    } justify-between items-center`}
+                  >
+                    {room.promotionId.map((promotion) => (
+                      <div
+                        className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
+                        key={promotion._id}
+                      >
+                        <p>
+                          {isArabic ? (
+                            <>
+                              {t("rooms.off")} {promotion.percentage}%{" "}
+                            </>
+                          ) : (
+                            <>
+                              {promotion.percentage}% {t("rooms.off")}
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    ))}
+
+                    <div
+                      className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
+                    >
+                      <button onClick={() => handleAddToFavourite(room._id)}>
+                        {favouriteRooms.includes(room._id) ? (
+                          <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        ) : (
+                          <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                   <div className="px-2 py-3 flex flex-col">
                     <div className="font-bold text-2xl capitalize text-primary dark:text-PrimaryDark">
                       {isArabic
@@ -239,7 +292,6 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
 
                     <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
-                     
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
                           {t("rooms.book-now")} ${room.price}

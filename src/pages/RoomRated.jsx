@@ -16,21 +16,30 @@ import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar } from "react-icons/fa6";
-import { CiHeart } from "react-icons/ci";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
+  const [isFavourite, setIsFavourite] = useState(false);
   const { t } = useContext(LanguageContext);
-  const isArabic = localStorage.getItem("lang") == "ar"
-
+  const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
-      const data = res.data.data;
-      setRooms(data);
+      setRooms(res.data.data);
+      //
+
     }
     fetchData();
   }, []);
+  const userId = localStorage.getItem("userId");
+  const handleAddToFavourite = async (roomId) => {
+    const { data } = await axiosInstance.post(`/rooms/favourites/${userId}`, {
+      roomId,
+    });
+    setIsFavourite((prev) => !prev);
+  };
 
   const topRatedRooms = rooms.sort((a, b) => b.ratingAvg - a.ratingAvg);
   return (
@@ -82,20 +91,38 @@ const RoomRated = () => {
                 src={room.images[0]}
                 alt="room"
               />
-              <div className={`absolute top-2 px-4 w-full flex ${isArabic ? 'flex-row-reverse' : 'flex-row'} justify-between items-center`}>
+              <div
+                className={`absolute top-2 px-4 w-full flex ${
+                  isArabic ? "flex-row-reverse" : "flex-row"
+                } justify-between items-center`}
+              >
                 {room.promotionId.map((promotion) => (
                   <div
                     className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
                     key={promotion._id}
                   >
-                    <p>{isArabic ? (<>{t("rooms.off")} {promotion.percentage}% </>)  : (<>{promotion.percentage}% {t("rooms.off")}</>) }</p>
+                    <p>
+                      {isArabic ? (
+                        <>
+                          {t("rooms.off")} {promotion.percentage}%{" "}
+                        </>
+                      ) : (
+                        <>
+                          {promotion.percentage}% {t("rooms.off")}
+                        </>
+                      )}
+                    </p>
                   </div>
                 ))}
 
                 <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-                  <span className="text-red-900 text-3xl text-center cursor-pointer ">
-                    <CiHeart />
-                  </span>
+                <button onClick={() => handleAddToFavourite(room._id)}>
+                        {isFavourite ? (
+                          <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        ) : (
+                          <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        )}
+                      </button>
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 w-full">
