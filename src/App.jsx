@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState } from "react";
 import i18n from "./utils/i18n.js";
-
 import Home from "./pages/Home.jsx";
 import Rooms from "./pages/Rooms.jsx";
 import RoomId from "./pages/RoomId.jsx";
@@ -27,6 +26,7 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 import CheckEmail from "./pages/CheckEmail.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
 import Subscription from "./pages/Subscription.jsx";
+import Contact from "./pages/Contact.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
@@ -50,13 +50,12 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <LanguageProvider>
           <ToastContainer />
-
           {location.pathname != "/login" &&
             location.pathname != "/register" &&
             location.pathname != "/resetpassword" &&
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
-            !location.pathname.startsWith("/newpassword") &&
+            !location.pathname.startsWith("/newPassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
                 <Navbar
@@ -74,6 +73,7 @@ function App() {
               <Route path="/branch/:id" element={<Branch />} />
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/rooms/:id" element={<RoomId />} />
+              <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
                 <Route path="payment-result" element={<PaymentResult />} />
