@@ -16,11 +16,11 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
           htmlFor="uploadFile1"
           className="flex outline-none rounded cursor-pointer relative ms-0"
         >
-          <div className="rounded-full w-[120px] h-[120px]">
+          <div className="rounded-full w-[120px] h-[120px] flex items-center justify-center">
             <img
               src={data.images[0]}
               alt=""
-              className="rounded-full w-17 h-17"
+              className="rounded-full object-cover w-full h-full"
             />
           </div>
           <input
@@ -62,7 +62,9 @@ const Sidebar = ({ data, handleImageChange, handleLog }) => {
               size={15}
               className="rotate-90"
             />
-            {localStorage.getItem("lang") == "ar" ? t("profile.member")+ " " + data.subscriptionId.name_ar :  data.subscriptionId.name_en + " " + t("profile.member")}
+            {localStorage.getItem("lang") == "ar"
+              ? t("profile.member") + " " + data.subscriptionId.name_ar
+              : data.subscriptionId.name_en + " " + t("profile.member")}
           </div>
         )}
         <button

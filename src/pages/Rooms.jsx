@@ -25,7 +25,8 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar";
   const [favouriteRooms, setFavouriteRooms] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [favouriteRoomsIds, setFavouriteRoomsIds] = useState([]);
+  const [changed, setChanged] = useState(false);
 
   const { t } = useContext(LanguageContext);
   const debounceValue = useDebounce(value, 500);
@@ -63,40 +64,57 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axiosInstance.get("/rooms", {
-        params: {
-          "price[gt]": debounceValue[0],
-          "price[lt]": debounceValue[1],
-          "ratingAvg[gte]": ratingAvg,
-          page: pageNum + 1,
-          limit: limit,
-          ...filterObj,
-        },
-      });
-      setRooms(res.data.data);
-      setLoading(false);
-      setNoOfPages(res.data.pagination.numberPages);
-      setLoading(false);
+      try {
+        const res = await axiosInstance.get("/rooms", {
+          params: {
+            "price[gt]": debounceValue[0],
+            "price[lt]": debounceValue[1],
+            "ratingAvg[gte]": ratingAvg,
+            page: pageNum + 1,
+            limit: limit,
+            ...filterObj,
+          },
+        });
+        setRooms(res.data.data);
+        setLoading(false);
+        setNoOfPages(res.data.pagination.numberPages);
+        setLoading(false);
 
-      //
-
-      const { data } = await axiosInstance.get(`/rooms/favourites/${userId}`);
-      setFavouriteRooms(data.data);
+        const { data } = await axiosInstance.get(`/rooms/favourites/${userId}`);
+        const FavRooms = data.data.map((room) => {
+          return room._id;
+        });
+        setFavouriteRoomsIds(FavRooms);
+        setFavouriteRooms(data.data);
+      } catch (err) {
+        if (err.response.data.message == "No rooms found") {
+          setRooms([]);
+        }
+      }
     }
 
     fetchData();
-  }, [debounceValue, ratingAvg, pageNum, limit, filterObj, userId]);
+  }, [
+    debounceValue,
+    ratingAvg,
+    pageNum,
+    limit,
+    filterObj,
+    userId,
+    favouriteRooms,
+  ]);
 
   const handleAddToFavourite = async (roomId) => {
     if (favouriteRooms.includes(roomId)) {
       setFavouriteRooms((prev) => prev.filter((favRoom) => favRoom !== roomId));
+      setChanged((prev) => !prev);
     } else {
-      const { data } = await axiosInstance.post(`/rooms/favourites/${userId}`, {
+      await axiosInstance.post(`/rooms/favourites/${userId}`, {
         roomId,
       });
+      setChanged((prev) => !prev);
       setFavouriteRooms((prev) => [...prev, roomId]);
     }
-    // setIsFavourite((prev) => !prev)
   };
   return (
     <>
@@ -231,7 +249,8 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                       className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
                     >
                       <button onClick={() => handleAddToFavourite(room._id)}>
-                        {favouriteRooms.includes(room._id) ? (
+                        {favouriteRoomsIds &&
+                        favouriteRoomsIds.includes(room._id) ? (
                           <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
                         ) : (
                           <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />

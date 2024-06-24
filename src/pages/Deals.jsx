@@ -16,6 +16,9 @@ const Deals = () => {
   const { t } = useContext(LanguageContext);
   const [userData, setUserData] = useState(null);
   const userId = localStorage.getItem("userId");
+  const [favouriteRooms, setFavouriteRooms] = useState(null);
+  const [changed, setChanged] = useState(false);
+  const [favouriteRoomsIds, setFavouriteRoomsIds] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,14 +30,40 @@ const Deals = () => {
       setSubscription(subData.data.data);
     }
     fetchData();
-    if (userId) {
-      (async function () {
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const { data } = await axiosInstance.get(`/users/${userId}`);
         setUserData(data.data);
+        const FavRooms = data.data.favouriteRooms.map((room) => room._id);
+        setFavouriteRoomsIds(FavRooms);
         console.log(data.data);
-      })();
+        setFavouriteRooms(data.data.favouriteRooms);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userId) {
+      fetchData();
     }
-  }, [userId]);
+  }, [userId, changed]);
+
+  const handleAddToFavourite = async (roomId) => {
+    if (userData.favouriteRooms.includes(roomId)) {
+      setFavouriteRooms((prev) => prev.filter((favRoom) => favRoom !== roomId));
+      setChanged((prev) => !prev);
+    } else {
+      await axiosInstance.post(`/rooms/favourites/${userId}`, {
+        roomId,
+      });
+      setFavouriteRooms((prev) => [...prev, roomId]);
+      setChanged((prev) => !prev);
+    }
+  };
+
+  const limitedRooms = rooms.slice(0, 9);
 
   const roomDeals = rooms.filter(
     (room) =>
@@ -75,7 +104,12 @@ const Deals = () => {
       >
         {roomDeals.map((room) => (
           <SwiperSlide key={room._id}>
-            <Card room={room} userData={userData} />
+            <Card
+              room={room}
+              userData={userData}
+              favouriteRoomsIds={favouriteRoomsIds}
+              handleAddToFavourite={handleAddToFavourite}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
