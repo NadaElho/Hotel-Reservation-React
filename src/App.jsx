@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Rooms from "./pages/Rooms.jsx";
 import RoomId from "./pages/RoomId.jsx";
 import Footer from "./components/Footer.jsx";
+import About from "./pages/About.jsx";
 import BookingForm from "./pages/BookingForm.jsx";
 import Hero from "./components/Hero.jsx";
 import PaymentResult from "./pages/PaymentResult.jsx";
@@ -82,6 +83,7 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/branch/:id" element={<Branch />} />
               <Route
                 path="/rooms"

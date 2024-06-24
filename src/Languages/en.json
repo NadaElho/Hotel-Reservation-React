@@ -15,6 +15,13 @@
     "Discover-our-Branches": "Discover our Branches",
     "branches-desc": "Embark on an unforgettable journey. Experience our unique culture, and create lifetime memories. Your adventure starts here!"
   },
+  "about": {
+    "headline1": "Where every stay is a huge of hospitality",
+    "paragraph1": "Apex Hotels offer a series of opulent and welcoming havens nestled in the heart of Egypt's most captivating locales. Each branch combines timeless elegance with modern luxury, providing a unique gateway to the country's rich cultural heritage and stunning natural landscapes.",
+    "headline2": "Check out our branches",
+    "paragraph2": "Check out our branches at Apex Hotels, where each location offers a unique blend of luxury and cultural immersion. In Cairo, enjoy views of the Nile and proximity to the Pyramids of Giza. Luxor provides a gateway to ancient wonders like the Valley of the Kings. Sinai is a paradise for beach lovers and diving enthusiasts. Aswan offers a tranquil escape with access to fascinating archaeological sites. Siwa Oasis where the magic of the desert meets luxurious comfort. Each branch promises elegant accommodations, exquisite dining, and unparalleled service, ensuring an unforgettable stay in Egypt.",
+    "button": "Check out"
+  },
   "rooms": {
     "filter": "Filter by Amenity",
     "filter-by": "Filter by",
@@ -34,24 +41,23 @@
     "branch": "branch",
     "checkout": "Check out",
     "book-now": "Book now for",
-    "room" : "Room",
-    "guests" : "loved by the guests",
-    "Rating" : "Rating",
-    "off" : "off"
-    
+    "room": "Room",
+    "guests": "loved by the guests",
+    "Rating": "Rating",
+    "off": "off"
   },
-  "reviews" : {
-    "reviews" : "reviews",
-    "member" : "Professional member",
-    "write-review" : "write a review",
-    "Show-all-reviews" : "Show all reviews",
-    "Update-review" : "Update a review",
-    "placeholder" : "Write what do you think",
-    "Overall-rating" : "Overall rating",
-    "update" : "Update",
-    "add" : "Add",
-    "choose-rating" : "Please choose rating",
-    "enter-review" : "Please write your review"
+  "reviews": {
+    "reviews": "reviews",
+    "member": "Professional member",
+    "write-review": "write a review",
+    "Show-all-reviews": "Show all reviews",
+    "Update-review": "Update a review",
+    "placeholder": "Write what do you think",
+    "Overall-rating": "Overall rating",
+    "update": "Update",
+    "add": "Add",
+    "choose-rating": "Please choose rating",
+    "enter-review": "Please write your review"
   },
 
   "booking": {
@@ -104,7 +110,8 @@
     "logout": "Log out",
     "profile": "Profile",
     "contact": "Contact us",
-    "subscription": "Subscription plans"
+    "subscription": "Subscription plans",
+    "AboutHotel": "About Hotel"
   },
   "form": {
     "start": "Start for free",
@@ -184,7 +191,7 @@
     "cancel-reservation": "Do you want to cancel this reservation?",
     "end-subscription": "Do you want to end your subscription?",
     "plan": "Your plan",
-    "end": "End subscription" ,
+    "end": "End subscription",
     "after-cancellation": "Upon cancelling you will lose all the benefits",
     "active": "active",
     "member": "member"
