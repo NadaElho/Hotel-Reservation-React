@@ -41,7 +41,10 @@ function App() {
   const location = useLocation();
 
   const handleLog = () => {
-    logged ? "" : localStorage.setItem("token", "");
+    if (!logged) {
+      localStorage.setItem("token", "");
+      localStorage.setItem("userId", "");
+    }
     setLogged((logged) => (logged = !logged));
   };
 
@@ -80,9 +83,33 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/branch/:id" element={<Branch />} />
-              <Route path="/rooms" element={<Rooms truncated={truncated} toggleTruncated={toggleTruncated} />}  />
-              <Route path="/rooms/:id" element={<RoomId truncated={truncated} toggleTruncated={toggleTruncated} />} />
-              <Route path="/allReviews/:id" element={<AllReviews truncated={truncated} toggleTruncated={toggleTruncated}/>}/>
+              <Route
+                path="/rooms"
+                element={
+                  <Rooms
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/rooms/:id"
+                element={
+                  <RoomId
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/allReviews/:id"
+                element={
+                  <AllReviews
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
               <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
