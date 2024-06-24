@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Rooms from "./pages/Rooms.jsx";
 import RoomId from "./pages/RoomId.jsx";
 import Footer from "./components/Footer.jsx";
+import About from "./pages/About.jsx";
 import BookingForm from "./pages/BookingForm.jsx";
 import Hero from "./components/Hero.jsx";
 import PaymentResult from "./pages/PaymentResult.jsx";
@@ -79,10 +80,35 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/branch/:id" element={<Branch />} />
-              <Route path="/rooms" element={<Rooms truncated={truncated} toggleTruncated={toggleTruncated} />}  />
-              <Route path="/rooms/:id" element={<RoomId truncated={truncated} toggleTruncated={toggleTruncated} />} />
-              <Route path="/allReviews/:id" element={<AllReviews truncated={truncated} toggleTruncated={toggleTruncated}/>}/>
+              <Route
+                path="/rooms"
+                element={
+                  <Rooms
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/rooms/:id"
+                element={
+                  <RoomId
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/allReviews/:id"
+                element={
+                  <AllReviews
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
               <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
