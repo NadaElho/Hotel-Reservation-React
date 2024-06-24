@@ -49,11 +49,11 @@ const Profile = ({handleLog}) => {
           />
           <div className="w-full rounded-3xl">
             <Tabs/>
-            <Outlet />
+            <Outlet data={userData}/>
           </div>
         </div>
       ) : (
-        <Loader />
+        <div className="h-screen"><Loader /></div>
       )}
     </div>
   );

@@ -63,7 +63,7 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800">
+      <h2 className="text-2xl text-main-800 dark:text-main-50 my-5 w-fit py-2 font-medium border-b-2 border-main-800 dark:border-main-25">
         {t("form.change-pass")}
       </h2>
       <Formik
@@ -86,7 +86,7 @@ const ChangePassword = () => {
           <form onSubmit={handleSubmit} className="text-white">
             <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-main-800 dark:text-white me-2">
               <div className="w-full md:w-1/2 my-2">
-                <label htmlFor="current-pass" className="text-main-800 mb-2">
+                <label htmlFor="current-pass" className="text-main-800 dark:text-main-25 mb-2 text-base">
                   {t("form.current-pass")}
                 </label>
                 <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">
@@ -111,7 +111,7 @@ const ChangePassword = () => {
                 </div>
               </div>
               <div className="w-full md:w-1/2 my-2">
-                <label htmlFor="new-pass" className="text-main-800 mb-2">
+                <label htmlFor="new-pass" className="text-main-800 dark:text-main-25 text-base mb-2">
                   {t("form.new-pass")}
                 </label>
                 <div className="flex items-center gap-2 rounded-full border border-main-800 dark:bg-main-250 p-2">

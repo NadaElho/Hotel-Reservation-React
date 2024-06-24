@@ -11,6 +11,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlinePhone } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
+import calculateTotalPrice from "../utils/calcTotalPrice";
 
 function BookingForm() {
   const storedCheckIn = localStorage.getItem("checkin");
@@ -27,15 +28,29 @@ function BookingForm() {
   const [roomData, setRoomData] = useState({});
   const [userData, setUserData] = useState(null);
   const [disabledDates, setDisabledDates] = useState([]);
-  const navigate = useNavigate("reservations");
   const { id } = useParams();
   const { t } = useContext(LanguageContext);
+  const navigate = useNavigate("reservations");
+  const formRef = useRef();
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState(0);
+
+  useEffect(() => {
+    const fetchDataAndCalculatePrice = async () => {
+      try {
+        const price = await calculateTotalPrice(roomData, 1);
+        setPriceAfterDiscount(price);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAndCalculatePrice();
+  }, [roomData]);
+
   const options = {
     weekday: "short",
     month: "short",
     day: "numeric",
   };
-  const formRef = useRef()
 
   async function reserve() {
     try {
@@ -46,32 +61,31 @@ function BookingForm() {
         checkOut: selectedDates[1],
         status: "663a8186e3427acea0ef0b56",
       });
+      if (payment == "stripe") {
+        const { data } = await axiosInstance.get(
+          `/reservations/${localStorage.getItem("userId")}`
+        );
+        data.data.forEach((reservation) => {
+          if (reservation.status.name_en == "pending") {
+            (async function () {
+              localStorage.setItem("reservationId", reservation._id);
+              try {
+                const { data } = await axiosInstance.post(
+                  `/reservations/${reservation._id}/payment`
+                );
+                window.location.href = data.session.url;
+              } catch (err) {
+                toast.error(err.response.data.message);
+              }
+            })();
+          }
+        });
+      } else {
+        toast.success(t("booking.room-reserved-successfully"));
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       toast.error(err.response.data.message);
-    }
-
-    if (payment == "stripe") {
-      const { data } = await axiosInstance.get(
-        `/reservations/${localStorage.getItem("userId")}`
-      );
-      data.data.forEach((reservation) => {
-        if (reservation.status.name_en == "pending") {
-          (async function () {
-            localStorage.setItem("reservationId", reservation._id);
-            try {
-              const { data } = await axiosInstance.post(
-                `/reservations/${reservation._id}/payment`
-              );
-              window.location.href = data.session.url;
-            } catch (err) {
-              toast.error(err.response.data.message);
-            }
-          })();
-        }
-      });
-    } else {
-      toast.success(t("booking.room-reserved-successfully"));
-      navigate("/", { replace: true });
     }
   }
 
@@ -126,11 +140,11 @@ function BookingForm() {
     return errors;
   };
 
-  const reserveNow = ()=>{
+  const reserveNow = () => {
     if (formRef.current) {
-      formRef.current.handleSubmit()
+      formRef.current.handleSubmit();
     }
-  }
+  };
 
   const onSubmit = async (
     { fname, lname, phone, email },
@@ -138,12 +152,12 @@ function BookingForm() {
   ) => {
     try {
       await axiosInstance.patch(
-        `/users/${localStorage.getItem('userId')}`,
+        `/users/${localStorage.getItem("userId")}`,
         {
           firstName: fname,
           lastName: lname,
           phoneNumber: phone,
-          email
+          email,
         },
         {
           headers: {
@@ -151,9 +165,9 @@ function BookingForm() {
           },
         }
       );
-      reserve()
+      reserve();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
     setSubmitting(false);
   };
@@ -177,12 +191,12 @@ function BookingForm() {
           <h2 className="text-3xl text-main-800 dark:text-main-50 font-bold">
             {t("booking.request-book")}
           </h2>
-           <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
+          <h2 className="text-2xl text-main-800 dark:text-main-50 py-5 font-medium">
             {t("booking.details")}
           </h2>
           {userData && (
             <Formik
-            innerRef={formRef}
+              innerRef={formRef}
               initialValues={{
                 email: userData.email,
                 fname: userData.firstName,
@@ -203,13 +217,19 @@ function BookingForm() {
                 <form onSubmit={handleSubmit} className="text-white">
                   <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
                     <div className="w-full md:w-1/2 my-2">
-                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 p-2">
-                        <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                      <label
+                        htmlFor="fname"
+                        className="text-main-800 dark:text-main-25 text-base mb-2"
+                      >
+                        {t("form.fname")}
+                      </label>
+                      <div className="flex items-center gap-2 rounded-full border text-main-800 dark:text-main-25  bg-transparent border-main-300 dark:border-main-250 p-2">
+                        <FaRegUser color={`${isDark ? "white" : "#1D1D1D"}`} />
                         <input
                           type="text"
                           name="fname"
                           placeholder={t("form.fname")}
-                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.fname}
@@ -226,8 +246,14 @@ function BookingForm() {
                       </div>
                     </div>
                     <div className="w-full md:w-1/2 my-2">
-                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250  p-2">
-                        <FaRegUser color={`${isDark ? "#1D1D1D" : "white"}`} />
+                      <label
+                        htmlFor="lname"
+                        className="text-main-800 dark:text-main-25 text-base mb-2"
+                      >
+                        {t("form.lname")}
+                      </label>
+                      <div className="flex items-center gap-2 rounded-full border text-main-800 dark:text-main-25  bg-transparent border-main-300 dark:border-main-250 p-2">
+                        <FaRegUser color={`${isDark ? "white" : "#1D1D1D"}`} />
                         <input
                           type="text"
                           name="lname"
@@ -251,9 +277,15 @@ function BookingForm() {
                   </div>
                   <div className="flex md:justify-between flex-wrap md:flex-nowrap gap-0 md:gap-2 text-white me-2">
                     <div className="w-full md:w-1/2 my-2">
-                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
+                      <label
+                        htmlFor="email"
+                        className="text-main-800 dark:text-main-25 text-base mb-2"
+                      >
+                        {t("form.email")}
+                      </label>
+                      <div className="flex items-center gap-2 rounded-full border text-main-800 dark:text-main-25  bg-transparent border-main-300 dark:border-main-250 p-2">
                         <AiOutlineMail
-                          color={`${isDark ? "#1D1D1D" : "white"}`}
+                          color={`${isDark ? "white" : "#1D1D1D"}`}
                         />
                         <input
                           type="email"
@@ -271,9 +303,15 @@ function BookingForm() {
                       </div>
                     </div>
                     <div className="w-full md:w-1/2 my-2">
-                      <div className="flex items-center gap-2 rounded-full bg-main-300 dark:bg-main-250 my-1 p-2">
+                      <label
+                        htmlFor="phone"
+                        className="text-main-800 dark:text-main-25 text-base mb-2"
+                      >
+                        {t("form.phone")}
+                      </label>
+                      <div className="flex items-center gap-2 rounded-full border text-main-800 dark:text-main-25  bg-transparent border-main-300 dark:border-main-250 p-2">
                         <MdOutlinePhone
-                          color={`${isDark ? "#1D1D1D" : "white"}`}
+                          color={`${isDark ? "white" : "#1D1D1D"}`}
                         />
                         <input
                           type="text"
@@ -354,7 +392,7 @@ function BookingForm() {
               <div className="flex justify-between border-main-100 border-b-2 p-2">
                 <div className="text-main-400 dark:text-main-150">
                   {t("booking.pay")} {roomData.currency}
-                  {calcTotalPrice} {t("booking.now")}
+                  {calcNoOfNights * priceAfterDiscount} {t("booking.now")}
                 </div>
                 <input
                   type="radio"

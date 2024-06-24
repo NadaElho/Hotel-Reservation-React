@@ -28,17 +28,17 @@ const Footer = () => {
               <p className="self-center text-2xl font-semibold whitespace-nowrap dark:text-PrimaryDark text-primary font-secondary">
                 {t("footer.start")}
               </p>
-              <p className="self-center text-custom whitespace-nowrap dark:text[#B4997E]">
+              <p className="self-center text-custom whitespace-nowrap mt-4  dark:text-PrimaryDark dark:opacity-80">
                 {t("footer.discover")}
               </p>
             </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-custom uppercase dark:text-[#FBFAF9]">
+              <h2 className="mb-4 text-sm font-semibold text-custom uppercase dark:text-[#CBB7A4]">
                 {t("footer.resource")}
               </h2>
-              <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
+              <ul className=" text-custom text-sm opacity-80 dark:text-[#CBB7A4]">
                 <li className="mb-2">
                   <a href="#" className="hover:underline">
                     {t("footer.Poducts")}
@@ -62,10 +62,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-white dark:text-[#FBFAF9]">
+              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-[#CBB7A4]">
                 {t("footer.branches")}
               </h2>
-              <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
+              <ul className=" text-custom text-sm opacity-80 dark:text-[#CBB7A4]">
                 <li className="mb-2">
                   <a href="#" className="hover:underline ">
                   {t("footer.luxor")}
@@ -100,10 +100,10 @@ const Footer = () => {
             </div>
 
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-[#FBFAF9]">
+              <h2 className="mb-4 text-sm font-semibold text-custom dark:text-[#CBB7A4]">
                 {t("footer.Telephones")}
               </h2>
-              <ul className=" text-custom text-sm opacity-80 dark:text-[#FBFAF9]">
+              <ul className=" text-custom text-sm opacity-80 dark:text-[#CBB7A4]">
                 <li className="mb-2">
                   <a href="#" className="hover:underline">
                     024597659
@@ -141,7 +141,7 @@ const Footer = () => {
         </div>
         <hr className="my-6 border-secondary sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-custom opacity-80 sm:text-center dark:text-[#FBFAF9]">
+          <span className="text-sm text-custom opacity-80 sm:text-center dark:text-[#CBB7A4]">
             © 2024{" "}
             <a href="#" className="hover:underline">
               Apex™
@@ -151,37 +151,37 @@ const Footer = () => {
           <div className="flex mt-4 sm:justify-center sm:mt-0 ">
             <a
               href="#"
-              className="text-custom opacity-80  dark:text-[#FBFAF9]"
+              className="text-custom opacity-80  dark:text-[#CBB7A4]"
             >
               <FaFacebook />
             </a>
             <a
               href="#"
-              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#FBFAF9] ms-5"
+              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#CBB7A4] ms-5"
             >
               <FaInstagram />
             </a>
             <a
               href="#"
-              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#FBFAF9] ms-5"
+              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#CBB7A4] ms-5"
             >
               <FaTwitter />
             </a>
             <a
               href="#"
-              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#FBFAF9] ms-5"
+              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#CBB7A4] ms-5"
             >
               <FaBehance />
             </a>
             <a
               href="#"
-              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#FBFAF9] ms-5"
+              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#CBB7A4] ms-5"
             >
               <FaLinkedin />
             </a>
             <a
               href="#"
-              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#FBFAF9] ms-5"
+              className="text-custom opacity-80 hover:text-gray-900 dark:text-[#CBB7A4] ms-5"
             >
               <FaGithub />
             </a>

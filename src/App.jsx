@@ -22,17 +22,21 @@ import Account from "./pages/Account.jsx";
 import Favourites from "./pages/Favourites.jsx";
 import History from "./pages/History.jsx";
 import Plans from "./pages/Plans.jsx";
+import AllReviews from "./pages/AllReviews.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import CheckEmail from "./pages/CheckEmail.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
 import Subscription from "./pages/Subscription.jsx";
 import Contact from "./pages/Contact.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 function App() {
   const [dark, setDark] = useState(localStorage.getItem("dark") || "light");
   const [logged, setLogged] = useState(
     localStorage.getItem("token") ? false : true
   );
+  const [truncated, setTruncated] = useState([]);
+
   const location = useLocation();
 
   const handleLog = () => {
@@ -43,6 +47,9 @@ function App() {
   const handleMode = () => {
     localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
+  };
+  const toggleTruncated = (index) => {
+    setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
   return (
@@ -55,6 +62,7 @@ function App() {
             location.pathname != "/resetpassword" &&
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
+            location.pathname != "/not-found" &&
             !location.pathname.startsWith("/newPassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
@@ -71,8 +79,33 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/branch/:id" element={<Branch />} />
-              <Route path="/rooms" element={<Rooms />} />
-              <Route path="/rooms/:id" element={<RoomId />} />
+              <Route
+                path="/rooms"
+                element={
+                  <Rooms
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/rooms/:id"
+                element={
+                  <RoomId
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
+              <Route
+                path="/allReviews/:id"
+                element={
+                  <AllReviews
+                    truncated={truncated}
+                    toggleTruncated={toggleTruncated}
+                  />
+                }
+              />
               <Route path="/contact" element={<Contact />} />
               <Route element={<Guard />}>
                 <Route path="reservation-room/:id" element={<BookingForm />} />
@@ -87,14 +120,16 @@ function App() {
                   <Route path="plans" element={<Plans />} />
                 </Route>
               </Route>
-              <Route path="/subscription" element={<Subscription />} />
               <Route element={<PrivateRoute />}>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login handleLog={handleLog} />} />
                 <Route path="/resetpassword" element={<ResetPassword />} />
                 <Route path="/checkemail" element={<CheckEmail />} />
                 <Route path="/newpassword/:id" element={<NewPassword />} />
+                <Route path="/subscription" element={<Subscription />} />
               </Route>
+              <Route path="/not-found" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           {location.pathname != "/login" &&
@@ -102,6 +137,7 @@ function App() {
             location.pathname != "/resetpassword" &&
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
+            location.pathname != "/not-found" &&
             !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && <Footer />}
         </LanguageProvider>

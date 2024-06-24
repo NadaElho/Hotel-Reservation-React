@@ -116,7 +116,12 @@ input {
 .darkMode .range-slider__range {
   background: #f0c7ad;
 }
-
+/* for model */
+.bg-white{
+  background: #fff7f2;
+  border-radius: 2rem;
+}
+/* 
 .loader {
   transform: rotateZ(45deg);
   perspective: 1000px;
@@ -188,7 +193,7 @@ input {
   87% {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
-}
+} */
 
 .swiper {
   width: 100%;
@@ -226,6 +231,52 @@ input {
   background-color: forestgreen;
 }
 
+/* for placeholder in input */
+/* @layer utilities {
+  .placeholder-style::placeholder {
+    padding: 4px;
+  }
+
+} */
+
 .roboto {
   font-family: "Roboto", sans-serif;
 }
+.loader { 
+  border: 16px solid #f3f3f3; 
+  border-top: 16px solid #10324e; 
+  border-radius: 50%; 
+  width: 120px; 
+  height: 120px; 
+  animation: spinloader 2s linear infinite; 
+} 
+
+.loader img {
+  width: 90px;
+  animation: spinlogo 2s linear infinite;
+  -webkit-animation: spinlogo 2s linear infinite;
+} 
+
+@keyframes spinloader { 
+  0% { 
+      transform: rotate(0deg); 
+  } 
+
+  100% {
+      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+} 
+} 
+
+@keyframes spinlogo { 
+  0% { 
+      transform: rotate(360deg); 
+  } 
+
+  100% { 
+      transform: rotate(0deg); 
+  } 
+} 

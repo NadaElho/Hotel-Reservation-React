@@ -10,15 +10,16 @@ import Amenity from "../components/Amenity";
 import useDebounce from "../../useDebounce";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+import ReactStars from "react-rating-stars-component";
 
-const Rooms = () => {
+const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
+  const [ratingAvg, setRatingAvg] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [params] = useSearchParams();
   const [pageNum, setPageNum] = useState(0);
   const [limit, setLimit] = useState(1);
   const [noOfPages, setNoOfPages] = useState(1);
-  const [truncated, setTruncated] = useState([]);
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -27,6 +28,9 @@ const Rooms = () => {
   const debounceValue = useDebounce(value, 500);
   const onValueChange = (values) => {
     setValue([...values]);
+  };
+  const onRatingChange = (rating) => {
+    setRatingAvg(rating);
   };
 
   const filterObj = useMemo(() => {
@@ -52,10 +56,6 @@ const Rooms = () => {
     setPageNum(data.selected);
   };
 
-  const toggleTruncated = (index) => {
-    setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -63,6 +63,7 @@ const Rooms = () => {
           params: {
             "price[gt]": debounceValue[0],
             "price[lt]": debounceValue[1],
+            "ratingAvg[gte]": ratingAvg,
             page: pageNum + 1,
             limit: limit,
             ...filterObj,
@@ -74,12 +75,11 @@ const Rooms = () => {
         setNoOfPages(res.data.pagination.numberPages);
       } catch (err) {
         console.error("Error fetching data:", err);
-        setRooms([]);
         setLoading(false);
       }
     }
     fetchData();
-  }, [debounceValue, pageNum, limit, filterObj]);
+  }, [debounceValue, ratingAvg, pageNum, limit, filterObj]);
 
   return (
     <>
@@ -87,20 +87,20 @@ const Rooms = () => {
         <Amenity />
 
         <div className="flex gap-2 mt-20">
-          <div className="w-[400px] hidden xl:block">
-            <p className="mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
+          <div className="w-[400px] hidden xl:block ">
+            <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
-            <div className="w-[380px] border border-secondary rounded-3xl h-64 mx-10 flex flex-col justify-around mt-12 ">
-              <div className="mx-10 mt-4">
+            <div className="w-[380px] h-64 mx-10 flex flex-col justify-around mt-12 ">
+              <div className="mx-4 mt-4">
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
                 </p>
                 <div className={`flex w-full gap-4 mt-8 `}>
-                  <div className="w-28 h-14 bg-white border border-custom p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
+                  <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="minInput"
-                      className="font-semibold dark:text-[#DDD1C5]"
+                      className="font-semibold text-secondary mx-4 dark:text-[#DDD1C5]"
                     >
                       {t("rooms.Min")}
                     </label>
@@ -116,13 +116,13 @@ const Rooms = () => {
                           value[1],
                         ])
                       }
-                      className="w-full border-none border-b-2 border-black focus:outline-none focus:border-custom-500 dark:text-[#F0C7AD]"
+                      className="w-full text-secondary  mx-4 border-none border-b-2 border-black focus:outline-none focus:border-custom-500 dark:text-[#F0C7AD]"
                     />
                   </div>
-                  <div className="w-28 h-14 bg-white border border-custom p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
+                  <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="maxInput"
-                      className="font-semibold dark:text-[#DDD1C5]"
+                      className="font-semibold text-secondary  mx-4 dark:text-[#DDD1C5]"
                     >
                       {t("rooms.Max")}
                     </label>
@@ -138,7 +138,7 @@ const Rooms = () => {
                         ])
                       }
                       min="0"
-                      className="w-full border-none border-b-2 border-black focus:outline-none focus:border-blue-500 dark:text-[#F0C7AD]"
+                      className="w-full mx-4 text-secondary border-none border-b-2 border-black focus:outline-none focus:border-blue-500 dark:text-[#F0C7AD]"
                     />
                   </div>
                 </div>
@@ -158,8 +158,16 @@ const Rooms = () => {
                   />
                 </div>
               </div>
+              <div className="flex flex-col mt-10 mx-4">
+                <hr className="border border-secondary" />
+                <p className="text-primary font-semibold text-xl mt-10 dark:text-PrimaryDark">
+                  {t("rooms.Rating")}
+                </p>
+                <ReactStars size={30} onChange={onRatingChange} />
+              </div>
             </div>
           </div>
+
           {/* card */}
 
           <div className=" w-full flex flex-wrap  justify-center gap-6 overflow-hidden ">
@@ -178,13 +186,14 @@ const Rooms = () => {
                     src={room.images[0]}
                     alt=""
                   />
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-2xl mb-2 text-primary dark:text-PrimaryDark">
+                  <div className="px-2 py-3 flex flex-col">
+                    <div className="font-bold text-2xl capitalize text-primary dark:text-PrimaryDark">
                       {isArabic
                         ? room.roomTypeId.type_ar
-                        : room.roomTypeId.type_en}
+                        : room.roomTypeId.type_en + " " + "Room"}
                     </div>
-                    <div className="text-primary opacity-80 font-semibold text-sm text-justify tracking-tight mt-4 dark:text-[#CBB7A4]">
+                    <ReactStars size={16} value={room.ratingAvg} edit={false} />
+                    <div className="text-primary opacity-80 font-semibold text-sm dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>
                           {isArabic ? room.description_ar : room.description_en}
@@ -227,8 +236,10 @@ const Rooms = () => {
                           </div>
                         ))}
                     </div>
-                    <hr className=" border-primary opacity-40 mt-4 dark:border-footer" />
-                    <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-8 ">
+                    <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
+
+                    <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
+                     
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
                           {t("rooms.book-now")} ${room.price}
