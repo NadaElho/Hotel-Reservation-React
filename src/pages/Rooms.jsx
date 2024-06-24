@@ -101,7 +101,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
     limit,
     filterObj,
     userId,
-    favouriteRooms,
+    changed,
   ]);
 
   const handleAddToFavourite = async (roomId) => {

@@ -29,7 +29,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
       <div className="relative w-[320px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"
-          src={room.images}
+          src={room.images[0]}
           alt="Room"
         />
         <div
