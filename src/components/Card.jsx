@@ -25,8 +25,8 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
   };
 
   return (
-    <>
-      <div className="relative w-[320px] h-64 rounded-3xl overflow-hidden mt-10 ">
+    <div className="container ">
+      <div className="xl:mx-10 relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"
           src={room.images}
@@ -45,7 +45,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
               <p>
                 {isArabic ? (
                   <>
-                    {t("rooms.off")} {promotion.percentage}%{" "}
+                    {t("rooms.off")} {promotion.percentage}%
                   </>
                 ) : (
                   <>
@@ -75,7 +75,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
           <div
             className={`py-1 ${
               isArabic ? "px-7" : "px-4"
-            } w-40 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
+            } w-44 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
           >
             <p className="text-white font-semibold text-sm">
               {room.hotelId && isArabic ? (
@@ -131,7 +131,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
