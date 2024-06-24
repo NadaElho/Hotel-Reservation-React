@@ -29,7 +29,6 @@ const RoomRated = () => {
       const res = await axiosInstance.get("/rooms");
       setRooms(res.data.data);
       //
-
     }
     fetchData();
   }, []);
@@ -116,13 +115,13 @@ const RoomRated = () => {
                 ))}
 
                 <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-                <button onClick={() => handleAddToFavourite(room._id)}>
-                        {isFavourite ? (
-                          <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                        ) : (
-                          <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                        )}
-                      </button>
+                  <button onClick={() => handleAddToFavourite(room._id)}>
+                    {isFavourite ? (
+                      <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                    ) : (
+                      <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                    )}
+                  </button>
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 w-full">
