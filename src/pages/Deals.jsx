@@ -1,16 +1,11 @@
 import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
-import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
-import {
-  EffectCoverflow,
-  Pagination,
-  Navigation,
-  Keyboard,
-} from "swiper/modules";
+import { Pagination } from "swiper/modules";
+
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import Card from "../components/Card";
@@ -21,7 +16,7 @@ const Deals = () => {
   const { t } = useContext(LanguageContext);
   const [userData, setUserData] = useState(null);
   const userId = localStorage.getItem("userId");
- 
+
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
@@ -29,51 +24,58 @@ const Deals = () => {
       setRooms(data);
 
       const subData = await axiosInstance.get("/subscriptions");
-      setSubscription(subData.data.data)
+      setSubscription(subData.data.data);
     }
     fetchData();
     if (userId) {
       (async function () {
         const { data } = await axiosInstance.get(`/users/${userId}`);
         setUserData(data.data);
-        console.log(data.data)
+        console.log(data.data);
       })();
     }
-  }, []);
+  }, [userId]);
 
-  const shuffleRoom = rooms.sort(() => Math.random() - 0.5);
-  const limitedRooms = shuffleRoom.slice(0, 9);
-
+  const roomDeals = rooms.filter(
+    (room) =>
+      room.promotionId.length > 0 || (userData && userData.subscriptionId)
+  );
+  console.log(roomDeals);
   return (
     <div className="container mx-auto mt-20 px-4  overflow-hidden">
       <h2 className="text-primary text-2xl font-secondary  mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
         {t("rooms.deals")}
       </h2>
       <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        keyboard={{
-          enabled: true,
-        }}
+        slidesPerView={1}
+        spaceBetween={10}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
-        modules={[EffectCoverflow, Keyboard, Pagination, Navigation]}
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+          },
+          "@0.75": {
+            slidesPerView: 1,
+            spaceBetween: 50,
+          },
+          "@1.00": {
+            slidesPerView: 2,
+            spaceBetween: 130,
+          },
+
+          "@1.50": {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Pagination]}
         className="mySwiper"
       >
-        {limitedRooms.map((room) => (
+        {roomDeals.map((room) => (
           <SwiperSlide key={room._id}>
-            <Card room={room} userData={userData}/>
+            <Card room={room} userData={userData} />
           </SwiperSlide>
         ))}
       </Swiper>
