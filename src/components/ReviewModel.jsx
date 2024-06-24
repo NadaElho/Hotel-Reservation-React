@@ -14,9 +14,17 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
   const { id } = useParams();
   const [isError, setIsError] = useState(false);
   const { t } = useContext(LanguageContext);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     setReviewData(currentReview);
+
+    async function fetchData(){
+      const { data } = await axiosInstance.get(`/users/${localStorage.getItem("userId")}`);
+      setUserData(data.data);
+      console.log(data.data);
+    }
+    fetchData()
   }, [currentReview]);
 
   const handleChange = (event) => {

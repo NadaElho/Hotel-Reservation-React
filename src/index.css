@@ -231,13 +231,6 @@ input {
   background-color: forestgreen;
 }
 
-/* for placeholder in input */
-/* @layer utilities {
-  .placeholder-style::placeholder {
-    padding: 4px;
-  }
-
-} */
 
 .roboto {
   font-family: "Roboto", sans-serif;
