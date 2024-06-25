@@ -1,11 +1,11 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const Card = ({ room, userData }) => {
+const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -56,11 +56,20 @@ const Card = ({ room, userData }) => {
             </div>
           ))}
 
-          <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-            <span className="text-red-900 text-3xl text-center cursor-pointer ">
-              <CiHeart />
-            </span>
-          </div>
+          {localStorage.getItem("userId") && (
+            <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
+              <span
+                className="text-red-900 text-3xl text-center cursor-pointer"
+                onClick={() => handleAddToFavourite(room._id)}
+              >
+                {favouriteRoomsIds && favouriteRoomsIds.includes(room._id) ? (
+                  <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                ) : (
+                  <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                )}
+              </span>
+            </div>
+          )}
         </div>
         <div className=" absolute bottom-0 left-0 flex items-center justify-center  ">
           <div
@@ -90,7 +99,9 @@ const Card = ({ room, userData }) => {
             <div className="flex text-xs gap-1">
               <span
                 className={`${
-                  room.price != calcPrice(room) ? "line-through" : ""
+                  room.price != calcPrice(room)
+                    ? "line-through decoration-red-700"
+                    : ""
                 } text-primary dark:text-PrimaryDark`}
               >
                 ${room.price}
