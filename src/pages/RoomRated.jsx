@@ -6,10 +6,14 @@ import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar } from "react-icons/fa6";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+
+
+
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
   const { t } = useContext(LanguageContext);

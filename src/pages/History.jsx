@@ -183,6 +183,7 @@ function History() {
                   {showAddModal && (
                     <ReviewModel
                       addReview={addReview}
+                      onClose={() => setShowAddModal(false)}
                       _id={id}
                     />
                   )}
