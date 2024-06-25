@@ -1,7 +1,6 @@
 import { Formik } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLockClosedOutline } from "react-icons/io5";
-import { AiOutlineMail } from "react-icons/ai";
 import img from "/createnewpassword.png";
 import { toast } from "react-toastify";
 import axiosInstance from "../../interceptor";

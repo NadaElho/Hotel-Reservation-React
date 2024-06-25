@@ -106,7 +106,7 @@ const ResetPassword = () => {
                 {t("resetpassword.rememberpassword")}
                 <Link
                   to="/login"
-                  className="text-[#52381D] underline cursor-pointer dark:text-main-200 hover:dark:text-main-25"
+                  className="text-[#52381D] underline cursor-pointer   dark:text-main-25"
                 >
                   {t("resetpassword.login")}
                 </Link>
