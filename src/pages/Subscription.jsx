@@ -57,7 +57,7 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
       return (
         <div
           key={plan._id}
-          className={`bg-[#10324E] mt-0 lg:mt-24 text-[#fff7f2] p-6 rounded-lg flex flex-col justify-between mx-auto relative ${
+          className={`bg-[#10324E] mt-0 lg:mt-4 text-[#fff7f2] p-6 rounded-lg flex flex-col justify-between mx-auto relative ${
             isMostPopular ? "lg:top-[-80px]" : ""
           }`}
           style={cardStyles}
@@ -145,7 +145,7 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
         <div
           className={`${
             from === "profile" ? "bg-transparent" : "bg-gray-50"
-          } roboto flex justify-center items-center min-h-screen`}
+          } roboto flex justify-center items-center min-h-screen bg-grey-100 dark:text-white dark:bg-main-700`}
         >
           <div className="w-full p-4 md:p-16 lg:p-16 flex flex-col justify-center items-center mx-auto">
             <h1
@@ -164,7 +164,7 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
                 <h3
                   className={`${
                     from === "profile" ? "hidden" : "block"
-                  } font-bold text-gray-600 text-4xl ${
+                  } dark:text-grey-400 font-bold text-gray-600 text-4xl ${
                     isArabic ? "text-right" : "left-36 top-20"
                   }`}
                 >
@@ -175,7 +175,7 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
                 <h5
                   className={`${
                     from === "profile" ? "hidden" : "block"
-                  } text-xl mb-2 text-main-400 font-normal ${
+                  } dark:text-main-150 text-xl mb-2 text-main-400 font-normal ${
                     isArabic ? "text-right" : "left-36 top-32"
                   }`}
                 >

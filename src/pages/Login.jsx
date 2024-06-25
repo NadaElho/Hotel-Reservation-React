@@ -134,7 +134,10 @@ const Login = ({ handleLog }) => {
                     {t("form.signup")}
                   </span>
                 </div>
-                <Link to="/resetpassword" className="text-[#52381D] underline ">
+                <Link
+                  to="/resetpassword"
+                  className="text-[#52381D] underline cursor-pointer dark:text-main-200 "
+                >
                   {t("forgotpassword")}
                 </Link>
               </div>

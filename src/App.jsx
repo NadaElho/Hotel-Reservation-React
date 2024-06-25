@@ -48,6 +48,7 @@ function App() {
     localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
   };
+
   const toggleTruncated = (index) => {
     setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
   };
@@ -63,7 +64,7 @@ function App() {
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
             location.pathname != "/not-found" &&
-            !location.pathname.startsWith("/newPassword") &&
+            !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
                 <Navbar

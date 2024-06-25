@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLockClosedOutline } from "react-icons/io5";
+import { AiOutlineMail } from "react-icons/ai";
 import img from "/createnewpassword.png";
 import { toast } from "react-toastify";
 import axiosInstance from "../../interceptor";
@@ -8,6 +9,7 @@ import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 
 const NewPassword = () => {
+  const isDark = localStorage.getItem("dark") == "dark";
   let userId = useParams();
   const token = userId.id;
   const navigate = useNavigate();
@@ -59,10 +61,10 @@ const NewPassword = () => {
         <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:right-4 md:rtl:right-16 ltr:left-4 md:ltr:left-12">
           <Link to="/">APEX</Link>
         </h1>
-        <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
+        <h3 className="ms-2 font-bold text-grey-600 dark:text-grey-400 text-2xl mt-[50px] lg:mt-0">
           {t("newpassword.newpassword")}
         </h3>
-        <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
+        <h5 className="ms-2 text-xs text-main-400 dark:text-main-150 mb-4 font-semibold">
           {t("newpassword.differentpassword")}
         </h5>
         <Formik
@@ -84,13 +86,15 @@ const NewPassword = () => {
           }) => (
             <form onSubmit={handleSubmit} className="text-white">
               <div className="my-2">
-                <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 px-3 py-1">
-                  <IoLockClosedOutline color="white" />
+                <div className=" flex items-center gap-2 rounded-full bg-main-300 my-1 px-3 py-1">
+                  <IoLockClosedOutline
+                    color={`${isDark ? "#1D1D1D" : "white"}`}
+                  />
                   <input
                     type="password"
                     name="password"
                     placeholder={t("newpassword.password")}
-                    className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-fulls"
+                    className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
@@ -102,13 +106,15 @@ const NewPassword = () => {
               </div>
 
               <div className="my-2">
-                <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 px-3 py-1">
-                  <IoLockClosedOutline color="white" />
+                <div className="flex items-center gap-2 rounded-full bg-main-300 my-1 px-3 py-1">
+                  <IoLockClosedOutline
+                    color={`${isDark ? "#1D1D1D" : "white"}`}
+                  />
                   <input
                     type="password"
                     name="confirmPassword"
                     placeholder={t("newpassword.confirmpassword")}
-                    className="border-0 h-8 outline-none focus:ring-0 placeholder:text-slate-200 w-full bg-main-300"
+                    className="border-none h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.confirmPassword}
@@ -123,7 +129,7 @@ const NewPassword = () => {
 
               <button
                 type="submit"
-                className="w-full bg-main-800 border rounded-full p-2 text-white disabled:opacity-50 my-2"
+                className="w-full bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
                 {t("newpassword.resetpassword")}
