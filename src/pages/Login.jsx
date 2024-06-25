@@ -5,13 +5,20 @@ import { AiOutlineMail } from "react-icons/ai";
 import axiosInstance from "../../interceptor";
 import img from "/login.png";
 import { toast } from "react-toastify";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
+import { TbEyeClosed } from "react-icons/tb";
+import { FaRegEye } from "react-icons/fa";
 
 const Login = ({ handleLog }) => {
   const navigate = useNavigate();
   const { t } = useContext(LanguageContext);
   const isDark = localStorage.getItem("dark") == "dark";
+  const [showPass, setShowPass] = useState({ pass: false });
+
+  const handleToggleShowPass = (field) => {
+    setShowPass((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
 
   const validate = (values) => {
     const errors = {};
@@ -104,7 +111,7 @@ const Login = ({ handleLog }) => {
                     color={`${isDark ? "#1D1D1D" : "white"}`}
                   />
                   <input
-                    type="password"
+                    type={showPass.pass ? "text" : "password"}
                     name="password"
                     placeholder={t("form.password")}
                     className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
@@ -112,6 +119,9 @@ const Login = ({ handleLog }) => {
                     onBlur={handleBlur}
                     value={values.password}
                   />
+                  <span onClick={() => handleToggleShowPass("pass")}>
+                    {showPass.pass ? <FaRegEye /> : <TbEyeClosed />}
+                  </span>
                 </div>
                 <div className="text-red-500 text-sm ms-2">
                   {touched.password && errors.password}
@@ -134,7 +144,10 @@ const Login = ({ handleLog }) => {
                     {t("form.signup")}
                   </span>
                 </div>
-                <Link to="/resetpassword" className="text-[#52381D] dark:text-main-25 underline ">
+                <Link
+                  to="/resetpassword"
+                  className="text-[#52381D] dark:text-main-25 underline "
+                >
                   {t("forgotpassword")}
                 </Link>
               </div>

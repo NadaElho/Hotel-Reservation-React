@@ -5,7 +5,13 @@ import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from }) => {
+const Card = ({
+  room,
+  userData,
+  favouriteRoomsIds,
+  handleAddToFavourite,
+  from,
+}) => {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -23,10 +29,10 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from })
     }
     return Math.round(calcTotalPrice);
   };
-  console.log(room)
+  console.log(room);
 
   return (
-    <div className={from == "favourites" ? 'w-fit' : "container"}>
+    <div className={from == "favourites" ? "w-fit" : "container"}>
       <div className="xl:mx-10 relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"
@@ -38,7 +44,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from })
         >
           {room.promotionId.map((promotion) => (
             <div
-              className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
+              className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 `}
               key={promotion._id}
             >
               <p>

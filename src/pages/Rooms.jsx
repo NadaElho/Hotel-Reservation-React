@@ -76,10 +76,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ...filterObj,
           },
         });
-        const roomsData = await Promise.all(res.data.data.map(async (room) => {
-          const calculatedPrice = await fetchDataAndCalculatePrice(room);
-          return { ...room, calculatedPrice };
-        }));
+        const roomsData = await Promise.all(
+          res.data.data.map(async (room) => {
+            const calculatedPrice = await fetchDataAndCalculatePrice(room);
+            return { ...room, calculatedPrice };
+          })
+        );
         setRooms(roomsData);
         setNoOfPages(res.data.pagination.numberPages);
         setLoading(false);
@@ -98,15 +100,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
     }
 
     fetchData();
-  }, [
-    debounceValue,
-    ratingAvg,
-    pageNum,
-    limit,
-    filterObj,
-    userId,
-    changed,
-  ]);
+  }, [debounceValue, ratingAvg, pageNum, limit, filterObj, userId, changed]);
 
   const handleAddToFavourite = async (roomId) => {
     if (favouriteRooms.includes(roomId)) {
@@ -124,7 +118,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const fetchDataAndCalculatePrice = async (roomData) => {
     try {
       const price = await calculateTotalPrice(roomData, 1);
-      return price
+      return price;
     } catch (error) {
       console.log(error);
     }
@@ -219,7 +213,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
           {/* card */}
 
-          <div className=" w-full flex flex-wrap  justify-center gap-6 overflow-hidden ">
+          <div className=" w-full flex flex-wrap  justify-center md:justify-start gap-6 overflow-hidden p-4 px-8">
             {isloading ? (
               <div className="w-[600px] flex justify-center items-center">
                 <Loader />
@@ -242,7 +236,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                   >
                     {room.promotionId.map((promotion) => (
                       <div
-                        className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
+                        className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 `}
                         key={promotion._id}
                       >
                         <p>
