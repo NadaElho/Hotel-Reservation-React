@@ -16,8 +16,6 @@ import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
 
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
@@ -113,16 +111,6 @@ const RoomRated = () => {
                     </p>
                   </div>
                 ))}
-
-                <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-                  <button onClick={() => handleAddToFavourite(room._id)}>
-                    {isFavourite ? (
-                      <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                    ) : (
-                      <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                    )}
-                  </button>
-                </div>
               </div>
               <div className="absolute bottom-0 left-0 w-full">
                 <div className="bg-secondary  rounded-t-2xl px-4 py-2 flex justify-between items-center dark:bg-[#7C6555]">

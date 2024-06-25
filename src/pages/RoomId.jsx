@@ -41,6 +41,7 @@ const RoomId = ({ truncated, toggleTruncated }) => {
       await axiosInstance.delete(`/reviews/${reviewId}`);
       const deletedReview = reviews.filter((r) => r._id !== reviewId);
       setReviews(deletedReview);
+      setReviewAdded((prev) => !prev);
     } catch (error) {
       console.error("Error deleting review:", error);
     }

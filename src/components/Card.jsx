@@ -5,7 +5,7 @@ import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
+const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from }) => {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -25,7 +25,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
   };
 
   return (
-    <div className="container ">
+    <div className={from == "favourites" ? 'w-fit' : "container"}>
       <div className="xl:mx-10 relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"

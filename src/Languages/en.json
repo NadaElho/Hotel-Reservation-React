@@ -194,7 +194,8 @@
     "end": "End subscription",
     "after-cancellation": "Upon cancelling you will lose all the benefits",
     "active": "active",
-    "member": "member"
+    "member": "member",
+    "no-fav": "No favourite rooms"
   },
   "subscription": {
     "month": "/month",

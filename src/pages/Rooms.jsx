@@ -13,6 +13,7 @@ import "react-range-slider-input/dist/style.css";
 import ReactStars from "react-rating-stars-component";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import calculateTotalPrice from "../utils/calcTotalPrice";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
@@ -75,8 +76,11 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ...filterObj,
           },
         });
-        setRooms(res.data.data);
-        setLoading(false);
+        const roomsData = await Promise.all(res.data.data.map(async (room) => {
+          const calculatedPrice = await fetchDataAndCalculatePrice(room);
+          return { ...room, calculatedPrice };
+        }));
+        setRooms(roomsData);
         setNoOfPages(res.data.pagination.numberPages);
         setLoading(false);
 
@@ -116,6 +120,16 @@ const Rooms = ({ truncated, toggleTruncated }) => {
       setFavouriteRooms((prev) => [...prev, roomId]);
     }
   };
+
+  const fetchDataAndCalculatePrice = async (roomData) => {
+    try {
+      const price = await calculateTotalPrice(roomData, 1);
+      return price
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto flex flex-col  mt-16">
@@ -126,7 +140,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
-            <div className="w-[380px] h-64 mx-10 flex flex-col justify-around mt-12 ">
+            <div className="w-[380px] mx-10 flex flex-col justify-around mt-12 ">
               <div className="mx-4 mt-4">
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
@@ -313,7 +327,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
-                          {t("rooms.book-now")} ${room.price}
+                          {t("rooms.book-now")} ${room.calculatedPrice}
                         </Link>
                       </button>
                       <button className="w-1/3 text-xs py-2 md:py-3 md:w-40  md:text-sm bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]">
