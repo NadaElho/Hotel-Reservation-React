@@ -1,19 +1,16 @@
 import axiosInstance from "../../interceptor";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import Card from "../components/Card";
 
 const Deals = () => {
   const [rooms, setRooms] = useState([]);
-  const [subscription, setSubscription] = useState([]);
-  const { t } = useContext(LanguageContext);
+  const { t  , i18n} = useContext(LanguageContext);
   const [userData, setUserData] = useState(null);
   const userId = localStorage.getItem("userId");
   const [favouriteRooms, setFavouriteRooms] = useState(null);
@@ -25,9 +22,6 @@ const Deals = () => {
       const res = await axiosInstance.get("/rooms");
       const data = res.data.data;
       setRooms(data);
-
-      const subData = await axiosInstance.get("/subscriptions");
-      setSubscription(subData.data.data);
     }
     fetchData();
   }, []);
@@ -63,7 +57,6 @@ const Deals = () => {
     }
   };
 
-  const limitedRooms = rooms.slice(0, 9);
 
   const roomDeals = rooms.filter(
     (room) =>
@@ -76,7 +69,8 @@ const Deals = () => {
         {t("rooms.deals")}
       </h2>
       <Swiper
-        slidesPerView={1}
+      dir={"ltr"}
+        slidesPerView={3}
         spaceBetween={10}
         pagination={{
           clickable: true,
