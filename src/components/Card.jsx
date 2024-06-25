@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
 const Card = ({
   room,
@@ -42,24 +42,26 @@ const Card = ({
         <div
           className={`absolute top-2 px-4 w-full flex justify-between items-center`}
         >
-          {room.promotionId.map((promotion) => (
-            <div
-              className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 `}
-              key={promotion._id}
-            >
-              <p>
-                {isArabic ? (
-                  <>
-                    {t("rooms.off")} {promotion.percentage}%
-                  </>
-                ) : (
-                  <>
-                    {promotion.percentage}% {t("rooms.off")}
-                  </>
-                )}
-              </p>
-            </div>
-          ))}
+          {room.promotionId &&
+            room.promotionId.length > 0 &&
+            room.promotionId.map((promotion) => (
+              <div
+                className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 `}
+                key={promotion._id}
+              >
+                <p>
+                  {isArabic ? (
+                    <>
+                      {t("rooms.off")} {promotion.percentage}%
+                    </>
+                  ) : (
+                    <>
+                      {promotion.percentage}% {t("rooms.off")}
+                    </>
+                  )}
+                </p>
+              </div>
+            ))}
 
           {localStorage.getItem("userId") && (
             <div className="absolute top-2 ltr:right-3 rtl:left-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
