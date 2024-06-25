@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptor";
-import RoomCard from "../components/roomCard";
+import { useParams } from "react-router";
+import RoomCard from "../components/RoomCard";
 import Loader from "../components/Loader";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
@@ -40,6 +40,7 @@ const RoomId = ({ truncated, toggleTruncated }) => {
       await axiosInstance.delete(`/reviews/${reviewId}`);
       const deletedReview = reviews.filter((r) => r._id !== reviewId);
       setReviews(deletedReview);
+      setReviewAdded((prev) => !prev);
     } catch (error) {
       console.error("Error deleting review:", error);
     }

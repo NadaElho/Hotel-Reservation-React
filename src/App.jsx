@@ -8,6 +8,7 @@ import Home from "./pages/Home.jsx";
 import Rooms from "./pages/Rooms.jsx";
 import RoomId from "./pages/RoomId.jsx";
 import Footer from "./components/Footer.jsx";
+import About from "./pages/About.jsx";
 import BookingForm from "./pages/BookingForm.jsx";
 import Hero from "./components/Hero.jsx";
 import PaymentResult from "./pages/PaymentResult.jsx";
@@ -40,7 +41,10 @@ function App() {
   const location = useLocation();
 
   const handleLog = () => {
-    logged ? "" : localStorage.setItem("token", "");
+    if (!logged) {
+      localStorage.setItem("token", "");
+      localStorage.setItem("userId", "");
+    }
     setLogged((logged) => (logged = !logged));
   };
 
@@ -79,6 +83,7 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/branch/:id" element={<Branch />} />
               <Route
                 path="/rooms"

@@ -72,9 +72,7 @@ function ReservationCard({
         <div>
           <span
             className={
-              priceAfterDiscount != roomData.price
-                ? "line-through decoration-red-700"
-                : ""
+              priceAfterDiscount != roomData.price ? "line-through " : ""
             }
           >
             {roomData.currency}
@@ -84,11 +82,7 @@ function ReservationCard({
         </div>
         <div
           className={`font-bold
-             ${
-               priceAfterDiscount != roomData.price
-                 ? "line-through decoration-red-700"
-                 : ""
-             }`}
+             ${priceAfterDiscount != roomData.price ? "line-through " : ""}`}
         >
           {roomData.currency}
           {calcTotalPrice}

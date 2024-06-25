@@ -1,11 +1,11 @@
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 import ReactStars from "react-rating-stars-component";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const Card = ({ room, userData }) => {
+const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from }) => {
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
 
@@ -25,17 +25,15 @@ const Card = ({ room, userData }) => {
   };
 
   return (
-    <>
-      <div className="relative w-[320px] h-64 rounded-3xl overflow-hidden mt-10 ">
+    <div className={from == "favourites" ? 'w-fit' : "container"}>
+      <div className="xl:mx-10 relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"
-          src={room.images}
+          src={room.images[0]}
           alt="Room"
         />
         <div
-          className={`absolute top-2 px-4 w-full flex ${
-            isArabic ? "flex-row-reverse" : "flex-row"
-          } justify-between items-center`}
+          className={`absolute top-2 px-4 w-full flex justify-between items-center`}
         >
           {room.promotionId.map((promotion) => (
             <div
@@ -45,7 +43,7 @@ const Card = ({ room, userData }) => {
               <p>
                 {isArabic ? (
                   <>
-                    {t("rooms.off")} {promotion.percentage}%{" "}
+                    {t("rooms.off")} {promotion.percentage}%
                   </>
                 ) : (
                   <>
@@ -56,17 +54,24 @@ const Card = ({ room, userData }) => {
             </div>
           ))}
 
-          <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-            <span className="text-red-900 text-3xl text-center cursor-pointer ">
-              <CiHeart />
-            </span>
-          </div>
+          {localStorage.getItem("userId") && (
+            <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
+              <span
+                className="text-red-900 text-3xl text-center cursor-pointer"
+                onClick={() => handleAddToFavourite(room._id)}
+              >
+                {favouriteRoomsIds && favouriteRoomsIds.includes(room._id) ? (
+                  <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                ) : (
+                  <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                )}
+              </span>
+            </div>
+          )}
         </div>
         <div className=" absolute bottom-0 left-0 flex items-center justify-center  ">
           <div
-            className={`py-1 ${
-              isArabic ? "px-7" : "px-4"
-            } w-40 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
+            className={`py-1 px-4 w-44 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
           >
             <p className="text-white font-semibold text-sm">
               {room.hotelId && isArabic ? (
@@ -90,7 +95,7 @@ const Card = ({ room, userData }) => {
             <div className="flex text-xs gap-1">
               <span
                 className={`${
-                  room.price != calcPrice(room) ? "line-through decoration-red-700" : ""
+                  room.price != calcPrice(room) ? "line-through " : ""
                 } text-primary dark:text-PrimaryDark`}
               >
                 ${room.price}
@@ -120,7 +125,7 @@ const Card = ({ room, userData }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

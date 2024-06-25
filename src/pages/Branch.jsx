@@ -38,9 +38,10 @@ const Branch = () => {
         const res = await axiosInstance.get(`/hotels/${id}`);
         const data = res.data.data;
         setBranch(data);
+        console.log(res.data.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.response.data);
       }
     }
     fetchData();
@@ -57,7 +58,7 @@ const Branch = () => {
           <div className="flex flex-col md:flex-row my-5 container">
             <div className="flex-1 w-full md:w-64">
               <img
-                className="w-full md:w-auto"
+                className="w-auto rounded-3xl"
                 src={branch.images[0]}
                 alt="About Branch"
               />
@@ -107,6 +108,7 @@ const Branch = () => {
             pagination={{ clickable: true }}
             modules={[Pagination]}
             className="mySwiper mt-10"
+            dir="ltr"
           >
             <SwiperSlide>
               <img

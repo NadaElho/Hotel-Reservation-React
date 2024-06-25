@@ -5,12 +5,8 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LanguageContext } from "../providers/LanguageContext";
 import "swiper/css";
-import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
-
-
+import { Pagination } from "swiper/modules";
 const Branches = () => {
   const isArabic = localStorage.getItem("lang") == "ar";
   const { t } = useContext(LanguageContext);
@@ -30,7 +26,7 @@ const Branches = () => {
 
   return (
     <>
-      <div className="container mx-auto flex flex-col lg:flex-row justify-between mt-36 lg:flex">
+      <div className="container mx-auto flex flex-col lg:flex-row  justify-between mt-36 lg:flex">
         <h2 className="text-primary text-4xl font-secondary uppercase font-bold mx-10 dark:text-PrimaryDark">
           {t("branches.Discover-our-Branches")}
         </h2>
@@ -39,24 +35,25 @@ const Branches = () => {
         </p>
       </div>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        freeMode={true}
-        pagination={{ clickable: true }}
-        navigation={true}
-        modules={[FreeMode, Pagination, Navigation]}
-        className="mySwiper container mx-auto mt-8"
+         dir={"ltr"}
+         slidesPerView={3}
+         spaceBetween={10}
+         pagination={{
+           clickable: true,
+         }}
         breakpoints={{
           0: { slidesPerView: 1, spaceBetween: 10 },
           640: { slidesPerView: 2, spaceBetween: 20 },
           1024: { slidesPerView: 3, spaceBetween: 0 },
         }}
+        modules={[Pagination]}
+        className="mySwiper"
       >
-        {branches.map((branch) => (
+         {branches.map((branch) => (
           <SwiperSlide key={branch._id}>
-            <div className="px-2">
+            <div className="">
               <Link to={`/branch/${branch._id}`}>
-                <div className="mx-10 lg:mx-10 relative rounded-t-full rounded-3xl cursor-pointer overflow-hidden h-[480px] md:h-[480px] w-[400px] md:w-[350px] dark:opacity-80">
+                <div className="lg:mx-10 relative rounded-t-full rounded-3xl cursor-pointer flex justify-center items-center overflow-hidden h-[480px] md:h-[480px] w-[400px] md:w-[350px] dark:opacity-80">
                   <img
                     src={branch.images[2]}
                     alt=""

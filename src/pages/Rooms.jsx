@@ -11,6 +11,9 @@ import useDebounce from "../../useDebounce";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import ReactStars from "react-rating-stars-component";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import calculateTotalPrice from "../utils/calcTotalPrice";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
@@ -22,10 +25,14 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const [noOfPages, setNoOfPages] = useState(1);
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar";
+  const [favouriteRooms, setFavouriteRooms] = useState([]);
+  const [favouriteRoomsIds, setFavouriteRoomsIds] = useState([]);
+  const [changed, setChanged] = useState(false);
 
   const { t } = useContext(LanguageContext);
-
   const debounceValue = useDebounce(value, 500);
+  const userId = localStorage.getItem("userId");
+
   const onValueChange = (values) => {
     setValue([...values]);
   };
@@ -69,17 +76,59 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ...filterObj,
           },
         });
-        const data = res.data.data;
-        setRooms(data);
-        setLoading(false);
+        const roomsData = await Promise.all(res.data.data.map(async (room) => {
+          const calculatedPrice = await fetchDataAndCalculatePrice(room);
+          return { ...room, calculatedPrice };
+        }));
+        setRooms(roomsData);
         setNoOfPages(res.data.pagination.numberPages);
-      } catch (err) {
-        console.error("Error fetching data:", err);
         setLoading(false);
+
+        const { data } = await axiosInstance.get(`/rooms/favourites/${userId}`);
+        const FavRooms = data.data.map((room) => {
+          return room._id;
+        });
+        setFavouriteRoomsIds(FavRooms);
+        setFavouriteRooms(data.data);
+      } catch (err) {
+        if (err.response.data.message == "No rooms found") {
+          setRooms([]);
+        }
       }
     }
+
     fetchData();
-  }, [debounceValue, ratingAvg, pageNum, limit, filterObj]);
+  }, [
+    debounceValue,
+    ratingAvg,
+    pageNum,
+    limit,
+    filterObj,
+    userId,
+    changed,
+  ]);
+
+  const handleAddToFavourite = async (roomId) => {
+    if (favouriteRooms.includes(roomId)) {
+      setFavouriteRooms((prev) => prev.filter((favRoom) => favRoom !== roomId));
+      setChanged((prev) => !prev);
+    } else {
+      await axiosInstance.post(`/rooms/favourites/${userId}`, {
+        roomId,
+      });
+      setChanged((prev) => !prev);
+      setFavouriteRooms((prev) => [...prev, roomId]);
+    }
+  };
+
+  const fetchDataAndCalculatePrice = async (roomData) => {
+    try {
+      const price = await calculateTotalPrice(roomData, 1);
+      return price
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -91,7 +140,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
-            <div className="w-[380px] h-64 mx-10 flex flex-col justify-around mt-12 ">
+            <div className="w-[380px] mx-10 flex flex-col justify-around mt-12 ">
               <div className="mx-4 mt-4">
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
@@ -178,7 +227,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ) : rooms.length > 0 ? (
               rooms.map((room, index) => (
                 <div
-                  className="w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
+                  className="relative w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
                   key={room._id}
                 >
                   <img
@@ -186,6 +235,43 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     src={room.images[0]}
                     alt=""
                   />
+                  <div
+                    className={`absolute top-2 px-4 w-full flex ${
+                      isArabic ? "flex-row-reverse" : "flex-row"
+                    } justify-between items-center`}
+                  >
+                    {room.promotionId.map((promotion) => (
+                      <div
+                        className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
+                        key={promotion._id}
+                      >
+                        <p>
+                          {isArabic ? (
+                            <>
+                              {t("rooms.off")} {promotion.percentage}%{" "}
+                            </>
+                          ) : (
+                            <>
+                              {promotion.percentage}% {t("rooms.off")}
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    ))}
+
+                    <div
+                      className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
+                    >
+                      <button onClick={() => handleAddToFavourite(room._id)}>
+                        {favouriteRoomsIds &&
+                        favouriteRoomsIds.includes(room._id) ? (
+                          <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        ) : (
+                          <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                   <div className="px-2 py-3 flex flex-col">
                     <div className="font-bold text-2xl capitalize text-primary dark:text-PrimaryDark">
                       {isArabic
@@ -239,10 +325,9 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
 
                     <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
-                     
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>
-                          {t("rooms.book-now")} ${room.price}
+                          {t("rooms.book-now")} ${room.calculatedPrice}
                         </Link>
                       </button>
                       <button className="w-1/3 text-xs py-2 md:py-3 md:w-40  md:text-sm bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]">
