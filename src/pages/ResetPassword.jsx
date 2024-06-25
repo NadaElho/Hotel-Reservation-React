@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-// import { IoLockClosedOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import img from "/resetpassword.png";
 import { toast } from "react-toastify";
@@ -9,6 +8,7 @@ import { LanguageContext } from "../providers/LanguageContext";
 import { useContext } from "react";
 
 const ResetPassword = () => {
+  const isDark = localStorage.getItem("dark") == "dark";
   const navigate = useNavigate();
   const { t } = useContext(LanguageContext);
   {
@@ -54,10 +54,10 @@ const ResetPassword = () => {
         <h1 className="text-primary dark:text-main-25 text-4xl font-secondary uppercase fixed top-8 rtl:right-4 md:rtl:right-16 ltr:left-4 md:ltr:left-12">
           <Link to="/">APEX</Link>
         </h1>
-        <h3 className="ml-2 font-bold text-grey-600 text-2xl mt-[100px] lg:mt-0">
+        <h3 className="ms-2 font-bold text-grey-600 dark:text-grey-400 text-2xl mt-[50px] lg:mt-0">
           {t("resetpassword.resetpassword")}
         </h3>
-        <h5 className="ml-2 text-xs text-main-400 mb-4 font-semibold">
+        <h5 className="ms-2 text-xs text-main-400 dark:text-main-150 mb-4 font-semibold">
           {t("resetpassword.enteremail")}
         </h5>
         <Formik
@@ -78,13 +78,13 @@ const ResetPassword = () => {
           }) => (
             <form onSubmit={handleSubmit} className="text-white">
               <div className="my-2">
-                <div className="flex items-center gap-2 border rounded-full bg-main-300 my-1 px-3 py-1">
-                  <AiOutlineMail color="white" />
+                <div className="flex items-center gap-2  rounded-full bg-main-300 my-1 px-3 py-1">
+                  <AiOutlineMail color={`${isDark ? "#1D1D1D" : "white"}`} />
                   <input
                     type="email"
                     name="email"
                     placeholder={t("resetpassword.email")}
-                    className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                    className="h-8 border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
@@ -97,14 +97,17 @@ const ResetPassword = () => {
 
               <button
                 type="submit"
-                className="w-full bg-main-800 border rounded-full p-2 text-white disabled:opacity-50 my-2"
+                className="w-full bg-main-800 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-white disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
                 {t("resetpassword.resetpassword")}
               </button>
               <div className="text-sm font-bold  text-main-400 dark:text-main-25 mt-2 ms-2">
                 {t("resetpassword.rememberpassword")}
-                <Link to="/login" className="text-[#464646] underline ">
+                <Link
+                  to="/login"
+                  className="text-[#52381D] underline cursor-pointer dark:text-main-200 hover:dark:text-main-25"
+                >
                   {t("resetpassword.login")}
                 </Link>
               </div>

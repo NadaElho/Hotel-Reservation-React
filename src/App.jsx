@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState } from "react";
 import i18n from "./utils/i18n.js";
-
 import Home from "./pages/Home.jsx";
 import Rooms from "./pages/Rooms.jsx";
 import RoomId from "./pages/RoomId.jsx";
@@ -53,6 +52,7 @@ function App() {
     localStorage.setItem("dark", dark === "light" ? "dark" : "light");
     setDark((mode) => (mode === "light" ? "dark" : "light"));
   };
+
   const toggleTruncated = (index) => {
     setTruncated((prev) => ({ ...prev, [index]: !prev[index] }));
   };
@@ -68,7 +68,7 @@ function App() {
             location.pathname != "/checkemail" &&
             location.pathname != "/subscription" &&
             location.pathname != "/not-found" &&
-            !location.pathname.startsWith("/newPassword") &&
+            !location.pathname.startsWith("/newpassword") &&
             !location.pathname.startsWith("/payment-result") && (
               <>
                 <Navbar

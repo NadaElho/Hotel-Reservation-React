@@ -21,16 +21,15 @@ const RoomId = ({ truncated, toggleTruncated }) => {
 
   useEffect(() => {
     async function fetchData() {
-        const res = await axiosInstance.get(`/rooms/${id}`);
-        const roomData = res.data.room;
-        setRoom(roomData);
-        console.log(roomData);
-        setLoading(false);
-        const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
-        setDisabledDates(data.data);
-        const reviewData = await axiosInstance.get(`/reviews/${id}`);
-        setReviews(reviewData.data.data);
-      
+      const res = await axiosInstance.get(`/rooms/${id}`);
+      const roomData = res.data.room;
+      setRoom(roomData);
+      console.log(roomData);
+      setLoading(false);
+      const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
+      setDisabledDates(data.data);
+      const reviewData = await axiosInstance.get(`/reviews/${id}`);
+      setReviews(reviewData.data.data);
     }
 
     fetchData();
@@ -81,7 +80,10 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-4 mt-4">
               {room.images &&
                 room.images.map((image, index) => (
-                  <div key={index} className={"col-span-1 md:col-span-2 lg:col-span-2"}>
+                  <div
+                    key={index}
+                    className={"col-span-1 md:col-span-2 lg:col-span-2"}
+                  >
                     <img
                       className="h-[250px] w-full object-cover rounded-tl-lg"
                       src={image}
@@ -95,7 +97,9 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             <div>
               <div className="mx-10 w-80 md:w-2/4 bg-green mt-8 ">
                 <p className="text-primary font-600 text-3xl font-secondary capitalize dark:text-PrimaryDark">
-                  {room.roomTypeId && isArabic ? room.roomTypeId.type_ar : room.roomTypeId.type_en + " " +"Room"}
+                  {room.roomTypeId && isArabic
+                    ? room.roomTypeId.type_ar
+                    : room.roomTypeId.type_en + " " + "Room"}
                 </p>
                 <p className="text-primary mt-6 dark:text-[#CBB7A4] ">
                   {isArabic ? room.description_ar : room.description_en}
@@ -139,7 +143,7 @@ const RoomId = ({ truncated, toggleTruncated }) => {
             handleDelete={handleDelete}
             updateReview={updateReview}
             isUpdated={isUpdated}
-            room = {room}
+            room={room}
             id={id}
           />
         </div>

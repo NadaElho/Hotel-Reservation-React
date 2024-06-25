@@ -13,10 +13,10 @@ const CheckEmail = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen ">
-      <h3 className="text-2xl font-bold text-[#464646]  lg:mt-0">
+      <h3 className="text-2xl font-bold dark:text-grey-400 text-[#464646]  lg:mt-0">
         {t("checkemail.checkemail")}
       </h3>
-      <h5 className="text-xs text-[#81664B] mb-4 font-semibold">
+      <h5 className="text-xs dark:text-main-150 text-[#81664B] mb-4 font-semibold">
         {t("checkemail.sentemail")}
       </h5>
       <div className=" lg:block ">
@@ -25,13 +25,16 @@ const CheckEmail = () => {
       <button
         type="button"
         onClick={handleEmailClick}
-        className="w-96 bg-[#52381D] border rounded-full p-2 text-white disabled:opacity-50 my-2"
+        className="w-96 bg-[#52381D] dark:bg-main-25 dark:text-main-1000 rounded-full p-2 text-white disabled:opacity-50 my-2"
       >
         {t("checkemail.openemail")}
       </button>{" "}
-      <p className="mt-2 text-[#464646] ">
+      <p className="mt-2 text-[#464646] dark:text-main-150">
         {t("checkemail.rememberpassword")}
-        <Link to="/login" className="text-[#52381D] underline">
+        <Link
+          to="/login"
+          className="text-[#52381D] dark:text-main-150 underline"
+        >
           {t("checkemail.login")}
         </Link>
       </p>
