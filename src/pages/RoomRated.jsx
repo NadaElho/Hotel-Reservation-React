@@ -58,10 +58,14 @@ const RoomRated = () => {
             slidesPerView: 1,
           },
           "@1.00": {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 80,
           },
+          "@1.75" : {
+            slidesPerView: 2,
+            spaceBetween: 80,
 
+          },
           1200: {
             slidesPerView: 3,
             spaceBetween: 100,
@@ -76,7 +80,7 @@ const RoomRated = () => {
       >
         {topRatedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <div className="relative rounded-3xl overflow-hidden w-[350px] h-[320px]  mx-2">
+            <div className="relative rounded-3xl overflow-hidden w-[400px] md:w-[350px]  h-[320px]  mx-2">
               <img
                 className="h-full w-full object-cover"
                 src={room.images[0]}
@@ -105,9 +109,9 @@ const RoomRated = () => {
                 ))}
               </div>
               <div className="absolute bottom-0 left-0 w-full">
-                <div className="bg-secondary  rounded-t-2xl px-4 py-2 flex justify-between items-center dark:bg-[#7C6555]">
+                <div className="bg-secondary w-full rounded-t-2xl px-2 py-2 flex justify-between items-center dark:bg-[#7C6555]">
                   <div className="flex flex-col  ">
-                    <p className="text-white capitalize  font-bold text-sm dark:text-[#ffffff]">
+                    <p className="w-36 text-white capitalize font-bold text-sm dark:text-[#ffffff]">
                       {isArabic ? (
                         <>
                           {t("rooms.branch")} {room.hotelId.name_ar}
@@ -137,7 +141,7 @@ const RoomRated = () => {
                   </div>
                   <div>
                     <Link to={`/rooms/${room._id}`}>
-                      <button className="bg-primary text-white text-sm py-2 px-6 rounded-full dark:bg-PrimaryDark dark:text-customDark font-semibold">
+                      <button className="bg-primary text-white text-sm w-32 py-2 px-6 rounded-full dark:bg-PrimaryDark dark:text-customDark font-semibold">
                         {t("rooms.checkout")}
                       </button>
                     </Link>
