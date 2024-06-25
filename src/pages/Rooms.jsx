@@ -213,7 +213,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
           {/* card */}
 
-          <div className=" w-full flex flex-wrap  justify-center md:justify-start gap-6 overflow-hidden p-4">
+          <div className=" w-full flex flex-wrap  justify-center md:justify-start gap-6 overflow-hidden p-4 px-8">
             {isloading ? (
               <div className="w-[600px] flex justify-center items-center">
                 <Loader />
