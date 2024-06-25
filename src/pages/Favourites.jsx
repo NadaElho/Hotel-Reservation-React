@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../interceptor";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
+import { t } from "i18next";
 
 const Favourites = () => {
   const [userData, setUserData] = useState(null);
@@ -9,6 +10,7 @@ const Favourites = () => {
   const [changed, setChanged] = useState(false);
   const [favouriteRoomsIds, setFavouriteRoomsIds] = useState(null);
   const userId = localStorage.getItem("userId");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,9 +19,10 @@ const Favourites = () => {
         setUserData(data.data);
         const FavRooms = data.data.favouriteRooms.map((room) => room._id);
         setFavouriteRoomsIds(FavRooms);
-        setFavouriteRooms(data.data.favouriteRooms)
+        setFavouriteRooms(data.data.favouriteRooms);
+        setLoading(false);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
 
@@ -27,7 +30,6 @@ const Favourites = () => {
   }, [userId, changed]);
 
   const handleAddToFavourite = async (roomId) => {
-    console.log(userData.favouriteRooms)
     if (userData.favouriteRooms.includes(roomId)) {
       setFavouriteRooms((prev) => prev.filter((favRoom) => favRoom !== roomId));
       setChanged((prev) => !prev);
@@ -39,9 +41,16 @@ const Favourites = () => {
       setChanged((prev) => !prev);
     }
   };
+  if (loading) {
+    return (
+      <div className="h-screen">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center flex-wrap gap-4">
-      {userData && userData.favouriteRooms ? (
+      {userData && userData.favouriteRooms.length > 0 ? (
         userData.favouriteRooms.map((room) => {
           return (
             <Card
@@ -50,12 +59,13 @@ const Favourites = () => {
               userData={userData}
               favouriteRoomsIds={favouriteRoomsIds}
               handleAddToFavourite={handleAddToFavourite}
+              from="favourites"
             />
           );
         })
       ) : (
-        <div className="h-screen">
-          <Loader />
+        <div className="h-screen text-main-800 dark:text-main-25 mt-12 text-3xl">
+          <div>{t("profile.no-fav")}</div>
         </div>
       )}
     </div>

@@ -6,7 +6,13 @@ import { useParams } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 
-const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) => {
+const ReviewModel = ({
+  addReview,
+  updateReview,
+  currentReview,
+  onClose,
+  _id,
+}) => {
   const [reviewData, setReviewData] = useState({
     title: "",
     rating: 0,
@@ -19,11 +25,13 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
   useEffect(() => {
     setReviewData(currentReview);
 
-    async function fetchData(){
-      const { data } = await axiosInstance.get(`/users/${localStorage.getItem("userId")}`);
+    async function fetchData() {
+      const { data } = await axiosInstance.get(
+        `/users/${localStorage.getItem("userId")}`
+      );
       setUserData(data.data);
     }
-    fetchData()
+    fetchData();
   }, [currentReview]);
 
   const handleChange = (event) => {
@@ -63,7 +71,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
       setIsError(true);
       return;
     }
-  
+
     const userId = localStorage.getItem("userId");
     const { data } = await axiosInstance.post("/reviews", {
       title: reviewData.title,
