@@ -12,6 +12,7 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
     { name: t("drop-down.branches"), link: "/#branches" },
     { name: t("drop-down.subscription"), link: "/subscription" },
     { name: t("drop-down.contact"), link: "/contact" },
+    { name: t("drop-down.AboutHotel"), link: "/about" },
   ];
   return (
     <>
@@ -48,11 +49,13 @@ const DropDown = ({ isScrolled, logged, handleLog }) => {
           {links.map((link) => (
             <Link
               key={link.name}
-              to={!logged && link.link == "/subscription" ? "/profile/plans" : link.link}
+              to={
+                !logged && link.link == "/subscription"
+                  ? "/profile/plans"
+                  : link.link
+              }
               className={`${
-                (logged && link.link == "/profile")
-                  ? "hidden"
-                  : "block"
+                logged && link.link == "/profile" ? "hidden" : "block"
               } px-4 py-2 text-sm text-main-400 dark:text-main-25`}
               role="menuitem"
               tabIndex={-1}

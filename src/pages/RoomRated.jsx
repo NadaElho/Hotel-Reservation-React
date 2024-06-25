@@ -1,33 +1,28 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import {
-  EffectCoverflow,
-  Pagination,
-  Navigation,
-  Keyboard,
-} from "swiper/modules";
+
 import axiosInstance from "../../interceptor";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar } from "react-icons/fa6";
-import { CiHeart } from "react-icons/ci";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+
+
 
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
   const { t } = useContext(LanguageContext);
-  const isArabic = localStorage.getItem("lang") == "ar"
-
+  const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
-      const data = res.data.data;
-      setRooms(data);
+      setRooms(res.data.data);
+      //
     }
     fetchData();
   }, []);
@@ -53,59 +48,73 @@ const RoomRated = () => {
         </div>
       </div>
       <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        keyboard={{
-          enabled: true,
-        }}
+        slidesPerView={3}
+        spaceBetween={10}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
-        modules={[EffectCoverflow, Keyboard, Pagination, Navigation]}
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+          },
+          "@1.00": {
+            slidesPerView: 1,
+            spaceBetween: 80,
+          },
+          "@1.75" : {
+            slidesPerView: 2,
+            spaceBetween: 80,
+
+          },
+          1200: {
+            slidesPerView: 3,
+            spaceBetween: 100,
+          },
+          1240: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+        }}
+        modules={[Pagination]}
         className="mySwiper"
       >
         {topRatedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <div className="relative rounded-3xl overflow-hidden h-[320px]  mx-2">
+            <div className="relative rounded-3xl overflow-hidden w-[400px] md:w-[350px]  h-[320px]  mx-2">
               <img
                 className="h-full w-full object-cover"
                 src={room.images[0]}
                 alt="room"
               />
-              <div className={`absolute top-2 px-4 w-full flex ${isArabic ? 'flex-row-reverse' : 'flex-row'} justify-between items-center`}>
+              <div
+                className={`absolute top-2 px-4 w-full flex ${isArabic  ? "flex-row-reverse" : "flex-row"} justify-between items-center`}
+              >
                 {room.promotionId.map((promotion) => (
                   <div
                     className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
                     key={promotion._id}
                   >
-                    <p>{isArabic ? (<>{t("rooms.off")} {promotion.percentage}% </>)  : (<>{promotion.percentage}% {t("rooms.off")}</>) }</p>
-                  </div>
-                ))}
-
-                <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-                  <span className="text-red-900 text-3xl text-center cursor-pointer ">
-                    <CiHeart />
-                  </span>
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-0 w-full">
-                <div className="bg-secondary  rounded-t-2xl px-4 py-2 flex justify-between items-center dark:bg-[#7C6555]">
-                  <div className="flex flex-col  ">
-                    <p className="text-white capitalize  font-bold text-sm dark:text-[#ffffff]">
+                    <p>
                       {isArabic ? (
                         <>
-                          {" "}
-                          {t("rooms.branch")} {room.hotelId.name_ar}{" "}
+                          {t("rooms.off")} {promotion.percentage}%{" "}
+                        </>
+                      ) : (
+                        <>
+                          {promotion.percentage}% {t("rooms.off")}
+                        </>
+                      )}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="absolute bottom-0 left-0 w-full">
+                <div className="bg-secondary w-full rounded-t-2xl px-2 py-2 flex justify-between items-center dark:bg-[#7C6555]">
+                  <div className="flex flex-col  ">
+                    <p className="w-36 text-white capitalize font-bold text-sm dark:text-[#ffffff]">
+                      {isArabic ? (
+                        <>
+                          {t("rooms.branch")} {room.hotelId.name_ar}
                         </>
                       ) : (
                         <>
@@ -132,7 +141,7 @@ const RoomRated = () => {
                   </div>
                   <div>
                     <Link to={`/rooms/${room._id}`}>
-                      <button className="bg-primary text-white text-sm py-2 px-6 rounded-full dark:bg-PrimaryDark dark:text-customDark font-semibold">
+                      <button className="bg-primary text-white text-sm w-32 py-2 px-6 rounded-full dark:bg-PrimaryDark dark:text-customDark font-semibold">
                         {t("rooms.checkout")}
                       </button>
                     </Link>

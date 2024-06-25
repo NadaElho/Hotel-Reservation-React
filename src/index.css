@@ -66,9 +66,6 @@ swiper {
   font-style: normal;
 }
 
-.slick-track {
-  margin: 0 40px;
-}
 
 body {
   background: #fff7f2;
@@ -87,19 +84,6 @@ body {
 input {
   background-color: transparent;
 }
-/* .slick-prev:before,
-.slick-next:before {
-  color: #52381d;
-}
-.slick-next:before {
-  margin-left: -10px;
-  font-size: 30px;
-}
-.slick-prev:before {
-  margin-right: -10px;
-  z-index: 2;
-  font-size: 30px;
-} */
 
 .range-slider .range-slider__thumb {
   background: #52381d;
@@ -215,11 +199,6 @@ input {
 .swiper-pagination-bullet-active {
   background: #52381d;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  color: #52381d;
-  font-weight: bold;
-}
 
 :root {
   --swiper-navigation-size: 30px;
@@ -231,13 +210,6 @@ input {
   background-color: forestgreen;
 }
 
-/* for placeholder in input */
-/* @layer utilities {
-  .placeholder-style::placeholder {
-    padding: 4px;
-  }
-
-} */
 
 .roboto {
   font-family: "Roboto", sans-serif;
@@ -246,13 +218,13 @@ input {
   border: 16px solid #f3f3f3; 
   border-top: 16px solid #10324e; 
   border-radius: 50%; 
-  width: 120px; 
-  height: 120px; 
+  width: 90px; 
+  height: 90px; 
   animation: spinloader 2s linear infinite; 
 } 
 
 .loader img {
-  width: 90px;
+  width: 70px;
   animation: spinlogo 2s linear infinite;
   -webkit-animation: spinlogo 2s linear infinite;
 } 
@@ -280,3 +252,5 @@ input {
       transform: rotate(0deg); 
   } 
 } 
+
+
