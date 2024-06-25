@@ -11,8 +11,8 @@ import useDebounce from "../../useDebounce";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import ReactStars from "react-rating-stars-component";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 import calculateTotalPrice from "../utils/calcTotalPrice";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
@@ -21,7 +21,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const [rooms, setRooms] = useState([]);
   const [params] = useSearchParams();
   const [pageNum, setPageNum] = useState(0);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(2);
   const [noOfPages, setNoOfPages] = useState(1);
   const [isloading, setLoading] = useState(true);
   const isArabic = localStorage.getItem("lang") == "ar";
@@ -76,10 +76,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ...filterObj,
           },
         });
-        const roomsData = await Promise.all(res.data.data.map(async (room) => {
-          const calculatedPrice = await fetchDataAndCalculatePrice(room);
-          return { ...room, calculatedPrice };
-        }));
+        const roomsData = await Promise.all(
+          res.data.data.map(async (room) => {
+            const calculatedPrice = await fetchDataAndCalculatePrice(room);
+            return { ...room, calculatedPrice };
+          })
+        );
         setRooms(roomsData);
         setNoOfPages(res.data.pagination.numberPages);
         setLoading(false);
@@ -98,15 +100,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
     }
 
     fetchData();
-  }, [
-    debounceValue,
-    ratingAvg,
-    pageNum,
-    limit,
-    filterObj,
-    userId,
-    changed,
-  ]);
+  }, [debounceValue, ratingAvg, pageNum, limit, filterObj, userId, changed]);
 
   const handleAddToFavourite = async (roomId) => {
     if (favouriteRooms.includes(roomId)) {
@@ -124,7 +118,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
   const fetchDataAndCalculatePrice = async (roomData) => {
     try {
       const price = await calculateTotalPrice(roomData, 1);
-      return price
+      return price;
     } catch (error) {
       console.log(error);
     }
@@ -136,7 +130,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
         <Amenity />
 
         <div className="flex gap-2 mt-20">
-          <div className="w-[400px] hidden xl:block ">
+          <div className="w-[300px] hidden xl:block">
             <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
@@ -204,11 +198,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     max={10000}
                     value={value}
                     onInput={onValueChange}
+                    className="w-64"
                   />
                 </div>
               </div>
               <div className="flex flex-col mt-10 mx-4">
-                <hr className="border border-secondary" />
+                <hr className="border border-secondary w-64" />
                 <p className="text-primary font-semibold text-xl mt-10 dark:text-PrimaryDark">
                   {t("rooms.Rating")}
                 </p>
@@ -219,7 +214,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
 
           {/* card */}
 
-          <div className=" w-full flex flex-wrap  justify-center gap-6 overflow-hidden ">
+          <div className=" w-full flex flex-wrap justify-center  md:justify-start gap-6 overflow-hidden p-4 px-8">
             {isloading ? (
               <div className="w-[600px] flex justify-center items-center">
                 <Loader />
@@ -227,7 +222,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ) : rooms.length > 0 ? (
               rooms.map((room, index) => (
                 <div
-                  className="relative w-full sm:max-w-96 rounded-3xl   overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-footer"
+                  className="relative w-full sm:max-w-96 rounded-3xl overflow-hidden shadow-lg border border-secondary border-opacity-40 dark:border-secondary"
                   key={room._id}
                 >
                   <img
@@ -240,24 +235,26 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                       isArabic ? "flex-row-reverse" : "flex-row"
                     } justify-between items-center`}
                   >
-                    {room.promotionId.map((promotion) => (
-                      <div
-                        className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
-                        key={promotion._id}
-                      >
-                        <p>
-                          {isArabic ? (
-                            <>
-                              {t("rooms.off")} {promotion.percentage}%{" "}
-                            </>
-                          ) : (
-                            <>
-                              {promotion.percentage}% {t("rooms.off")}
-                            </>
-                          )}
-                        </p>
-                      </div>
-                    ))}
+                    {room.promotionId &&
+                      room.promotionId.length > 0 &&
+                      room.promotionId.map((promotion) => (
+                        <div
+                          className={`bg-[#C2AF00] text-white  py-1 px-2 rounded-full mt-2 `}
+                          key={promotion._id}
+                        >
+                          <p>
+                            {isArabic ? (
+                              <>
+                                {t("rooms.off")} {promotion.percentage}%
+                              </>
+                            ) : (
+                              <>
+                                {promotion.percentage}% {t("rooms.off")}
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      ))}
 
                     <div
                       className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
@@ -279,7 +276,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                         : room.roomTypeId.type_en + " " + "Room"}
                     </div>
                     <ReactStars size={16} value={room.ratingAvg} edit={false} />
-                    <div className="text-primary opacity-80 font-semibold text-sm dark:text-[#CBB7A4]">
+                    <div className="text-primary h-20 overflow-hidden opacity-80 font-semibold text-sm dark:text-[#CBB7A4]">
                       {truncated[index] ? (
                         <div>
                           {isArabic ? room.description_ar : room.description_en}
