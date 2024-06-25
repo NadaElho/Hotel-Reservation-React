@@ -189,7 +189,7 @@ const Reviews = ({
           isUpdated={isUpdated}
           currentReview={currentReview}
           onClose={() => setShowModel(false)}
-          id={id}
+          _id={id}
         />
       )}
     </div>

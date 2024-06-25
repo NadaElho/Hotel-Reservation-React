@@ -57,7 +57,7 @@ const RoomCard = ({ disabledDates, roomData }) => {
       </h3>
       <h4
         className={`text-sm text-main-400 dark:text-main-150 ml-2 ${
-          priceAfterDiscount != roomData.price ? "line-through decoration-red-700" : ""
+          priceAfterDiscount != roomData.price ? "line-through " : ""
         }`}
       >
         ${roomData.price} {t("booking.per-night")}
@@ -129,7 +129,9 @@ const RoomCard = ({ disabledDates, roomData }) => {
       <div className="text-main-800 my-4 text-center font-bold text-xl dark:text-main-25">
         <div>{t("booking.total")}</div>
         <div
-          className={priceAfterDiscount != roomData.price ? "line-through decoration-red-700" : ""}
+          className={
+            priceAfterDiscount != roomData.price ? "line-through " : ""
+          }
         >
           ${calcTotalPrice}
         </div>

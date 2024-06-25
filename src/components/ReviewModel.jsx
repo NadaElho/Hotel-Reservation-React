@@ -77,6 +77,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
   };
 
   return (
+    <div className="fixed bg-main-600 inset-0 bg-opacity-50 z-50 flex justify-center items-center ">
     <Modal
       className="w-1/2 mx-auto"
       show={true}
@@ -123,6 +124,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
         </div>
       </Modal.Body>
     </Modal>
+    </div>
   );
 };
 

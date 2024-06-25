@@ -99,9 +99,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
             <div className="flex text-xs gap-1">
               <span
                 className={`${
-                  room.price != calcPrice(room)
-                    ? "line-through decoration-red-700"
-                    : ""
+                  room.price != calcPrice(room) ? "line-through " : ""
                 } text-primary dark:text-PrimaryDark`}
               >
                 ${room.price}
