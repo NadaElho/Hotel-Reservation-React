@@ -6,7 +6,13 @@ import { useParams } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 
-const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) => {
+const ReviewModel = ({
+  addReview,
+  updateReview,
+  currentReview,
+  onClose,
+  _id,
+}) => {
   const [reviewData, setReviewData] = useState({
     title: "",
     rating: 0,
@@ -19,12 +25,13 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
   useEffect(() => {
     setReviewData(currentReview);
 
-    async function fetchData(){
-      const { data } = await axiosInstance.get(`/users/${localStorage.getItem("userId")}`);
+    async function fetchData() {
+      const { data } = await axiosInstance.get(
+        `/users/${localStorage.getItem("userId")}`
+      );
       setUserData(data.data);
-      console.log(data.data);
     }
-    fetchData()
+    fetchData();
   }, [currentReview]);
 
   const handleChange = (event) => {
@@ -64,7 +71,7 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
       setIsError(true);
       return;
     }
-  
+
     const userId = localStorage.getItem("userId");
     const { data } = await axiosInstance.post("/reviews", {
       title: reviewData.title,
@@ -77,52 +84,62 @@ const ReviewModel = ({ addReview, updateReview, currentReview, onClose, _id }) =
   };
 
   return (
-    <Modal
-      className="w-1/2 mx-auto"
-      show={true}
-      size="md"
-      onClose={onClose}
-      popup
-    >
-      <Modal.Header />
-      <Modal.Body>
-        <div className="mx-10 flex flex-col gap-10 justify-center h-80 mb-5 ">
-          <h3 className="text-lg opacity-80 font-semibold text-gray-900 dark:text-white">
-            {currentReview  ? t("reviews.Update-review") : t("reviews.write-review")}
-          </h3>
-          <textarea
-            className="border border-primary py-10 px-4 rounded-3xl outline-0 bg-transparent placeholder-style dark:border-PrimaryDark dark:bg-dark-background dark:text-white"
-            id="review"
-            placeholder={t("reviews.placeholder")}
-            value={reviewData ? reviewData.title : ""}
-            name="title"
-            required
-            onChange={handleChange}
-          />
-          {isError && !reviewData.title && (
-            <h1 className="text-red-600 text-lg">{t("reviews.enter-review")}</h1>
-          )}
-
-          {isError && !reviewData.rating && (
-            <h1 className="text-red-600 text-lg">{t("reviews.choose-rating")}</h1>
-          )}
-          <div className="w-full flex justify-between items-center text-custom dark:text-white">
-            <p className="text-lg dark:text-[#000000]">{t("reviews.Overall-rating")}</p>
-            <ReactStars
-              size={30}
-              value={reviewData ? reviewData.rating : 0}
-              onChange={handleChangeRating}
+    <div className="fixed bg-main-600 inset-0 bg-opacity-50 z-50">
+      <Modal
+        className="w-full xl:w-1/2 md:w-3/4 mx-auto mt-14"
+        show={true}
+        size="md"
+        onClose={onClose}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="mx-10 flex flex-col gap-10 justify-center h-80 mb-5 ">
+            <h3 className="text-lg opacity-80 font-semibold text-gray-900 dark:text-white">
+              {currentReview
+                ? t("reviews.Update-review")
+                : t("reviews.write-review")}
+            </h3>
+            <textarea
+              className="border border-primary py-10 px-4 rounded-3xl outline-0 bg-transparent placeholder-style dark:border-PrimaryDark dark:bg-dark-background dark:text-white"
+              id="review"
+              placeholder={t("reviews.placeholder")}
+              value={reviewData ? reviewData.title : ""}
+              name="title"
+              required
+              onChange={handleChange}
             />
-            <button
-              onClick={currentReview ? handleUpdateReview : handleAddReview}
-              className="w-44 py-1 px-4 bg-primary text-white opacity-95 rounded-full inline-flex justify-center items-center dark:bg-PrimaryDark dark:text-customDark"
-            >
-              {currentReview ? t("reviews.update") : t("reviews.add")}
-            </button>
+            {isError && !reviewData.title && (
+              <h1 className="text-red-600 text-lg">
+                {t("reviews.enter-review")}
+              </h1>
+            )}
+
+            {isError && !reviewData.rating && (
+              <h1 className="text-red-600 text-lg">
+                {t("reviews.choose-rating")}
+              </h1>
+            )}
+            <div className="w-full flex justify-between items-center flex-wrap text-custom dark:text-white">
+              <p className="text-lg dark:text-[#000000]">
+                {t("reviews.Overall-rating")}
+              </p>
+              <ReactStars
+                size={30}
+                value={reviewData ? reviewData.rating : 0}
+                onChange={handleChangeRating}
+              />
+              <button
+                onClick={currentReview ? handleUpdateReview : handleAddReview}
+                className="w-44 py-1 px-4 bg-primary text-white opacity-95 rounded-full inline-flex justify-center items-center dark:bg-PrimaryDark dark:text-customDark"
+              >
+                {currentReview ? t("reviews.update") : t("reviews.add")}
+              </button>
+            </div>
           </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 };
 

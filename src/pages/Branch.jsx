@@ -108,6 +108,7 @@ const Branch = () => {
             pagination={{ clickable: true }}
             modules={[Pagination]}
             className="mySwiper mt-10"
+            dir="ltr"
           >
             <SwiperSlide>
               <img

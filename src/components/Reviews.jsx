@@ -31,7 +31,7 @@ const Reviews = ({
   const reviewUser = reviews.find(
     (review) => review.userId._id === localStorage.getItem("userId")
   );
-  console.log(reviewUser);
+
   const handleShowModel = (review) => {
     setCurrentReview(review);
     setShowModel(true);
@@ -193,7 +193,7 @@ const Reviews = ({
           isUpdated={isUpdated}
           currentReview={currentReview}
           onClose={() => setShowModel(false)}
-          id={id}
+          _id={id}
         />
       )}
     </div>
