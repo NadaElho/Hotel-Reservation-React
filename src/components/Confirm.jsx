@@ -9,8 +9,8 @@ export default function Confirm({ onClose, onConfirm }) {
 
   return (
     <>
-      <div className="fixed bg-gray-400  inset-0 bg-opacity-50 z-50 flex justify-center items-center ">
-        <div className="bg-grey-500  w-[500px]  h-80 rounded-3xl flex-col flex justify-center items-center ">
+      <div className="fixed bg-main-400 inset-0 bg-opacity-5 z-50 flex justify-center items-center ">
+        <div className="bg-white w-[500px]  h-80 rounded-3xl flex-col flex justify-center items-center ">
           <div className="rounded-full bg-main-100 p-4 text-white mb-8">
             <MdCancel className="h-9 w-9" />
           </div>

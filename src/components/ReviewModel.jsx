@@ -84,7 +84,7 @@ const ReviewModel = ({
   };
 
   return (
-    <div className="fixed bg-main-600 inset-0 bg-opacity-50 z-50">
+    <div className="fixed bg-main-600 inset-0 bg-opacity-5 z-50">
       <Modal
         className="w-full xl:w-1/2 md:w-3/4 mx-auto mt-14"
         show={true}
