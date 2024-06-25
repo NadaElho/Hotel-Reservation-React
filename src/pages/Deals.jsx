@@ -85,19 +85,21 @@ const Deals = () => {
           "@0.00": {
             slidesPerView: 1,
           },
-          "@0.75": {
-            slidesPerView: 1,
-            spaceBetween: 50,
-          },
           "@1.00": {
             slidesPerView: 2,
-            spaceBetween: 130,
+            spaceBetween: 80,
           },
 
-          "@1.50": {
-            slidesPerView: 3,
-            spaceBetween: 50,
+          1200: {
+            slidesPerView: 3, 
+            spaceBetween: 100
           },
+          1240 : {
+            slidesPerView: 3, 
+            spaceBetween: 40
+          }
+
+     
         }}
         modules={[Pagination]}
         className="mySwiper"

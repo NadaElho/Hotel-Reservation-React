@@ -22,17 +22,20 @@ const Reviews = ({
   room,
   isShow = true,
   design = {},
-  id
+  id,
 }) => {
   const [showModel, setShowModel] = useState(false);
   const [currentReview, setCurrentReview] = useState(null);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
+  const reviewUser = reviews.find(
+    (review) => review.userId._id === localStorage.getItem("userId")
+  );
+  console.log(reviewUser);
   const handleShowModel = (review) => {
     setCurrentReview(review);
     setShowModel(true);
   };
-
   return (
     <div className={`container mt-16 mx-10 ${design.scroll}`}>
       <h3 className="text-custom font-semibold text-lg dark:text-[#CBB7A4]">
@@ -49,9 +52,9 @@ const Reviews = ({
       <div className="w-8 flex justify-between items-center gap-2 ">
         {isArabic ? (
           <>
-             <span className="text-custom mt-1 dark:text-[#CBB7A4]">
+            <span className="text-custom mt-1 dark:text-[#CBB7A4]">
               {room && room.ratingAvg
-                ? room.ratingAvg.toFixed(1)
+                ? room.ratingAvg
                 : room.ratingAvg}
             </span>
             <span>
@@ -60,7 +63,7 @@ const Reviews = ({
           </>
         ) : (
           <>
-           <span>
+            <span>
               <IoIosStar className="text-[#ffd700] text-xl" />
             </span>
             <span className="text-custom mt-1 dark:text-[#CBB7A4]">
@@ -133,7 +136,7 @@ const Reviews = ({
                   <div className="flex flex-wrap text-primary w-80 lg:w-[500px] h-auto opacity-80 mt-4 dark:text-PrimaryDark">
                     {truncated[index] ? (
                       <div className="text-custom w-full break-words dark:text-PrimaryDark">
-                        {isArabic ? review.title_ar : review.title_en}
+                        {review.title}
                         <button
                           className="underline block"
                           onClick={() => toggleTruncated(index)}
@@ -167,19 +170,20 @@ const Reviews = ({
       </div>
       {isShow && (
         <div className="w-ful flex gap-4 my-10">
-          
-            <Link
-              to={`/allReviews/${room._id}`}
-              className="w-[150px]  py-1 px-4 bg-primary font-semibold text-white opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark"
-            >
-              {t("reviews.Show-all-reviews")}
-            </Link>
-          <button
-            onClick={() => handleShowModel()}
-            className="w-[150px] py-1 px-4 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]"
+          <Link
+            to={`/allReviews/${room._id}`}
+            className="w-[150px]  py-1 px-4 bg-primary font-semibold text-white opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark"
           >
-            {t("reviews.write-review")}
-          </button>
+            {t("reviews.Show-all-reviews")}
+          </Link>
+          {!reviewUser && (
+            <button
+              onClick={() => handleShowModel()}
+              className="w-[150px] py-1 px-4 bg-transparent border border-primary rounded-full text-primary opacity-95 font-semibold inline-flex items-center justify-center dark:border-[#E2C8AD] dark:text-[#E2C8AD]"
+            >
+              {t("reviews.write-review")}
+            </button>
+          )}
         </div>
       )}
       {showModel && (
