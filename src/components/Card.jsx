@@ -33,9 +33,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
           alt="Room"
         />
         <div
-          className={`absolute top-2 px-4 w-full flex ${
-            isArabic ? "flex-row-reverse" : "flex-row"
-          } justify-between items-center`}
+          className={`absolute top-2 px-4 w-full flex justify-between items-center`}
         >
           {room.promotionId.map((promotion) => (
             <div
@@ -73,9 +71,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite }) => {
         </div>
         <div className=" absolute bottom-0 left-0 flex items-center justify-center  ">
           <div
-            className={`py-1 ${
-              isArabic ? "px-7" : "px-4"
-            } w-44 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
+            className={`py-1 px-4 w-44 flex flex-col gap-1 bg-secondary rounded dark:bg-[#7C6555]`}
           >
             <p className="text-white font-semibold text-sm">
               {room.hotelId && isArabic ? (

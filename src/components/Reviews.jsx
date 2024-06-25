@@ -116,7 +116,7 @@ const Reviews = ({
                         })}
                       </p>
                     )}
-                    {isShow && (
+                    {isShow && localStorage.getItem("userId") === review.userId._id &&
                       <div className="flex gap-4 justify-center items-center">
                         <button
                           onClick={() => handleDelete(review._id)}
@@ -131,7 +131,7 @@ const Reviews = ({
                           <FaRegEdit />
                         </button>
                       </div>
-                    )}
+                    }
                   </div>
                   <div className="flex flex-wrap text-primary w-80 lg:w-[500px] h-auto opacity-80 mt-4 dark:text-PrimaryDark">
                     {truncated[index] ? (

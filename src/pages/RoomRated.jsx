@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import {
-  EffectCoverflow,
-  Pagination,
-  Navigation,
-  Keyboard,
-} from "swiper/modules";
+
 import axiosInstance from "../../interceptor";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(false);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
   useEffect(() => {
@@ -32,13 +22,6 @@ const RoomRated = () => {
     }
     fetchData();
   }, []);
-  const userId = localStorage.getItem("userId");
-  const handleAddToFavourite = async (roomId) => {
-    const { data } = await axiosInstance.post(`/rooms/favourites/${userId}`, {
-      roomId,
-    });
-    setIsFavourite((prev) => !prev);
-  };
 
   const topRatedRooms = rooms.sort((a, b) => b.ratingAvg - a.ratingAvg);
   return (
@@ -61,39 +44,42 @@ const RoomRated = () => {
         </div>
       </div>
       <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        keyboard={{
-          enabled: true,
-        }}
+        slidesPerView={3}
+        spaceBetween={10}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
-        modules={[EffectCoverflow, Keyboard, Pagination, Navigation]}
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+          },
+          "@1.00": {
+            slidesPerView: 2,
+            spaceBetween: 80,
+          },
+
+          1200: {
+            slidesPerView: 3,
+            spaceBetween: 100,
+          },
+          1240: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+        }}
+        modules={[Pagination]}
         className="mySwiper"
       >
         {topRatedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <div className="relative rounded-3xl overflow-hidden h-[320px]  mx-2">
+            <div className="relative rounded-3xl overflow-hidden w-[350px] h-[320px]  mx-2">
               <img
                 className="h-full w-full object-cover"
                 src={room.images[0]}
                 alt="room"
               />
               <div
-                className={`absolute top-2 px-4 w-full flex ${
-                  isArabic ? "flex-row-reverse" : "flex-row"
-                } justify-between items-center`}
+                className={`absolute top-2 px-4 w-full flex ${isArabic  ? "flex-row-reverse" : "flex-row"} justify-between items-center`}
               >
                 {room.promotionId.map((promotion) => (
                   <div
@@ -113,16 +99,6 @@ const RoomRated = () => {
                     </p>
                   </div>
                 ))}
-
-                <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
-                  <button onClick={() => handleAddToFavourite(room._id)}>
-                    {isFavourite ? (
-                      <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                    ) : (
-                      <FaHeart className="text-red-900 text-2xl text-center cursor-pointer" />
-                    )}
-                  </button>
-                </div>
               </div>
               <div className="absolute bottom-0 left-0 w-full">
                 <div className="bg-secondary  rounded-t-2xl px-4 py-2 flex justify-between items-center dark:bg-[#7C6555]">
@@ -130,8 +106,7 @@ const RoomRated = () => {
                     <p className="text-white capitalize  font-bold text-sm dark:text-[#ffffff]">
                       {isArabic ? (
                         <>
-                          {" "}
-                          {t("rooms.branch")} {room.hotelId.name_ar}{" "}
+                          {t("rooms.branch")} {room.hotelId.name_ar}
                         </>
                       ) : (
                         <>
