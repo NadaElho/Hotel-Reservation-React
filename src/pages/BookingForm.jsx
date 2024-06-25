@@ -65,7 +65,9 @@ function BookingForm() {
         const { data } = await axiosInstance.get(
           `/reservations/${localStorage.getItem("userId")}`
         );
-        data.data.forEach((reservation) => {
+        const reversedData = data.data.reverse()
+        console.log(reversedData)
+        reversedData.forEach((reservation) => {
           if (reservation.status.name_en == "pending") {
             (async function () {
               localStorage.setItem("reservationId", reservation._id);
@@ -185,7 +187,7 @@ function BookingForm() {
   };
 
   return (
-    <div className="p-4">
+    <div className="container mx-auto mt-8 ">
       <div className="flex flex-col justify-between md:flex-row">
         <div>
           <h2 className="text-3xl text-main-800 dark:text-main-50 font-bold">

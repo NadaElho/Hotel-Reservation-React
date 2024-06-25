@@ -52,6 +52,15 @@ const RoomCard = ({ disabledDates, roomData }) => {
 
   return (
     <div className="p-4 w-100 md:max-w-[400px] border rounded-2xl border-main-800 mx-4 md:mx-0 dark:border-main-25">
+      <div className="flex justify-center mb-6" dir="ltr">
+        <ReactStars
+          value={roomData.ratingAvg}
+          edit={false}
+          size={24}
+          isHalf={true}
+          color="#e4e5e9"
+        />
+      </div>
       <h3 className="text-main-800 font-bold ml-2 text-xl dark:text-main-50">
         {t("booking.price-details")}
       </h3>
@@ -110,15 +119,7 @@ const RoomCard = ({ disabledDates, roomData }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mb-6" dir="ltr">
-        <ReactStars
-          value={roomData.ratingAvg}
-          edit={false}
-          size={24}
-          isHalf={true}
-          color="#e4e5e9"
-        />
-      </div>
+
       <div className="text-center text-main-300 dark:text-main-50">
         {t("booking.stay")}
         <span className="text-white bg-main-300 dark:bg-main-600 dark:text-main-1000 dark:font-bold px-2 py-1 mx-2 rounded">

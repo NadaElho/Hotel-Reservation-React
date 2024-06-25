@@ -49,7 +49,7 @@ const Favourites = () => {
     );
   }
   return (
-    <div className="flex justify-center flex-wrap gap-4">
+    <div className="flex justify-center md:justify-start flex-wrap gap-4">
       {userData && userData.favouriteRooms.length > 0 ? (
         userData.favouriteRooms.map((room) => {
           return (

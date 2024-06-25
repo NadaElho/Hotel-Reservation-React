@@ -23,6 +23,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from })
     }
     return Math.round(calcTotalPrice);
   };
+  console.log(room)
 
   return (
     <div className={from == "favourites" ? 'w-fit' : "container"}>
@@ -55,7 +56,7 @@ const Card = ({ room, userData, favouriteRoomsIds, handleAddToFavourite, from })
           ))}
 
           {localStorage.getItem("userId") && (
-            <div className="absolute top-2 right-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
+            <div className="absolute top-2 ltr:right-3 rtl:left-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
               <span
                 className="text-red-900 text-3xl text-center cursor-pointer"
                 onClick={() => handleAddToFavourite(room._id)}

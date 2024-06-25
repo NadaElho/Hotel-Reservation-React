@@ -19,9 +19,7 @@ const calculateTotalPrice = async (room, calcNoOfNights) => {
 
     if (user && user?.subscriptionId) {
       calcTotalPrice *= (1 - user.subscriptionId.percentage / 100);
-      console.log(calcTotalPrice)
     }
-    console.log(calcTotalPrice)
   } catch (error) {
     console.log(error);
   }
