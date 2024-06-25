@@ -120,7 +120,7 @@ export const Search = () => {
             {filteredHotels && (
               <div
                 id="dropdown-menu"
-                className="absolute w-full bg-white rounded-md mt-1 z-10 ring-0 ring-opacity-0"
+                className="absolute w-full bg-white dark:bg-main-700 rounded-md mt-1 z-10 ring-0 ring-opacity-0"
               >
                 {showDropDown.hotels &&
                   filteredHotels.map((data) => {
@@ -201,7 +201,7 @@ export const Search = () => {
             {filteredTypes && (
               <div
                 id="dropdown-menu"
-                className="absolute w-full bg-white rounded-md mt-1 ring-0 z-10 ring-opacity-0"
+                className="absolute w-full bg-white dark:bg-main-700 rounded-md mt-1 ring-0 z-10 ring-opacity-0"
               >
                 {showDropDown.roomsType &&
                   filteredTypes.map((data) => (

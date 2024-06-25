@@ -1,15 +1,18 @@
 import { Formik } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLockClosedOutline } from "react-icons/io5";
-import { AiOutlineMail } from "react-icons/ai";
 import img from "/createnewpassword.png";
 import { toast } from "react-toastify";
 import axiosInstance from "../../interceptor";
 import { LanguageContext } from "../providers/LanguageContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { FaRegEye } from "react-icons/fa";
+import { TbEyeClosed } from "react-icons/tb";
 
 const NewPassword = () => {
   const isDark = localStorage.getItem("dark") == "dark";
+  const [showPass, setShowPass] = useState({ pass: false, confirmPass: false });
+
   let userId = useParams();
   const token = userId.id;
   const navigate = useNavigate();
@@ -55,6 +58,10 @@ const NewPassword = () => {
     setSubmitting(false);
   };
 
+  const handleToggleShowPass = (field) => {
+    setShowPass((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
   return (
     <div className="flex justify-center lg:h-screen lg:overflow-hidden min-h-screen">
       <div className="w-full p-4 md:p-16 lg:p-16 md:w-3/4 lg:w-1/2 flex flex-col justify-center">
@@ -91,7 +98,7 @@ const NewPassword = () => {
                     color={`${isDark ? "#1D1D1D" : "white"}`}
                   />
                   <input
-                    type="password"
+                    type={showPass.pass ? "text" : "password"}
                     name="password"
                     placeholder={t("newpassword.password")}
                     className="border-0 h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
@@ -99,6 +106,9 @@ const NewPassword = () => {
                     onBlur={handleBlur}
                     value={values.password}
                   />
+                   <span onClick={() => handleToggleShowPass("pass")}>
+                    {showPass.pass ? <FaRegEye /> : <TbEyeClosed />}
+                  </span>
                 </div>
                 <div className="text-red-500 text-sm ml-2">
                   {touched.password && errors.password}
@@ -111,7 +121,7 @@ const NewPassword = () => {
                     color={`${isDark ? "#1D1D1D" : "white"}`}
                   />
                   <input
-                    type="password"
+                    type={showPass.confirmPass ? "text" : "password"}
                     name="confirmPassword"
                     placeholder={t("newpassword.confirmpassword")}
                     className="border-none h-8 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
@@ -119,6 +129,9 @@ const NewPassword = () => {
                     onBlur={handleBlur}
                     value={values.confirmPassword}
                   />
+                   <span onClick={() => handleToggleShowPass("confirmPass")}>
+                    {showPass.confirmPass ? <FaRegEye /> : <TbEyeClosed />}
+                  </span>
                 </div>
                 <div className="text-red-500 text-sm ml-2">
                   {touched.confirmPassword && errors.confirmPassword}

@@ -3,19 +3,22 @@ import success from "/success.png";
 import fail from "/failed.png";
 import axiosInstance from "../../interceptor";
 import { LanguageContext } from "../providers/LanguageContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 function PaymentResult() {
   const [resultParam] = useSearchParams();
-  const { t } = useContext(LanguageContext);  
-  const isArabic = localStorage.getItem("lang") == "ar"
+  const { t } = useContext(LanguageContext);
+  const isArabic = localStorage.getItem("lang") == "ar";
   const resultQuery = resultParam.toString().split("&")[0].split("=")[0];
   const price = resultParam.toString().split("&")[1]?.split("=")[1];
+  const id = resultParam.toString().split("&")[2]?.split("=")[1];
+
   let hours = new Date().getHours();
   const minutes =
     new Date().getMinutes() < 10
       ? "0" + new Date().getMinutes()
       : new Date().getMinutes();
-  const ampm = hours >= 12 ? (isArabic ? " ًمساء" : "PM") : isArabic ? "صباحاً" : "am";
+  const ampm =
+    hours >= 12 ? (isArabic ? " ًمساء" : "PM") : isArabic ? "صباحاً" : "am";
   hours = hours % 12 || 12;
   const tryPaymentAgain = async () => {
     const reservationId = localStorage.getItem("reservationId");
@@ -24,7 +27,13 @@ function PaymentResult() {
     );
     window.location.href = data.session.url;
   };
-
+  useEffect(() => {
+    (async function () {
+      if (id) {
+        await axiosInstance.patch(`/reservations/${id}/paid`);
+      }
+    })();
+  }, [id]);
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="md:p-4">
@@ -46,12 +55,18 @@ function PaymentResult() {
                   {t("payment.transaction-details")}
                 </p>
                 <div className="flex justify-between text-main-300">
-                  <div className="font-bold dark:text-main-50">{t("payment.total")}</div>
+                  <div className="font-bold dark:text-main-50">
+                    {t("payment.total")}
+                  </div>
                   <div className="dark:text-main-900">${price}</div>
                 </div>
                 <div className="flex justify-between text-main-300 py-4">
-                  <div className="font-bold dark:text-main-50">{t("payment.paid-by")}</div>
-                  <div className="dark:text-main-900">{t("payment.master-card")}</div>
+                  <div className="font-bold dark:text-main-50">
+                    {t("payment.paid-by")}
+                  </div>
+                  <div className="dark:text-main-900">
+                    {t("payment.master-card")}
+                  </div>
                 </div>
                 <div className="flex justify-between text-main-300 pb-4">
                   <div className="font-bold dark:text-main-50">
@@ -66,7 +81,7 @@ function PaymentResult() {
                         day: "numeric",
                       }
                     )}
-                    , {hours}:{minutes}  &nbsp;
+                    , {hours}:{minutes} &nbsp;
                     {ampm}
                   </div>
                 </div>

@@ -68,7 +68,7 @@
     "end": "End",
     "choose-pay": "Choose to pay",
     "pay": "Pay",
-    "now": "now",
+    "now": "cash",
     "pay-stripe": "Pay with stripe",
     "policy": "Cancellation policy",
     "cancel-not-allowed": "Cancellation today became not allowed",
@@ -111,7 +111,7 @@
     "profile": "Profile",
     "contact": "Contact us",
     "subscription": "Subscription plans",
-    "AboutHotel": "About Hotel"
+    "AboutHotel": "About us"
   },
   "form": {
     "start": "Start for free",
