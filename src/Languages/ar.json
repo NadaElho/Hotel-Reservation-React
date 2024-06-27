@@ -34,7 +34,8 @@
     "update": "تحديث",
     "add": "إضافة",
     "choose-rating": "من فضلك إدخل التقييم",
-    "enter-review": "من فضلك اكتب تقييمك"
+    "enter-review": "من فضلك اكتب تقييمك",
+    "delete-review" : "هل  تريد حذف هذا التقييم"
   },
 
   "footer": {

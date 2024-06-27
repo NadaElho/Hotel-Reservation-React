@@ -5,12 +5,14 @@ import Confirm from "../components/Confirm";
 import axiosInstance from "../../interceptor";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import { useLocation } from "react-router";
 
 const Plans = () => {
   const { t } = useContext(LanguageContext);
   const [showModal, setShowModal] = useState(false);
   const [subChanged, setSubChanged] = useState(false);
   const [userData, setUserData] = useState(null);
+  const location = useLocation();
 
   const cancelSubscription = async () => {
     try {
@@ -86,6 +88,11 @@ const Plans = () => {
             cancelSubscription();
             setShowModal(false);
           }}
+          message={
+            location.pathname.includes("reservation")
+              ? t("profile.cancel-reservation")
+              : t("profile.end-subscription")
+          }
         />
       )}
     </div>

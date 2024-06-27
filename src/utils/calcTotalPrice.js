@@ -11,8 +11,8 @@ const calculateTotalPrice = async (room, calcNoOfNights) => {
       const {data} = await axiosInstance.get(`/users/${userId}`);
       user = data.data;
     }
-    if (room.promotionId[0]) {
-      calcTotalPrice = calcNoOfNights * room.price * (1 - room.promotionId[0].percentage / 100);
+    if (room.promotionId) {
+      calcTotalPrice = calcNoOfNights * room.price * (1 - room.promotionId.percentage / 100);
     } else {
       calcTotalPrice = calcNoOfNights * room.price;
     }

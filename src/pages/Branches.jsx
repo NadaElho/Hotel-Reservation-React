@@ -35,7 +35,6 @@ const Branches = () => {
         </p>
       </div>
       <Swiper
-         dir={"ltr"}
          slidesPerView={3}
          spaceBetween={10}
          pagination={{
@@ -59,7 +58,7 @@ const Branches = () => {
                     alt=""
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute bottom-6 left-6 right-6 w-full text-white ">
+                  <div className={`absolute bottom-6 left-6 flex flex-col right-6 w-full text-white `}>
                     <p className="font-500 text-4xl font-secondary playfair-display">
                       {isArabic ? branch.name_ar : branch.name_en}
                     </p>

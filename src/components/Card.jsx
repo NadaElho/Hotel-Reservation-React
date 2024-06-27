@@ -18,8 +18,8 @@ const Card = ({
   const calcPrice = (room) => {
     let calcTotalPrice = 0;
 
-    if (room.promotionId[0]) {
-      calcTotalPrice = room.price * (1 - room.promotionId[0].percentage / 100);
+    if (room.promotionId) {
+      calcTotalPrice = room.price * (1 - room.promotionId.percentage / 100);
     } else {
       calcTotalPrice = room.price;
     }
@@ -33,7 +33,7 @@ const Card = ({
 
   return (
     <div className={from == "favourites" ? "w-fit" : "container"}>
-      <div className="xl:mx-10 relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
+      <div className="relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
         <img
           className="h-full w-full object-cover"
           src={room.images[0]}
@@ -42,26 +42,23 @@ const Card = ({
         <div
           className={`absolute top-2 px-4 w-full flex justify-between items-center`}
         >
-          {room.promotionId &&
-            room.promotionId.length > 0 &&
-            room.promotionId.map((promotion) => (
-              <div
-                className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 `}
-                key={promotion._id}
-              >
-                <p>
-                  {isArabic ? (
-                    <>
-                      {t("rooms.off")} {promotion.percentage}%
-                    </>
-                  ) : (
-                    <>
-                      {promotion.percentage}% {t("rooms.off")}
-                    </>
-                  )}
-                </p>
-              </div>
-            ))}
+          {room.promotionId && (
+            <div
+              className={`bg-[#0f314f] text-white  py-1 px-2 rounded-full mt-2 `}
+            >
+              <p>
+                {isArabic ? (
+                  <>
+                    {t("rooms.off")} {room.promotionId.percentage}%
+                  </>
+                ) : (
+                  <>
+                    {room.promotionId.percentage}% {t("rooms.off")}
+                  </>
+                )}
+              </p>
+            </div>
+          )}
 
           {localStorage.getItem("userId") && (
             <div className="absolute top-2 ltr:right-3 rtl:left-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
@@ -85,6 +82,7 @@ const Card = ({
             <p className="text-white font-semibold text-sm">
               {room.hotelId && isArabic ? (
                 <>
+                  {console.log(room.hotelId.name_ar)}
                   {t("rooms.branch")} {room.hotelId.name_ar}
                 </>
               ) : (
@@ -94,6 +92,7 @@ const Card = ({
               )}
             </p>
             <p className="text-white text-sm opacity-95">
+              {console.log(room.roomTypeId.type_en)}
               {`${
                 room.roomTypeId && isArabic
                   ? room.roomTypeId.type_ar
