@@ -82,7 +82,7 @@ const RoomRated = () => {
                 0px] h-64 rounded-3xl overflow-hidden mt-10 `}
             >
               <img
-                className="h-full w-full object-cover"
+                className="h-full w-full  object-cover"
                 src={room.images[0]}
                 alt="room"
               />
