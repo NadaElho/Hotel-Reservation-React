@@ -87,7 +87,7 @@ const Amenity = () => {
                   className="w-12 h-12 object-cover"
                 />
               </div>
-              <p className="text-primary mx-4 mt-2 font-semibold dark:text-PrimaryDark">
+              <p className="text-primary  mx-4 mt-2 font-semibold dark:text-PrimaryDark">
                 {isArabic ? amenity.name_ar : amenity.name_en}
               </p>
             </div>
