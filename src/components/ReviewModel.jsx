@@ -5,6 +5,7 @@ import axiosInstance from "../../interceptor";
 import { useParams } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
+import { toast } from "react-toastify";
 
 const ReviewModel = ({
   addReview,
@@ -20,6 +21,7 @@ const ReviewModel = ({
   const { id } = useParams();
   const [isError, setIsError] = useState(false);
   const { t } = useContext(LanguageContext);
+  const isArabic = localStorage.getItem("lang") == "ar";
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -64,6 +66,8 @@ const ReviewModel = ({
     );
     updateReview(data.data);
     onClose();
+   isArabic ? toast.success("تمت تحديث التقييم بنجاح") :  toast.success("review updated successfully") 
+
   };
 
   const handleAddReview = async () => {
@@ -81,6 +85,8 @@ const ReviewModel = ({
     });
     addReview(data.data, _id);
     onClose();
+    isArabic ? toast.success("تمت إضافة التقييم بنجاح") :  toast.success("review added successfully") 
+
   };
 
   return (

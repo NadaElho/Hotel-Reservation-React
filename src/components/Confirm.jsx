@@ -1,11 +1,9 @@
 import { useContext } from "react";
 import { LanguageContext } from "../providers/LanguageContext";
 import { MdCancel } from "react-icons/md";
-import { useLocation } from "react-router";
 
-export default function Confirm({ onClose, onConfirm }) {
+export default function Confirm({ onClose, onConfirm, message }) {
   const { t } = useContext(LanguageContext);
-  const location = useLocation();
 
   return (
     <>
@@ -14,12 +12,8 @@ export default function Confirm({ onClose, onConfirm }) {
           <div className="rounded-full bg-main-100 p-4 text-white mb-8">
             <MdCancel className="h-9 w-9" />
           </div>
-          <h2 className="text-3xl text-main-800  ">{t("profile.sure")}</h2>
-          <p className=" text-main-400 my-2">
-            {location.pathname.includes("reservation")
-              ? t("profile.cancel-reservation")
-              : t("profile.end-subscription")}
-          </p>
+          <h2 className="text-3xl text-main-800">{t("profile.sure")}</h2>
+          <p className=" text-main-400 my-2">{message}</p>
           <div>
             <button
               className="px-7 py-2 bg-main-800 text-white rounded-lg hover:bg-[#52381D]/90 focus:ring-4 focus:outline-none focus:ring-[#52381D]/50 me-4"

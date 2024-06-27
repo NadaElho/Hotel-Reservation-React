@@ -10,7 +10,7 @@ import Card from "../components/Card";
 
 const Deals = () => {
   const [rooms, setRooms] = useState([]);
-  const { t  , i18n} = useContext(LanguageContext);
+  const { t } = useContext(LanguageContext);
   const [userData, setUserData] = useState(null);
   const userId = localStorage.getItem("userId");
   const [favouriteRooms, setFavouriteRooms] = useState(null);
@@ -60,16 +60,15 @@ const Deals = () => {
 
   const roomDeals = rooms.filter(
     (room) =>
-      room.promotionId.length > 0 || (userData && userData.subscriptionId)
+      room.promotionId || (userData && userData.subscriptionId)
   );
   console.log(roomDeals);
   return (
-    <div className="container mx-auto mt-20 px-4  overflow-hidden">
+    <div className="container mx-auto mt-20  overflow-hidden">
       <h2 className="text-primary text-2xl font-secondary  mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
         {t("rooms.deals")}
       </h2>
       <Swiper
-      dir={"ltr"}
         slidesPerView={3}
         spaceBetween={10}
         pagination={{

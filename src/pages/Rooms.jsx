@@ -14,6 +14,9 @@ import ReactStars from "react-rating-stars-component";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import calculateTotalPrice from "../utils/calcTotalPrice";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Rooms = ({ truncated, toggleTruncated }) => {
   const [value, setValue] = useState([0, 10000]);
@@ -124,6 +127,39 @@ const Rooms = ({ truncated, toggleTruncated }) => {
     }
   };
 
+  const Settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   return (
     <>
       <div className="container mx-auto flex flex-col  mt-16">
@@ -134,7 +170,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
-            <div className="w-[380px] mx-10 flex flex-col justify-around mt-12 ">
+            <div className="w-[380px] mx-6 flex flex-col justify-around mt-12 ">
               <div className="mx-4 mt-4">
                 <p className="text-primary font-semibold text-2xl mt-2 dark:text-PrimaryDark">
                   {t("rooms.Price-night")}
@@ -235,26 +271,23 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                       isArabic ? "flex-row-reverse" : "flex-row"
                     } justify-between items-center`}
                   >
-                    {room.promotionId &&
-                      room.promotionId.length > 0 &&
-                      room.promotionId.map((promotion) => (
-                        <div
-                          className={`bg-[#C2AF00] text-white  py-1 px-2 rounded-full mt-2 `}
-                          key={promotion._id}
-                        >
-                          <p>
-                            {isArabic ? (
-                              <>
-                                {t("rooms.off")} {promotion.percentage}%
-                              </>
-                            ) : (
-                              <>
-                                {promotion.percentage}% {t("rooms.off")}
-                              </>
-                            )}
-                          </p>
-                        </div>
-                      ))}
+                    {room.promotionId && (
+                      <div
+                        className={`bg-[#0f314f] text-white  py-1 px-2 rounded-full mt-2 `}
+                      >
+                        <p>
+                          {isArabic ? (
+                            <>
+                              {t("rooms.off")} {room.promotionId.percentage}%
+                            </>
+                          ) : (
+                            <>
+                              {room.promotionId.percentage}% {t("rooms.off")}
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    )}
 
                     <div
                       className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
@@ -301,26 +334,45 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                         />
                       )}
                     </div>
-                    <hr className=" border-primary opacity-40 mt-4 dark:border-footer" />
+                    <hr className=" border-primary opacity-40 mt-2 dark:border-footer" />
                   </div>
-                  <div className="px-6 text-center">
-                    <div className="flex justify-center gap-6">
-                      {room.amenitiesIds &&
-                        room.amenitiesIds.map((r) => (
-                          <div key={r._id}>
-                            <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
-                              <img
-                                src={r.images && r.images}
-                                alt="rooms"
-                                width={"25px"}
-                                height={"20px"}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                    <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
-
+                  <div className="px-6 text-center ">
+                    {room.amenitiesIds.length > 0 && (
+                      <div>
+                        <div className="flex justify-center gap-4 h-10">
+                          {room.amenitiesIds.length > 6 ? (
+                            <Slider {...Settings} className="w-full">
+                              {room.amenitiesIds.map((r) => (
+                                <div key={r._id}>
+                                  <div className="w-10 h-10 mx-4 bg-secondary rounded-full flex justify-center">
+                                    <img
+                                      src={r.images && r.images}
+                                      alt="rooms"
+                                      width={"25px"}
+                                      height={"20px"}
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            </Slider>
+                          ) : (
+                            room.amenitiesIds.map((r) => (
+                              <div key={r._id}>
+                                <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
+                                  <img
+                                    src={r.images && r.images}
+                                    alt="rooms"
+                                    width={"25px"}
+                                    height={"20px"}
+                                  />
+                                </div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                        <hr className=" border-primary opacity-40 w-full mt-4 dark:border-footer" />
+                      </div>
+                    )}
                     <div className="w-full flex justify-center items-center md:justify-between  gap-2 py-5 md:py-6 ">
                       <button className="w-1/3 text-xs py-2 md:py-3  bg-primary text-white md:w-44 md:text-sm opacity-95 rounded-full inline-flex justify-center items-center dark:bg-[#E2C8AD] dark:text-customDark font-semibold ">
                         <Link to={`/reservation-room/${room._id}`}>

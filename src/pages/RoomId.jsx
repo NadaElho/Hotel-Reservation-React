@@ -24,26 +24,23 @@ const RoomId = ({ truncated, toggleTruncated }) => {
       const res = await axiosInstance.get(`/rooms/${id}`);
       const roomData = res.data.room;
       setRoom(roomData);
-      console.log(roomData);
       setLoading(false);
       const { data } = await axiosInstance.get(`/rooms/${id}/roomReserved`);
       setDisabledDates(data.data);
       const reviewData = await axiosInstance.get(`/reviews/${id}`);
       setReviews(reviewData.data.data);
+
     }
+    
 
     fetchData();
   }, [id, reviewAdded, reviewUpdated]);
 
   const handleDelete = async (reviewId) => {
-    try {
       await axiosInstance.delete(`/reviews/${reviewId}`);
       const deletedReview = reviews.filter((r) => r._id !== reviewId);
       setReviews(deletedReview);
       setReviewAdded((prev) => !prev);
-    } catch (error) {
-      console.error("Error deleting review:", error);
-    }
   };
 
   const addReview = (newReview) => {

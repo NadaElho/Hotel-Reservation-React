@@ -12,8 +12,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
-
-
 const RoomRated = () => {
   const [rooms, setRooms] = useState([]);
   const { t } = useContext(LanguageContext);
@@ -61,10 +59,9 @@ const RoomRated = () => {
             slidesPerView: 1,
             spaceBetween: 80,
           },
-          "@1.75" : {
+          "@1.75": {
             slidesPerView: 2,
             spaceBetween: 80,
-
           },
           1200: {
             slidesPerView: 3,
@@ -80,33 +77,32 @@ const RoomRated = () => {
       >
         {topRatedRooms.map((room) => (
           <SwiperSlide key={room._id}>
-            <div className="relative rounded-3xl overflow-hidden w-[400px] md:w-[350px]  h-[320px]  mx-2">
+            <div className=" relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
               <img
                 className="h-full w-full object-cover"
                 src={room.images[0]}
                 alt="room"
               />
               <div
-                className={`absolute top-2 px-4 w-full flex ${isArabic  ? "flex-row-reverse" : "flex-row"} justify-between items-center`}
+                className={`absolute top-2 px-4 w-full flex justify-between items-center`}
               >
-                {room.promotionId.map((promotion) => (
+                {room.promotionId && (
                   <div
-                    className={`bg-[#C2AF00] text-white py-1 px-2 rounded-full mt-2 `}
-                    key={promotion._id}
+                    className={`bg-[#0f314f] text-white  py-1 px-2 rounded-full mt-2 `}
                   >
                     <p>
                       {isArabic ? (
                         <>
-                          {t("rooms.off")} {promotion.percentage}%{" "}
+                          {t("rooms.off")} {room.promotionId.percentage}%
                         </>
                       ) : (
                         <>
-                          {promotion.percentage}% {t("rooms.off")}
+                          {room.promotionId.percentage}% {t("rooms.off")}
                         </>
                       )}
                     </p>
                   </div>
-                ))}
+                )}
               </div>
               <div className="absolute bottom-0 left-0 w-full">
                 <div className="bg-secondary w-full rounded-t-2xl px-2 py-2 flex justify-between items-center dark:bg-[#7C6555]">
