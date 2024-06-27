@@ -68,29 +68,32 @@ const Amenity = () => {
         <span className="flex items-center justify-center text-primary font-semibold dark:text-PrimaryDark">
           {t("rooms.filter")}
         </span>
-      </div> 
+      </div>
 
       <div className="slider-container ">
-      <Slider {...settings} >
-        {amenities.map((amenity) => (
-          <div key={amenity._id} className="py-4 mx-7 flex flex-col items-center mt-4 ">
+        <Slider {...settings}>
+          {amenities.map((amenity) => (
             <div
-              className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center cursor-pointer dark:bg-[#7C6555]"
-              onClick={() => filterByAmenity(amenity._id)}
+              key={amenity._id}
+              className="py-4 mx-7 flex flex-col items-center mt-4 "
             >
-              <img
-                src={amenity.images[0]}
-                alt="amenity"
-                className="w-16 object-cover"
-              />
+              <div
+                className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center cursor-pointer dark:bg-[#7C6555]"
+                onClick={() => filterByAmenity(amenity._id)}
+              >
+                <img
+                  src={amenity.images[0]}
+                  alt="amenity"
+                  className="w-12 h-12 object-cover"
+                />
+              </div>
+              <p className="text-primary mx-4 mt-2 font-semibold dark:text-PrimaryDark">
+                {isArabic ? amenity.name_ar : amenity.name_en}
+              </p>
             </div>
-            <p className="text-primary mx-4 mt-2 font-semibold dark:text-PrimaryDark">
-              {isArabic ? amenity.name_ar : amenity.name_en}
-            </p>
-          </div>
-        ))}
-      </Slider>
-     </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

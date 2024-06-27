@@ -73,7 +73,7 @@ const Reviews = ({
   };
   return (
     <>
-      <div className={`container mt-16 mx-10    ${design.scroll}`}>
+      <div className={`container mt-16 mx-10`}>
         {reviews.length > 0 && (
           <h3 className="text-custom font-semibold text-lg dark:text-[#CBB7A4]">
             {isArabic ? (
