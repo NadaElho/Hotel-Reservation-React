@@ -12,15 +12,10 @@ const Profile = ({handleLog}) => {
 
   useEffect(() => {
     (async () => {
-      try{
         const { data } = await axiosInstance.get(
           `/users/${localStorage.getItem("userId")}`
         );
         setUserData(data.data);
-      }catch(err){
-        toast.error("please login first")
-        localStorage.setItem("token", "")
-      }
     })();
   }, [imageChanged]);
 

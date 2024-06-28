@@ -29,7 +29,6 @@ const Card = ({
     }
     return Math.round(calcTotalPrice);
   };
-  console.log(room);
 
   return (
     <div className={from == "favourites" ? "w-fit" : "container"}>
@@ -82,7 +81,6 @@ const Card = ({
             <p className="text-white font-semibold text-sm">
               {room.hotelId && isArabic ? (
                 <>
-                  {console.log(room.hotelId.name_ar)}
                   {t("rooms.branch")} {room.hotelId.name_ar}
                 </>
               ) : (
@@ -92,7 +90,6 @@ const Card = ({
               )}
             </p>
             <p className="text-white text-sm opacity-95">
-              {console.log(room.roomTypeId.type_en)}
               {`${
                 room.roomTypeId && isArabic
                   ? room.roomTypeId.type_ar
