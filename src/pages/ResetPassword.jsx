@@ -40,7 +40,7 @@ const ResetPassword = () => {
 
       if (data) {
         navigate("/checkemail");
-        toast.success("check your email ");
+        toast.success(t("check-email"));
       }
     } catch (err) {
       toast.error(err.response.data?.message);

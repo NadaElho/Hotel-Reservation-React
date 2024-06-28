@@ -123,7 +123,7 @@ const Subscription = ({ from, addSubscription, subChanged, userData }) => {
             onClick={() =>
               isLogged
                 ? addSubscription(plan._id)
-                : toast.error("please login first")
+                : toast.error(isArabic ? "من فضلك سجل الدخول أولاً" : "please login first")
             }
           >
             {plan.name_en === "Basic plan"

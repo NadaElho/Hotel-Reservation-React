@@ -6,6 +6,7 @@ import { MdOutlineEdit, MdOutlinePhone } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import ChangePassword from "../components/ChangePassword";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const Account = () => {
   const [userData, setUserData] = useState(null);
@@ -13,10 +14,10 @@ const Account = () => {
 
   useEffect(() => {
     (async function () {
-        const { data } = await axiosInstance.get(
-          `/users/${localStorage.getItem("userId")}`
-        );
-        setUserData(data.data);
+      const { data } = await axiosInstance.get(
+        `/users/${localStorage.getItem("userId")}`
+      );
+      setUserData(data.data);
     })();
   }, []);
 
@@ -28,15 +29,11 @@ const Account = () => {
     if (!values.lname) {
       errors.lname = t("form.lname-req");
     }
-    if (!values.email) {
-      errors.email = t("form.email-req");
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    if (!/^\d{11}$/i.test(values.phone)) {
       errors.phone = t("form.invalid-phone");
     }
-    if (!values.phone) {
-      errors.phone = t("form.phone-req");
-    } else if (!/^\d{11}$/i.test(values.phone)) {
-      errors.phone = t("form.invalid-phone");
+    if (!/^\d{11}$/i.test(values.emergencyContact)) {
+      errors.emergencyContact = t("form.invalid-phone");
     }
 
     return errors;
@@ -62,6 +59,7 @@ const Account = () => {
           },
         }
       );
+      toast.success(t("profile.data-updated"))
     } catch (err) {
       console.log(err);
     }
@@ -125,7 +123,7 @@ const Account = () => {
                         type="text"
                         name="fname"
                         placeholder={t("form.fname")}
-                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none disabled:opacity-50 placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.fname}
@@ -154,7 +152,7 @@ const Account = () => {
                         type="text"
                         name="lname"
                         placeholder={t("form.lname")}
-                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none disabled:opacity-50 placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.lname}
@@ -187,7 +185,7 @@ const Account = () => {
                         type="text"
                         name="emergencyContact"
                         placeholder={t("form.emergencyContact")}
-                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none disabled:opacity-50 placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.emergencyContact}
@@ -218,7 +216,7 @@ const Account = () => {
                         type="text"
                         name="phone"
                         placeholder={t("form.phone")}
-                        className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
+                        className="border-0 outline-none disabled:opacity-50 placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.phone}

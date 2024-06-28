@@ -24,7 +24,7 @@ const Login = ({ handleLog }) => {
     const errors = {};
     if (!values.email) {
       errors.email = t("form.email-req");
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.com$/i.test(values.email)) {
       errors.email = t("form.invalid-email");
     }
     if (!values.password) {
@@ -50,7 +50,7 @@ const Login = ({ handleLog }) => {
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("userId", data.data.id);
       navigate("/");
-      toast.success("You are logged in successfully");
+      toast.success(t("form.logged"));
       handleLog();
     } catch (err) {
       toast.error(err.response.data.message);

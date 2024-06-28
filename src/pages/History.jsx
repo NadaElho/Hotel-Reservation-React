@@ -134,9 +134,9 @@ function History() {
     }
   };
 
-  const checkRoom = (roomId)=>{
-    return userReviews.some((review)=>review.roomId == roomId)
-  }
+  const checkRoom = (roomId) => {
+    return userReviews.some((review) => review.roomId == roomId);
+  };
   if (isLoading) {
     return (
       <div className="h-screen">
@@ -178,19 +178,20 @@ function History() {
                       {reservation.night} {t("booking.nights")}
                     </p>
                   </div>
-                  {reservation.status.name_en == "Completed" && !checkRoom(reservation.room._id) && (
-                    <div className=" mt-5">
-                      <button
-                        className="rounded-3xl bg-main-800 dark:bg-main-25 dark:text-main-800 px-6 py-2 text-white"
-                        onClick={() => {
-                          setShowAddModal(true);
-                          setId(reservation.room._id);
-                        }}
-                      >
-                        {t("profile.add-review")}
-                      </button>
-                    </div>
-                  )}
+                  {reservation.status.name_en == "Completed" &&
+                    !checkRoom(reservation.room._id) && (
+                      <div className=" mt-5">
+                        <button
+                          className="rounded-3xl bg-main-800 dark:bg-main-25 dark:text-main-800 px-6 py-2 text-white"
+                          onClick={() => {
+                            setShowAddModal(true);
+                            setId(reservation.room._id);
+                          }}
+                        >
+                          {t("profile.add-review")}
+                        </button>
+                      </div>
+                    )}
                   {showAddModal && (
                     <ReviewModel
                       addReview={addReview}
@@ -277,7 +278,8 @@ function History() {
                 </div>
                 <div
                   className={`${
-                    reservation.status.name_en == "canceled"
+                    reservation.status.name_en == "canceled" ||
+                    reservation.status.name_en == "Completed"
                       ? "hidden"
                       : "inline-block"
                   }`}

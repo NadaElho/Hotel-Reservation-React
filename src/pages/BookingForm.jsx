@@ -227,7 +227,7 @@ function BookingForm() {
                           type="text"
                           name="fname"
                           placeholder={t("form.fname")}
-                          className="border-0 outline-none placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
+                          className="border-0 outline-none disabled:opacity-50 placeholder:text-main-500 dark:placeholder:text-main-1000 w-full"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.fname}
@@ -256,7 +256,7 @@ function BookingForm() {
                           type="text"
                           name="lname"
                           placeholder={t("form.lname")}
-                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          className="border-0 outline-none disabled:opacity-50 placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.lname}
@@ -289,7 +289,7 @@ function BookingForm() {
                           type="email"
                           name="email"
                           placeholder={t("form.email")}
-                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          className="border-0 outline-none disabled:opacity-50 placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.email}
@@ -315,7 +315,7 @@ function BookingForm() {
                           type="text"
                           name="phone"
                           placeholder={t("form.phone")}
-                          className="border-0 outline-none placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
+                          className="border-0 outline-none disabled:opacity-50 placeholder:text-slate-200 dark:placeholder:text-main-1000 w-full"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.phone}
