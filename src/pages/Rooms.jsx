@@ -291,7 +291,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                       </div>
                     )}
 
-                    <div
+                   {localStorage.getItem("userId") && <div
                       className={`absolute top-2 right-3 w-8 h-8 bg-white flex justify-center items-center rounded-full `}
                     >
                       <button onClick={() => handleAddToFavourite(room._id)}>
@@ -302,7 +302,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                           <FaRegHeart className="text-red-900 text-2xl text-center cursor-pointer" />
                         )}
                       </button>
-                    </div>
+                    </div>}
                   </div>
                   <div className="px-2 py-3 flex flex-col">
                     <div className="font-bold text-2xl capitalize text-primary dark:text-PrimaryDark">
