@@ -9,7 +9,6 @@ import { useContext } from "react";
 import Confirm from "../components/Confirm";
 import ReviewModel from "../components/ReviewModel";
 import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
 
 function History() {
   const [userReservations, setUserReservations] = useState([]);
@@ -17,9 +16,10 @@ function History() {
   const [showModal, setShowModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [id, setId] = useState(null);
+  const [userReviews, setUserReviews] = useState(null);
   const { t } = useContext(LanguageContext);
   const isArabic = localStorage.getItem("lang") == "ar";
- 
+
   const options = {
     weekday: "short",
     month: "short",
@@ -28,6 +28,12 @@ function History() {
 
   useEffect(() => {
     getAllUserReservations();
+    (async function () {
+      const { data } = await axiosInstance.get(
+        `/reviews/user/${localStorage.getItem("userId")}`
+      );
+      setUserReviews(data.data);
+    })();
   }, []);
 
   const nextSlider = (reservationIndex) => {
@@ -74,7 +80,6 @@ function History() {
   const navigate = useNavigate();
   const addReview = (data, id) => {
     navigate(`/rooms/${id}`);
-    toast.success("review added successfully");
   };
 
   const getAllUserReservations = async () => {
@@ -128,6 +133,10 @@ function History() {
       console.log(err.response?.data || err.message, "err");
     }
   };
+
+  const checkRoom = (roomId)=>{
+    return userReviews.some((review)=>review.roomId == roomId)
+  }
   if (isLoading) {
     return (
       <div className="h-screen">
@@ -169,17 +178,19 @@ function History() {
                       {reservation.night} {t("booking.nights")}
                     </p>
                   </div>
-                  <div className=" mt-5">
-                    <button
-                      className="rounded-3xl bg-main-800 dark:bg-main-25 dark:text-main-800 px-6 py-2 text-white"
-                      onClick={() => {
-                        setShowAddModal(true);
-                        setId(reservation.room._id);
-                      }}
-                    >
-                      {t("profile.add-review")}
-                    </button>
-                  </div>
+                  {reservation.status.name_en == "Completed" && !checkRoom(reservation.room._id) && (
+                    <div className=" mt-5">
+                      <button
+                        className="rounded-3xl bg-main-800 dark:bg-main-25 dark:text-main-800 px-6 py-2 text-white"
+                        onClick={() => {
+                          setShowAddModal(true);
+                          setId(reservation.room._id);
+                        }}
+                      >
+                        {t("profile.add-review")}
+                      </button>
+                    </div>
+                  )}
                   {showAddModal && (
                     <ReviewModel
                       addReview={addReview}
@@ -273,7 +284,10 @@ function History() {
                 >
                   <button
                     className={`rounded-3xl px-6 py-2 border border-red-500 bg-transparent text-red-500 transition-all duration-300 dark:text-white dark:bg-red-500 hover:text-white hover:bg-red-500`}
-                    onClick={() => {setShowModal(true); setId(reservation.id)}}
+                    onClick={() => {
+                      setShowModal(true);
+                      setId(reservation.id);
+                    }}
                   >
                     {t("profile.cancel")}
                   </button>
