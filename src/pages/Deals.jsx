@@ -64,7 +64,7 @@ const Deals = () => {
   );
   return (
     <div className="container mx-auto mt-20  overflow-hidden">
-      <h2 className="text-primary text-2xl font-secondary  mb-10 mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
+      <h2 className="text-primary text-2xl font-secondary  mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">
         {t("rooms.deals")}
       </h2>
       <Swiper

@@ -254,3 +254,6 @@ input {
 } 
 
 
+.slick-prev:before, .slick-next:before {
+  color : #b18d68
+}

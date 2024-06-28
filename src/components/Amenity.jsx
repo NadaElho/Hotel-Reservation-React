@@ -70,26 +70,28 @@ const Amenity = () => {
         </span>
       </div>
 
-      <div className="slider-container ">
+      <div className="">
         <Slider {...settings}>
           {amenities.map((amenity) => (
             <div
               key={amenity._id}
-              className="py-4 mx-7 flex flex-col items-center mt-4 "
+              className="py-4 mx-7 !w-20 flex flex-col items-center mt-4 "
             >
               <div
                 className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center cursor-pointer dark:bg-[#7C6555]"
                 onClick={() => filterByAmenity(amenity._id)}
               >
-                <img
-                  src={amenity.images[0]}
-                  alt="amenity"
-                  className="w-12 h-12 object-cover"
-                />
-              </div>
-              <p className="text-primary  mx-4 mt-2 font-semibold dark:text-PrimaryDark">
-                {isArabic ? amenity.name_ar : amenity.name_en}
-              </p>
+                {/* <div className="w-fit "> */}
+                  <img
+                    src={amenity.images[0]}
+                    alt="amenity"
+                    className="w-12 h-12 object-cover"
+                  />
+                </div>
+                <p className="text-primary text-center  mt-2 font-semibold dark:text-PrimaryDark">
+                  {isArabic ? amenity.name_ar : amenity.name_en}
+                </p>
+              {/* </div> */}
             </div>
           ))}
         </Slider>
