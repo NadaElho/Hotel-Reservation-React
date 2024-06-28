@@ -17,13 +17,17 @@ const Register = () => {
     const errors = {};
     if (!values.fname) {
       errors.fname = t("form.fname-req");
+    }else if(!/^[a-zA-Z ]{2,30}$/i.test(values.fname)){
+      errors.fname = t("form.invalid-name");
     }
     if (!values.lname) {
       errors.lname = t("form.lname-req");
+    }else if(!/^[a-zA-Z ]{2,30}$/i.test(values.lname)){
+      errors.fname = t("form.invalid-name");
     }
     if (!values.email) {
       errors.email = t("form.email-req");
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.com$/i.test(values.email)) {
       errors.email = t("form.invalid-email");
     }
     if (!values.password) {

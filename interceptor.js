@@ -22,8 +22,12 @@ try {
     }
   );
 } catch (err) {
-  localStorage.removeItem("token");
-  console.log("err", err.response.data.message);
+  if(err.message == "Network Error"){
+    window.location.href = "/not-found"
+  }else{
+    localStorage.removeItem("token");
+    console.log("err", err.response.data.message);
+  }
 }
 
 export default axiosInstance;

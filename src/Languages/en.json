@@ -135,6 +135,7 @@
     "password-req": "Password is required*",
     "confirm-req": "Confirm password is required*",
     "invalid-email": "Invalid email address",
+    "invalid-name": "Invalid name",
     "invalid-password": "Invalid password, minimum 8 characters, at least one letter and one number",
     "match": "Passwords must match",
     "phone": "Phone number",
@@ -150,7 +151,8 @@
     "message": "Message",
     "message-req": "Message is required*",
     "conversation": "Let's start a conversation",
-    "send": "Send"
+    "send": "Send",
+    "logged": "You are logged in successfully"
   },
   "items": "Page items",
   "footer": {
@@ -196,7 +198,8 @@
     "after-cancellation": "Upon cancelling you will lose all the benefits",
     "active": "active",
     "member": "member",
-    "no-fav": "No favourite rooms"
+    "no-fav": "No favourite rooms",
+    "data-updated": "data updated successfully"
   },
   "subscription": {
     "month": "/month",
@@ -228,5 +231,7 @@
     "openemail": "Open Email",
     "sentemail": "We have sent a reset password to your email address.",
     "login": "Login"
-  }
+  },
+  "message-sent": "message sent successfully",
+  "check-email": "Check your email"
 }

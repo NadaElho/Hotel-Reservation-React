@@ -45,7 +45,7 @@ const Contact = () => {
           },
         }
       );
-      toast.success("message sent successfully");
+      toast.success(t("message-sent"));
       navigate("/");
     } catch (err) {
       toast.error(err.response.data.message);
