@@ -20,7 +20,6 @@ const RoomRated = () => {
     async function fetchData() {
       const res = await axiosInstance.get("/rooms");
       setRooms(res.data.data);
-      //
     }
     fetchData();
   }, []);

@@ -33,7 +33,6 @@ const Deals = () => {
         setUserData(data.data);
         const FavRooms = data.data.favouriteRooms.map((room) => room._id);
         setFavouriteRoomsIds(FavRooms);
-        console.log(data.data);
         setFavouriteRooms(data.data.favouriteRooms);
       } catch (error) {
         console.log(error);
