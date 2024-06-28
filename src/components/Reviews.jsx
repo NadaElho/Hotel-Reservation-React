@@ -51,7 +51,7 @@ const Reviews = ({
   const isReversed = userReservations.some(
     (reservation) =>
       reservation.userId._id === localStorage.getItem("userId") &&
-      reservation.status.name_en === "completed"
+      reservation.status.name_en === "Completed"
   );
   const handleShowModel = (review) => {
     setCurrentReview(review);
@@ -67,8 +67,8 @@ const Reviews = ({
     await handleDelete(deletedReview);
     setShowConfirm(false);
     isArabic
-      ? toast.success("تمت ازاله التقييم بنجاح")
-      : toast.success("review deleted successfully");
+      ? toast("تمت ازاله التقييم بنجاح")
+      : toast("review deleted successfully");
     setDeletedReview(null);
   };
   return (

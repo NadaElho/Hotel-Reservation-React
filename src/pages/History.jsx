@@ -306,7 +306,8 @@ function History() {
           </div>
         ))
       ) : (
-        <div>{t("profile.no-reservations")}</div>
+        <div className="h-screen text-main-800 dark:text-main-25 mt-12 text-3xl">
+          {t("profile.no-reservations")}</div>
       )}
     </div>
   );
