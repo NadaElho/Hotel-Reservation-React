@@ -27,7 +27,7 @@ const RoomRated = () => {
 
   const topRatedRooms = rooms.sort((a, b) => b.ratingAvg - a.ratingAvg);
   return (
-    <div className="container mx-auto mt-20 px-4">
+    <div className="container mx-auto mt-20">
       <div className="flex flex-col justify-center font-secondary mx-2 sm:mx-10 dark:text-PrimaryDark">
         <h2 className="text-primary text-2xl font-secondary sm:text-4xl dark:text-PrimaryDark ">
           {t("rooms.rated-rooms")}
@@ -78,8 +78,7 @@ const RoomRated = () => {
         {topRatedRooms.map((room) => (
           <SwiperSlide key={room._id}>
             <div
-              className={`relative w-[35y
-                0px] h-64 rounded-3xl overflow-hidden mt-10 `}
+              className={`relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 mx-4 lg:mx-0`}
             >
               <img
                 className="h-full w-full  object-cover"

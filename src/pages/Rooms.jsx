@@ -165,9 +165,10 @@ const Rooms = ({ truncated, toggleTruncated }) => {
       <div className="container mx-auto flex flex-col  mt-16">
         <Amenity />
 
-        <div className="flex gap-2 mt-20">
-          <div className="w-[300px] hidden xl:block">
-            <p className=" mx-11 text-primary font-semibold text-2xl dark:text-[#CBB7A4]">
+        <div className="flex gap-2 mt-20 flex-wrap justify-center md:justify-start lg:flex-nowrap"> 
+          {/*  */}
+          <div className="w-full md:w-[300px] flex flex-col items-center md:items-start">
+            <p className="mx-11 text-primary w-full px-16 md:px-0 font-semibold text-2xl dark:text-[#CBB7A4]">
               {t("rooms.filter-by")}
             </p>
             <div className="w-[380px] mx-6 flex flex-col justify-around mt-12 ">
@@ -176,7 +177,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                   {t("rooms.Price-night")}
                 </p>
                 <div className={`flex w-full gap-4 mt-8 `}>
-                  <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
+                  <div className="w-36 lg:w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="minInput"
                       className="font-semibold text-secondary mx-4 dark:text-[#DDD1C5]"
@@ -198,7 +199,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                       className="w-full text-secondary  mx-4 border-none border-b-2 border-black focus:outline-none focus:border-custom-500 dark:text-[#F0C7AD]"
                     />
                   </div>
-                  <div className="w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
+                  <div className="w-36 lg:w-28 h-14 bg-white border border-secondary p-1 rounded-lg   dark:bg-transparent dark:border-[#DBD6D3]">
                     <label
                       htmlFor="maxInput"
                       className="font-semibold text-secondary  mx-4 dark:text-[#DDD1C5]"
@@ -234,12 +235,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     max={10000}
                     value={value}
                     onInput={onValueChange}
-                    className="w-64"
+                    className="w-80 lg:w-64"
                   />
                 </div>
               </div>
               <div className="flex flex-col mt-10 mx-4">
-                <hr className="border border-secondary w-64" />
+                <hr className="border border-secondary w-80 lg:w-64" />
                 <p className="text-primary font-semibold text-xl mt-10 dark:text-PrimaryDark">
                   {t("rooms.Rating")}
                 </p>
@@ -344,12 +345,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                             <Slider {...Settings} className="w-full">
                               {room.amenitiesIds.map((r) => (
                                 <div key={r._id}>
-                                  <div className="w-10 h-10 mx-4 bg-secondary rounded-full flex justify-center">
+                                  <div className="w-10 h-10 mx-4 bg-secondary rounded-full flex items-center justify-center">
                                     <img
                                       src={r.images && r.images}
                                       alt="rooms"
-                                      width={"25px"}
-                                      height={"20px"}
+                                      className="w-6 h-6 object-cover"
+
                                     />
                                   </div>
                                 </div>
@@ -358,12 +359,12 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                           ) : (
                             room.amenitiesIds.map((r) => (
                               <div key={r._id}>
-                                <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
+                                <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
                                   <img
                                     src={r.images && r.images}
                                     alt="rooms"
-                                    width={"25px"}
-                                    height={"20px"}
+                                    className="w-6 h-6 object-cover"
+
                                   />
                                 </div>
                               </div>
