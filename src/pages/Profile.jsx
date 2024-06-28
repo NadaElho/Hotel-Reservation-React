@@ -4,6 +4,7 @@ import axiosInstance from "../../interceptor";
 import Loader from "../components/Loader";
 import { Outlet } from "react-router";
 import Tabs from "../components/Tabs";
+import { toast } from "react-toastify";
 
 const Profile = ({handleLog}) => {
   const [userData, setUserData] = useState(null);
@@ -11,10 +12,15 @@ const Profile = ({handleLog}) => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axiosInstance.get(
-        `/users/${localStorage.getItem("userId")}`
-      );
-      setUserData(data.data);
+      try{
+        const { data } = await axiosInstance.get(
+          `/users/${localStorage.getItem("userId")}`
+        );
+        setUserData(data.data);
+      }catch(err){
+        toast.error("please login first")
+        localStorage.setItem("token", "")
+      }
     })();
   }, [imageChanged]);
 
