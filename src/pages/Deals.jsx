@@ -62,7 +62,6 @@ const Deals = () => {
     (room) =>
       room.promotionId || (userData && userData.subscriptionId)
   );
-  console.log(roomDeals);
   return (
     <div className="container mx-auto mt-20  overflow-hidden">
       <h2 className="text-primary text-2xl font-secondary  mx-2 sm:mx-10 sm:text-4xl dark:text-PrimaryDark  ">

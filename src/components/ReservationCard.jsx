@@ -30,9 +30,10 @@ function ReservationCard({
         {roomData.images && (
           <div>
             <div className="relative">
-                <div
-                  className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 absolute top-1 ltr:left-1 rtl:right-1 `}
-                >
+              <div
+                className={`bg-[#0f314f] text-white py-1 px-2 rounded-full mt-2 absolute top-1 ltr:left-1 rtl:right-1 `}
+              >
+                {roomData.promotionId && (
                   <p>
                     {isArabic ? (
                       <>
@@ -44,7 +45,8 @@ function ReservationCard({
                       </>
                     )}
                   </p>
-                </div>
+                )}
+              </div>
             </div>
             <img
               className="w-[150px] rounded-2xl"

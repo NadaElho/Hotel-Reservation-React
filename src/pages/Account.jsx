@@ -13,10 +13,14 @@ const Account = () => {
 
   useEffect(() => {
     (async function () {
-      const { data } = await axiosInstance.get(
-        `/users/${localStorage.getItem("userId")}`
-      );
-      setUserData(data.data);
+      try {
+        const { data } = await axiosInstance.get(
+          `/users/${localStorage.getItem("userId")}`
+        );
+        setUserData(data.data);
+      } catch (err) {
+        console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+      }
     })();
   }, []);
 

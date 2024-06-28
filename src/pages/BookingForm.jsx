@@ -66,22 +66,18 @@ function BookingForm() {
           `/reservations/${localStorage.getItem("userId")}`
         );
         const reversedData = data.data.reverse()
-        console.log(reversedData)
-        reversedData.forEach((reservation) => {
-          if (reservation.status.name_en == "pending") {
-            (async function () {
+        for (const reservation of reversedData) {
+          if (reservation.status.name_en === "pending") {
+            try {
               localStorage.setItem("reservationId", reservation._id);
-              try {
-                const { data } = await axiosInstance.post(
-                  `/reservations/${reservation._id}/payment`
-                );
-                window.location.href = data.session.url;
-              } catch (err) {
-                toast.error(err.response.data.message);
-              }
-            })();
+              const { data } = await axiosInstance.post(`/reservations/${reservation._id}/payment`);
+              window.location.href = data.session.url;
+              break;
+            } catch (err) {
+              toast.error(err.response.data.message);
+            }
           }
-        });
+        }
       } else {
         toast.success(t("booking.room-reserved-successfully"));
         navigate("/", { replace: true });
