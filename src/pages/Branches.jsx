@@ -35,18 +35,15 @@ const Branches = () => {
         </p>
       </div>
       <Swiper
-         slidesPerView={3}
-         spaceBetween={10}
-         pagination={{
-           clickable: true,
-         }}
+         pagination={{ clickable: true }}
+         modules={[Pagination]}
+         className="mySwiper"
+         dir="ltr"
         breakpoints={{
           0: { slidesPerView: 1, spaceBetween: 10 },
           640: { slidesPerView: 2, spaceBetween: 20 },
           1024: { slidesPerView: 3, spaceBetween: 0 },
         }}
-        modules={[Pagination]}
-        className="mySwiper"
       >
          {branches.map((branch) => (
           <SwiperSlide key={branch._id}>
@@ -58,7 +55,7 @@ const Branches = () => {
                     alt=""
                     className="h-full w-full object-cover"
                   />
-                  <div className={`absolute bottom-6 left-6 flex flex-col right-6 w-full text-white `}>
+                  <div className={`absolute bottom-6 flex flex-col ${isArabic ? 'items-end right-6' : 'items-start left-6'} right-6 w-full text-white `}>
                     <p className="font-500 text-4xl font-secondary playfair-display">
                       {isArabic ? branch.name_ar : branch.name_en}
                     </p>
