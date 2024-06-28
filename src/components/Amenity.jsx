@@ -70,7 +70,6 @@ const Amenity = () => {
         </span>
       </div>
 
-      <div className="">
         <Slider {...settings}>
           {amenities.map((amenity) => (
             <div
@@ -81,7 +80,6 @@ const Amenity = () => {
                 className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center cursor-pointer dark:bg-[#7C6555]"
                 onClick={() => filterByAmenity(amenity._id)}
               >
-                {/* <div className="w-fit "> */}
                   <img
                     src={amenity.images[0]}
                     alt="amenity"
@@ -91,12 +89,10 @@ const Amenity = () => {
                 <p className="text-primary text-center  mt-2 font-semibold dark:text-PrimaryDark">
                   {isArabic ? amenity.name_ar : amenity.name_en}
                 </p>
-              {/* </div> */}
             </div>
           ))}
         </Slider>
       </div>
-    </div>
   );
 };
 

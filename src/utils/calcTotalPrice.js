@@ -7,7 +7,6 @@ const calculateTotalPrice = async (room, calcNoOfNights) => {
     const userId = localStorage.getItem("userId")
     let user = "";
     if(userId){
-      console.log("hiii");
       const {data} = await axiosInstance.get(`/users/${userId}`);
       user = data.data;
     }
