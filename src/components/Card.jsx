@@ -33,7 +33,7 @@ const Card = ({
 
   return (
     <div className={from == "favourites" ? "w-fit" : "container"}>
-      <div className="relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 ">
+      <div className="relative w-[350px] h-64 rounded-3xl overflow-hidden mt-10 mx-4 lg:mx-0">
         <img
           className="h-full w-full object-cover"
           src={room.images[0]}
@@ -61,7 +61,7 @@ const Card = ({
           )}
 
           {localStorage.getItem("userId") && (
-            <div className="absolute top-2 ltr:right-3 rtl:left-3 w-8 h-8 bg-white  flex justify-center items-center rounded-full ">
+            <div className="absolute top-2 ltr:right-3 rtl:left-3 w-8 h-8 bg-white flex justify-center items-center rounded-full ">
               <span
                 className="text-red-900 text-3xl text-center cursor-pointer"
                 onClick={() => handleAddToFavourite(room._id)}

@@ -52,7 +52,7 @@ const Map = ({ position }) => {
 
   return (
     <>
-      <div ref={mapElement} className="mapDiv w-screen h-96"></div>;
+      <div ref={mapElement} className="mapDiv w-screen h-96"></div>
       <img src={img} ref={markerElement} className="w-10 h-10" />
     </>
   );
