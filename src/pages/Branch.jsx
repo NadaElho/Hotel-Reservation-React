@@ -38,7 +38,6 @@ const Branch = () => {
         const res = await axiosInstance.get(`/hotels/${id}`);
         const data = res.data.data;
         setBranch(data);
-        console.log(res.data.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error.response.data);
