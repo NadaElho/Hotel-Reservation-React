@@ -28,6 +28,7 @@ try {
     localStorage.removeItem("token");
     console.log("err", err.response.data.message);
   }
+  
 }
 
 export default axiosInstance;
