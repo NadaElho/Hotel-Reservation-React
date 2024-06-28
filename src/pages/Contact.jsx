@@ -150,7 +150,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-main-500 dark:bg-main-25 dark:text-main-1000 dark:font-bold rounded-full p-2 text-main-25 disabled:opacity-50 my-2"
+                className="w-full bg-main-500 dark:bg-main-25 text-main-1000 dark:font-bold rounded-full p-2 disabled:opacity-50 my-2"
                 disabled={isSubmitting}
               >
                 {t("form.send")}
