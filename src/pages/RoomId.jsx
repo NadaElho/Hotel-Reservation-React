@@ -111,12 +111,11 @@ const RoomId = ({ truncated, toggleTruncated }) => {
                     {room.amenitiesIds &&
                       room.amenitiesIds.map((r) => (
                         <div key={r._id} className="flex gap-4 items-center">
-                          <div className="w-10 h-10 bg-secondary rounded-full flex justify-center">
+                          <div className="w-10 h-10 bg-secondary rounded-full flex justify-center items-center">
                             <img
                               src={r.images}
                               alt=""
-                              width={"25px"}
-                              height={"20px"}
+                             className="w-6 h-6"
                             />
                           </div>
                           <span className="dark:text-[#DAD7C3]">

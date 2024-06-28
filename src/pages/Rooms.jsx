@@ -79,6 +79,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
             ...filterObj,
           },
         });
+        console.log(res.data.data);
         const roomsData = await Promise.all(
           res.data.data.map(async (room) => {
             const calculatedPrice = await fetchDataAndCalculatePrice(room);
@@ -341,7 +342,7 @@ const Rooms = ({ truncated, toggleTruncated }) => {
                     {room.amenitiesIds.length > 0 && (
                       <div>
                         <div className="flex justify-center gap-4 h-10">
-                          {room.amenitiesIds.length > 6 ? (
+                          {room.amenitiesIds.length > 5 ? (
                             <Slider {...Settings} className="w-full">
                               {room.amenitiesIds.map((r) => (
                                 <div key={r._id}>
