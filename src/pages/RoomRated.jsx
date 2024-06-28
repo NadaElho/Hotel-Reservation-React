@@ -126,11 +126,11 @@ const RoomRated = () => {
                     <span className="text-white text-sm mt-1 capitalize dark:text-[#ffffff]">
                       {isArabic ? (
                         <>
-                          {t("rooms.room")} {room.roomTypeId.type_ar}
+                           {room.roomTypeId.type_ar}
                         </>
                       ) : (
                         <>
-                          {room.roomTypeId.type_en} {t("rooms.room")}
+                          {room.roomTypeId.type_en} 
                         </>
                       )}
                     </span>
