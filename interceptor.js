@@ -22,11 +22,13 @@ try {
     }
   );
 } catch (err) {
-  if(err.message == "Network Error"){
-    window.location.href = "/not-found"
-  }else{
+  if (err.message === "Network Error") {
+    window.location.href = "/not-found";
+  } else if (err.response.data.message === "Unexpected token") {
     localStorage.removeItem("token");
     console.log("err", err.response.data.message);
+  } else {
+    console.log("An unexpected error occurred:", err);
   }
 }
 
