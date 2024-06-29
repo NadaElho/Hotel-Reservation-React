@@ -30,6 +30,7 @@ try {
   } else {
     console.log("An unexpected error occurred:", err);
   }
+  
 }
 
 export default axiosInstance;
