@@ -1,6 +1,10 @@
 import axios from "axios";
+
+// const axiosInstance = axios.create({
+//   baseURL: "http://localhost:3000/api/v1",
+// });
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: "https://hotel-reservation-system-node-1.onrender.com",
 });
 // try {
 //   const data = await axios.get(
@@ -11,14 +15,13 @@ const axiosInstance = axios.create({
 //       },
 //     }
 //   );
-  axiosInstance.interceptors.request.use((config) => {
-    const accessToken = localStorage.getItem("token");
-    if (accessToken) {
-      if (config.headers)
-        config.headers.authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  });
+axiosInstance.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("token");
+  if (accessToken) {
+    if (config.headers) config.headers.authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
 // } catch (err) {
 //   if (err.message === "Network Error") {
 //     window.location.href = "/not-found";
@@ -28,6 +31,6 @@ const axiosInstance = axios.create({
 //   } else {
 //     console.log("An unexpected error occurred:", err);
 //   }
-}
+// }
 
 export default axiosInstance;
