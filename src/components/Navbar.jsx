@@ -24,6 +24,7 @@ const Navbar = ({ logged, handleLog, handleMode, mode }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+
   }, [location]);
 
   return (
