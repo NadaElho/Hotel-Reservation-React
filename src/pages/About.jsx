@@ -30,7 +30,7 @@ export default function About() {
             <div className="flex-1 w-full md:w-64 my-5">
               <img
                 className="w-auto rounded-3xl"
-                src="../../public/assets/about1.png"
+                src="/assets/about1.png"
                 alt="About"
               />
             </div>
@@ -48,7 +48,7 @@ export default function About() {
             <div className="flex-1 w-full md:w-64 order-1 md:order-2 my-5">
               <img
                 className="w-auto rounded-3xl"
-                src="../../public/assets/about2.png"
+                src="/assets/about2.png"
                 alt="About"
               />
             </div>
