@@ -22,7 +22,7 @@ const Favourites = () => {
         setFavouriteRooms(data.data.favouriteRooms);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 

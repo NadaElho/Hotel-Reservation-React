@@ -47,6 +47,7 @@ const Login = ({ handleLog }) => {
           },
         }
       );
+      "data.data.token", data.data.token;
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("userId", data.data.id);
       navigate("/");
