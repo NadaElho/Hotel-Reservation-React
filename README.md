@@ -1,8 +1,31 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Hotel Reservation System User
 
-Currently, two official plugins are available:
+## Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installing Dependencies
+
+To install the project dependencies, run:
+
+```bash
+npm install
+```
+
+### Starting the Server
+
+To start the development server, use:
+
+```bash
+npm run dev
+```
+
+### Demo Videos
+
+- **Admin Demo**: [Watch Admin Demo](https://drive.google.com/file/d/1FEHatwNXgpm7dDsB16nsICGH6HBaciEt/view?usp=drive_link)
+- **User Demo**: [Watch User Demo](https://drive.google.com/file/d/1FEHatwNXgpm7dDsB16nsICGH6HBaciEt/view?usp=drive_link)
+
+## Repositories
+
+- **Admin Frontend**: [Admin Repository](https://github.com/NadaElho/Hotel-Reservation-System-Admin)
+- **User Frontend**: [User Repository](https://github.com/NadaElho/Hotel-Reservation-System-React)
+- **Backend**: [Backend Repository](https://github.com/NadaElho/Hotel-Reservation-System-Node.git)
